@@ -1,0 +1,2819 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#22140E" />
+  <title>Académie Cacao — Jeff de Bruges</title>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            cacao: {
+              50: '#FBF8F4',
+              100: '#FAF6F0',
+              200: '#F1E7DB',
+              300: '#DDCBBB',
+              400: '#A98268',
+              500: '#6E4932',
+              600: '#51301E',
+              700: '#3D2314',
+              800: '#2C1A11',
+              900: '#22140E'
+            },
+            turquoise: {
+              50: '#F2FCFB',
+              100: '#E6F7F6',
+              200: '#C7EFED',
+              300: '#8ADFD9',
+              400: '#3CC9C0',
+              500: '#00B2A9',
+              600: '#008F88',
+              700: '#006F6A'
+            },
+            gold: {
+              400: '#E2C866',
+              500: '#D4AF37',
+              600: '#B89222'
+            }
+          },
+          fontFamily: {
+            display: ['Cinzel', 'serif'],
+            sans: ['Plus Jakarta Sans', 'sans-serif']
+          },
+          boxShadow: {
+            luxury: '0 18px 50px rgba(34, 20, 14, 0.12)',
+            card: '0 10px 32px rgba(34, 20, 14, 0.08)',
+            glow: '0 0 0 1px rgba(0, 178, 169, 0.12), 0 14px 40px rgba(0, 178, 169, 0.16)'
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    :root { color-scheme: light; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background:
+        radial-gradient(circle at 15% 10%, rgba(212,175,55,.08), transparent 23%),
+        radial-gradient(circle at 88% 14%, rgba(0,178,169,.07), transparent 20%),
+        #FAF6F0;
+      color: #22140E;
+    }
+    .font-display { font-family: 'Cinzel', serif; }
+    .glass {
+      background: rgba(255,255,255,.72);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+    }
+    .nav-active {
+      background: rgba(0,178,169,.11);
+      color: #006F6A;
+      box-shadow: inset 0 0 0 1px rgba(0,178,169,.14);
+    }
+    .text-gradient {
+      background: linear-gradient(90deg, #D4AF37, #00B2A9);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    .modal-backdrop {
+      background: rgba(34,20,14,.64);
+      backdrop-filter: blur(8px);
+    }
+    .hide-scrollbar::-webkit-scrollbar { display: none; }
+    .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    .scrollbar-thin::-webkit-scrollbar { width: 8px; height: 8px; }
+    .scrollbar-thin::-webkit-scrollbar-thumb { background: #DCCBB9; border-radius: 999px; }
+    .scrollbar-thin::-webkit-scrollbar-track { background: transparent; }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes softPop {
+      0% { transform: scale(.97); opacity: 0; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+    @keyframes pulseSoft {
+      0%,100% { transform: scale(1); }
+      50% { transform: scale(1.03); }
+    }
+    .animate-fade-up { animation: fadeUp .38s ease both; }
+    .animate-soft-pop { animation: softPop .25s ease both; }
+    .pulse-soft { animation: pulseSoft .6s ease; }
+
+    .progress-ring-circle {
+      transition: stroke-dashoffset .7s ease;
+      transform: rotate(-90deg);
+      transform-origin: 50% 50%;
+    }
+
+    .input-premium {
+      background: rgba(255,255,255,.82);
+      border: 1px solid rgba(61,35,20,.11);
+      outline: none;
+      transition: .2s ease;
+    }
+    .input-premium:focus {
+      border-color: rgba(0,178,169,.45);
+      box-shadow: 0 0 0 4px rgba(0,178,169,.08);
+    }
+
+    .btn-luxe {
+      transition: transform .2s ease, box-shadow .2s ease, background .2s ease;
+    }
+    .btn-luxe:hover { transform: translateY(-1px); }
+    .btn-luxe:active { transform: translateY(0); }
+
+    .chip { transition: all .2s ease; }
+    .chip:hover { transform: translateY(-1px); }
+
+    .line-clamp-2 {
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    @media (max-width: 767px) {
+      .mobile-bottom-nav {
+        padding-bottom: env(safe-area-inset-bottom);
+      }
+      .mobile-safe-bottom { padding-bottom: 96px; }
+    }
+
+    /* Thème spécial Noël — appliqué uniquement à la catégorie Noël */
+    /* ===== THÈME PÂQUES ===== */
+    body.easter-mode {
+      background:
+        radial-gradient(circle at 8% 10%, rgba(255, 183, 213, .30), transparent 25%),
+        radial-gradient(circle at 92% 8%, rgba(255, 224, 139, .30), transparent 23%),
+        radial-gradient(circle at 50% 100%, rgba(173, 225, 196, .25), transparent 30%),
+        linear-gradient(135deg, #fff9fc 0%, #f7fbff 52%, #fffdf2 100%);
+      color: #4d3b4d;
+    }
+    body.easter-mode #main { color: #4d3b4d; }
+    body.easter-mode #main > section:first-child {
+      background: linear-gradient(135deg, #8f5a9e 0%, #d989b6 52%, #e8bd6c 100%) !important;
+      box-shadow: 0 20px 60px rgba(143,90,158,.20);
+    }
+    body.easter-mode .easter-banner {
+      background: linear-gradient(135deg, #fff0f7, #eef8ff 52%, #fff9dc);
+      border-color: rgba(216,137,182,.35);
+      box-shadow: 0 15px 45px rgba(143,90,158,.12);
+    }
+    body.easter-mode .seasonal-stickers { display: flex; }
+    .seasonal-stickers {
+      display: none;
+      justify-content: center;
+      gap: 14px;
+      margin-top: 14px;
+      font-size: 30px;
+      animation: pulseSoft 1.8s ease-in-out infinite;
+    }
+    .seasonal-stickers span:nth-child(2) { animation-delay: .15s; }
+    .seasonal-stickers span:nth-child(3) { animation-delay: .3s; }
+    .seasonal-stickers span:nth-child(4) { animation-delay: .45s; }
+    .seasonal-stickers span:nth-child(5) { animation-delay: .6s; }
+    .easter-banner { position: relative; overflow: hidden; }
+    .easter-banner::before, .easter-banner::after {
+      content: ''; position: absolute; width: 110px; height: 110px; border-radius: 50%; opacity: .45; pointer-events: none;
+    }
+    .easter-banner::before { background: #ffd6e8; left: -35px; top: -45px; }
+    .easter-banner::after { background: #d7f3df; right: -35px; bottom: -45px; }
+    .sticker { display: inline-flex; align-items: center; justify-content: center; filter: drop-shadow(0 5px 8px rgba(100,60,100,.12)); }
+    .easter-confetti { margin-top: 16px; font-size: 18px; letter-spacing: 3px; opacity: .78; animation: pulseSoft 2.2s ease-in-out infinite; }
+    body.easter-mode .catalogue-easter-card {
+      background: linear-gradient(145deg, rgba(255,255,255,.95), rgba(255,246,252,.95));
+      border-color: rgba(216,137,182,.25);
+    }
+    body.easter-mode #catalogueGrid .group:hover { box-shadow: 0 18px 42px rgba(143,90,158,.18); }
+    body.christmas-mode .catalogue-easter-card { background: rgba(255,255,255,.96); }
+
+    /* Gros stickers décoratifs de Pâques, confinés au bandeau Pâques */
+    .easter-decoration { position:absolute; inset:0; pointer-events:none; overflow:hidden; }
+    .easter-decoration span { position:absolute; font-size:clamp(7rem,16vw,13rem); opacity:.18; user-select:none; filter:drop-shadow(0 12px 18px rgba(100,60,100,.10)); }
+    .easter-decoration span:nth-child(1){left:-1.5rem;top:-2.5rem;transform:rotate(-18deg)}
+    .easter-decoration span:nth-child(2){right:-1.5rem;top:-2rem;transform:rotate(16deg)}
+    .easter-decoration span:nth-child(3){left:7%;bottom:-5rem;transform:rotate(10deg)}
+    .easter-decoration span:nth-child(4){right:9%;bottom:-4rem;transform:rotate(-12deg)}
+    body.easter-mode .easter-banner { min-height:260px; display:flex; flex-direction:column; align-items:center; justify-content:center; }
+    body.easter-mode .easter-banner h2, body.easter-mode .easter-banner p, body.easter-mode .easter-banner .seasonal-stickers, body.easter-mode .easter-banner .easter-confetti { position:relative; z-index:2; }
+    body.christmas-mode #main .bg-white, body.christmas-mode #main .glass, body.christmas-mode #main .input-premium { color:#22140E; }
+    body.christmas-mode #main .text-cacao-900 { color:#22140E !important; }
+    body.christmas-mode #main .text-cacao-500, body.christmas-mode #main .text-cacao-500\/80, body.christmas-mode #main .text-cacao-500\/85 { color:#5b4030 !important; }
+    body.christmas-mode #main .christmas-banner h2, body.christmas-mode #main .christmas-banner p { color:#fff8e8 !important; }
+    body.christmas-mode {
+      background:
+        radial-gradient(circle at 12% 8%, rgba(196,35,58,.18), transparent 24%),
+        radial-gradient(circle at 88% 12%, rgba(212,175,55,.16), transparent 22%),
+        linear-gradient(135deg, #071a12 0%, #10281c 48%, #24100f 100%);
+      color: #f7efe4;
+    }
+    body.christmas-mode #main { color: #f7efe4; }
+    body.christmas-mode .christmas-banner {
+      background: linear-gradient(135deg, #123d2a, #6b1f2a 72%, #2a1711);
+      border-color: rgba(226,200,102,.42);
+      color: #fff8e8;
+      box-shadow: 0 18px 50px rgba(0,0,0,.22);
+    }
+    .seasonal-banner { margin-top: 24px; border: 1px solid rgba(61,35,20,.10); border-radius: 26px; padding: 28px; text-align: center; }
+    .seasonal-banner .seasonal-icon { font-size: 48px; margin-bottom: 8px; }
+    .seasonal-banner h2 { font-family: 'Cinzel', serif; font-size: clamp(1.55rem, 4vw, 2.4rem); font-weight: 700; }
+    .seasonal-banner p { margin: 8px auto 0; max-width: 720px; font-size: .95rem; line-height: 1.7; opacity: .86; }
+    .easter-banner { background: linear-gradient(135deg,#fff5fa,#eef7ff); border-color: #ead8e5; color: #533b58; }
+    .christmas-banner { background: linear-gradient(135deg,#123d2a,#6b1f2a); color: white; }
+
+    /* ===== THÈMES SAISONNIERS RENFORCÉS ===== */
+    body.easter-mode::before, body.easter-mode::after,
+    body.christmas-mode::before, body.christmas-mode::after {
+      content: '';
+      position: fixed;
+      z-index: -1;
+      pointer-events: none;
+      font-size: clamp(7rem, 18vw, 16rem);
+      line-height: 1;
+      opacity: .12;
+      filter: drop-shadow(0 18px 30px rgba(0,0,0,.10));
+    }
+    body.easter-mode::before {
+      content: '🐰'; left: -1rem; top: 18vh; transform: rotate(-15deg);
+    }
+    body.easter-mode::after {
+      content: '🥚'; right: -1rem; bottom: 7vh; transform: rotate(15deg);
+    }
+    body.christmas-mode::before {
+      content: '🎄'; left: -1rem; top: 16vh; transform: rotate(-7deg);
+    }
+    body.christmas-mode::after {
+      content: '🎁'; right: -1rem; bottom: 7vh; transform: rotate(9deg);
+    }
+    body.easter-mode #main .text-cacao-900,
+    body.easter-mode #main .text-cacao-500,
+    body.easter-mode #main .text-cacao-500\/80,
+    body.easter-mode #main .text-cacao-500\/85,
+    body.easter-mode #main .text-cacao-700 { color: #4d3b4d !important; }
+    body.easter-mode #main .bg-white { background-color: rgba(255,255,255,.88) !important; }
+    body.easter-mode #main .bg-cacao-100 { background-color: #fff0f7 !important; color: #6e4d70 !important; }
+    body.easter-mode #main .bg-cacao-200 { background-color: #f5e1ee !important; }
+    body.easter-mode .easter-banner {
+      background: linear-gradient(135deg, #fff0f8 0%, #f0f8ff 48%, #fff8d9 100%);
+      border: 2px solid rgba(216,137,182,.35);
+      box-shadow: 0 22px 65px rgba(143,90,158,.18);
+    }
+    body.easter-mode .easter-banner::after { opacity: .7; }
+    body.christmas-mode #main .text-cacao-900,
+    body.christmas-mode #main .text-cacao-500,
+    body.christmas-mode #main .text-cacao-500\/80,
+    body.christmas-mode #main .text-cacao-500\/85,
+    body.christmas-mode #main .text-cacao-700 { color: #2b1c16 !important; }
+    body.christmas-mode #main .bg-white { background-color: rgba(255,252,244,.96) !important; }
+    body.christmas-mode #main .bg-cacao-100 { background-color: #f1e6d8 !important; }
+    body.christmas-mode #main .bg-cacao-200 { background-color: #e5d5c2 !important; }
+    body.christmas-mode .christmas-banner {
+      background: radial-gradient(circle at 15% 20%, rgba(255,255,255,.10), transparent 18%),
+                  linear-gradient(135deg, #0b4b31 0%, #12452e 43%, #751f2d 100%);
+      border: 2px solid rgba(226,200,102,.48);
+    }
+    .seasonal-banner { position: relative; overflow: hidden; }
+    .seasonal-banner > *:not(.easter-decoration) { position: relative; z-index: 2; }
+    /* ============================================================
+   🍫 ACADÉMIE CACAO
+   THÈMES COMPLETS DES CATÉGORIES
+   ============================================================ */
+
+/* ------------------------------------------------------------
+   BASE
+   ------------------------------------------------------------ */
+
+body.category-page-white,
+body.category-page-milk,
+body.category-page-dark {
+  min-height: 100vh;
+  position: relative;
+  isolation: isolate;
+  transition:
+    background 0.65s ease,
+    color 0.35s ease;
+}
+
+body.category-page-white::before,
+body.category-page-milk::before,
+body.category-page-dark::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+}
+
+body.category-page-white #main,
+body.category-page-milk #main,
+body.category-page-dark #main {
+  position: relative;
+  z-index: 1;
+  animation: categoryThemeEnter .45s ease both;
+}
+
+@keyframes categoryThemeEnter {
+  from {
+    opacity: 0;
+    transform: translateY(5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ============================================================
+   🤍 CHOCOLAT BLANC
+   ============================================================ */
+
+body.category-page-white {
+  background:
+    radial-gradient(circle at 50% 0%, rgba(255,255,255,.95), transparent 45%),
+    radial-gradient(circle at 0% 45%, rgba(212,175,55,.16), transparent 38%),
+    radial-gradient(circle at 100% 70%, rgba(190,150,80,.18), transparent 40%),
+    linear-gradient(135deg, #ead9bc 0%, #fff8ea 42%, #e4cda0 100%);
+  color: #302218;
+}
+
+body.category-page-white #main > section:first-child {
+  background:
+    radial-gradient(circle at 85% 20%, rgba(212,175,55,.28), transparent 32%),
+    radial-gradient(circle at 10% 90%, rgba(180,133,62,.16), transparent 35%),
+    linear-gradient(135deg, #fffdf8, #f5e6ca 50%, #d9bc82) !important;
+  color: #302218 !important;
+  border: 1px solid rgba(137,96,38,.28);
+  box-shadow: 0 22px 55px rgba(82,55,24,.18);
+}
+
+body.category-page-white #main > section:first-child h1,
+body.category-page-white #main > section:first-child h2,
+body.category-page-white #main > section:first-child h3 {
+  color: #302218 !important;
+}
+
+body.category-page-white #main > section:first-child p {
+  color: #594531 !important;
+}
+
+body.category-page-white #main > section:nth-of-type(2) {
+  background: linear-gradient(135deg, #fffdf8, #f2e1c3) !important;
+  border-color: rgba(137,96,38,.22) !important;
+}
+
+
+/* ============================================================
+   🥛 CHOCOLAT AU LAIT
+   ============================================================ */
+
+body.category-page-milk {
+  background:
+    radial-gradient(circle at 50% 0%, rgba(255,244,220,.95), transparent 45%),
+    radial-gradient(circle at 0% 50%, rgba(196,145,91,.18), transparent 38%),
+    radial-gradient(circle at 100% 70%, rgba(154,99,59,.16), transparent 40%),
+    linear-gradient(135deg, #d8b58d 0%, #f4dfc1 42%, #b98251 100%);
+  color: #382316;
+}
+
+body.category-page-milk #main > section:first-child {
+  background:
+    radial-gradient(circle at 85% 20%, rgba(255,232,191,.30), transparent 32%),
+    radial-gradient(circle at 10% 90%, rgba(111,66,36,.18), transparent 35%),
+    linear-gradient(135deg, #fff0d8, #dcb184 48%, #9a633b 100%) !important;
+  color: #382316 !important;
+  border: 1px solid rgba(112,72,39,.28);
+  box-shadow: 0 22px 55px rgba(82,50,25,.20);
+}
+
+body.category-page-milk #main > section:first-child h1,
+body.category-page-milk #main > section:first-child h2,
+body.category-page-milk #main > section:first-child h3 {
+  color: #382316 !important;
+}
+
+body.category-page-milk #main > section:first-child p {
+  color: #5d402b !important;
+}
+
+body.category-page-milk #main > section:nth-of-type(2) {
+  background: linear-gradient(135deg, #fff4df, #e5c49d) !important;
+  border-color: lch(34.45% 29.72 63.01 / 0.25) !important;
+}
+
+
+/* ============================================================
+   🖤 CHOCOLAT NOIR
+   ============================================================ */
+
+body.category-page-dark {
+  background:
+    radial-gradient(circle at 50% 0%, #492a1ab3, transparent 42%),
+    radial-gradient(circle at 0% 55%, hsla(24, 50%, 31%, 0.18), transparent 35%),
+    radial-gradient(circle at 100% 70%, hsla(31, 50%, 48%, 0.12), transparent 38%),
+    linear-gradient(135deg, #0d0704 0%, #21130c 48%, #100905 100%);
+  color: #f8eee3;
+}
+
+body.category-page-dark #main > section:first-child {
+  background:
+    radial-gradient(circle at 85% 20%, rgba(184,126,62,.22), transparent 32%),
+    radial-gradient(circle at 10% 90%, rgba(110,61,32,.22), transparent 35%),
+    linear-gradient(135deg, #3a2114, #21120b 55%, #0d0704 100%) !important;
+  color: #fff8ef !important;
+  border: 1px solid rgba(190,139,76,.25);
+  box-shadow: 0 24px 60px rgba(0,0,0,.35);
+}
+
+body.category-page-dark #main > section:first-child h1,
+body.category-page-dark #main > section:first-child h2,
+body.category-page-dark #main > section:first-child h3 {
+  color: #fff8ef !important;
+}
+
+body.category-page-dark #main > section:first-child p {
+  color: #fff8ef !important;
+}
+
+body.category-page-dark #main > section:nth-of-type(2) {
+  background: linear-gradient(135deg, #302016, #1c100a) !important;
+  border-color: rgba(190,139,76,.22) !important;
+  color: #382316;
+}
+body.category-page-dark #main > div.mt-7.flex.items-end.justify-between.gap-4 > div.text-right {
+  color: #ead8c7 !important;
+}
+body.category-page-dark #main > div.mt-7.flex.items-end.justify-between.gap-4 > div.text-right strong {
+  color: #fff8ef !important;
+}
+
+
+/* ============================================================
+   TEXTES DU CONTENU
+   ============================================================ */
+
+body.category-page-dark #main h1,
+body.category-page-dark #main h2,
+body.category-page-dark #main h3 {
+  color: #fff8ef !important;
+}
+body.category-page-dark #catalogueGrid article h3 {
+  color: #24140c !important;
+}
+
+body.category-page-milk #main h1,
+body.category-page-milk #main h2,
+body.category-page-milk #main h3 {
+  color: #382316 !important;
+}
+
+body.category-page-dark #main h1,
+body.category-page-dark #main h2,
+body.category-page-dark #main h3 {
+  color: #fff8ef !important;
+}
+
+body.category-page-dark #main p {
+  color: #d8c5b3;
+}
+
+
+/* ============================================================
+   CARTES PRODUITS
+   ⚠️ LEURS FONDS RESTENT INCHANGÉS
+   ============================================================ */
+
+body.category-page-white #main article,
+body.category-page-milk #main article,
+body.category-page-dark #main article {
+  /* aucun changement de fond */
+}
+```css
+/* ============================================================
+   ⚠️ FOOTER — SITE FICTIF
+   ============================================================ */
+
+.site-disclaimer {
+  margin-top: 40px;
+  padding: 0 16px 30px;
+}
+
+.site-disclaimer-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: flex;
+  align-items: flex-start;
+  gap: 18px;
+  padding: 22px 24px;
+  border-radius: 22px;
+  background: linear-gradient(
+    135deg,
+    rgba(255,255,255,.92),
+    rgba(246,239,230,.96)
+  );
+  border: 1px solid rgba(61,35,20,.12);
+  box-shadow: 0 10px 30px rgba(34,20,14,.08);
+}
+
+.site-disclaimer-icon {
+  width: 42px;
+  height: 42px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 13px;
+  background: #fff4d6;
+  font-size: 20px;
+}
+
+.site-disclaimer-content strong {
+  display: block;
+  margin-bottom: 6px;
+  color: #22140E;
+  font-size: 14px;
+  font-weight: 800;
+}
+
+.site-disclaimer-content p {
+  margin: 0;
+  color: #6E4932;
+  font-size: 12px;
+  line-height: 1.7;
+}
+
+.official-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  margin-top: 12px;
+  color: #006F6A;
+  font-size: 12px;
+  font-weight: 800;
+  text-decoration: none;
+  transition: .2s ease;
+}
+
+.official-link:hover {
+  color: #008F88;
+  transform: translateX(2px);
+}
+
+.official-link span {
+  font-size: 16px;
+}
+
+/* Adaptation chocolat noir */
+body.category-page-dark .site-disclaimer-inner {
+  background: linear-gradient(
+    135deg,
+    #302016,
+    #1c100a
+  );
+  border-color: rgba(190,139,76,.25);
+  box-shadow: 0 18px 45px rgba(0,0,0,.28);
+}
+
+body.category-page-dark .site-disclaimer-content strong {
+  color: #fff8ef;
+}
+
+body.category-page-dark .site-disclaimer-content p {
+  color: #dbc8b5;
+}
+
+body.category-page-dark .site-disclaimer-icon {
+  background: rgba(255,216,120,.12);
+}
+
+body.category-page-dark .official-link {
+  color: #5ee4dc;
+}
+
+body.category-page-dark .official-link:hover {
+  color: #8aeee9;
+}
+
+/* Chocolat au lait */
+body.category-page-milk .site-disclaimer-inner {
+  background: linear-gradient(
+    135deg,
+    #fff4df,
+    #e5c49d
+  );
+}
+
+/* Chocolat blanc */
+body.category-page-white .site-disclaimer-inner {
+  background: linear-gradient(
+    135deg,
+    #fffdf8,
+    #f2e1c3
+  );
+}
+
+/* Mobile */
+@media (max-width: 600px) {
+  .site-disclaimer-inner {
+    padding: 18px;
+    gap: 13px;
+  }
+
+  .site-disclaimer-icon {
+    width: 36px;
+    height: 36px;
+    font-size: 17px;
+  }
+
+  .site-disclaimer-content p {
+    font-size: 11px;
+  }
+}
+  </style>
+</head>
+
+<body class="min-h-screen">
+  <div id="app" class="min-h-screen">
+    <!-- Header -->
+    <header class="sticky top-0 z-40 border-b border-cacao-900/10 bg-cacao-900 text-white shadow-xl">
+      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div class="flex min-h-[76px] items-center justify-between gap-4">
+          <button id="brandBtn" class="flex items-center gap-3 text-left group" aria-label="Retour au catalogue">
+            <span class="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl border border-white/15 bg-white/10 text-gold-400 shadow-lg transition group-hover:scale-105">
+              <i class="fa-solid fa-crown text-lg"></i>
+            </span>
+            <span>
+              <span class="font-display block text-sm tracking-[.24em] text-gold-400">JEFF DE BRUGES</span>
+              <span class="block text-lg font-semibold tracking-tight">Académie Cacao</span>
+            </span>
+          </button>
+
+          <nav id="desktopNav" class="hidden items-center gap-1 md:flex" aria-label="Navigation principale">
+            <button data-tab="catalogue" class="nav-link rounded-xl px-4 py-2.5 text-sm font-semibold transition hover:bg-white/10">Catalogue</button>
+            <button data-tab="quiz" class="nav-link rounded-xl px-4 py-2.5 text-sm font-semibold transition hover:bg-white/10">Quiz Dégustation</button>
+            <button data-tab="revision" class="nav-link relative rounded-xl px-4 py-2.5 text-sm font-semibold transition hover:bg-white/10">
+              Révision Erreurs
+              <span id="headerRevisionBadge" class="ml-1 hidden rounded-full bg-turquoise-500 px-2 py-0.5 text-[10px] font-extrabold text-white"></span>
+            </button>
+            <button data-tab="progression" class="nav-link rounded-xl px-4 py-2.5 text-sm font-semibold transition hover:bg-white/10">Progression</button>
+          </nav>
+
+          <div class="hidden items-center gap-2 sm:flex">
+            <div class="rounded-xl border border-white/10 bg-white/5 px-3 py-2 text-right">
+              <div class="text-[10px] uppercase tracking-[.18em] text-white/45">Maîtrise</div>
+              <div id="headerMastery" class="font-display text-gold-400">0%</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main id="main" class="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8 md:py-8 mobile-safe-bottom"></main>
+
+    <!-- Mobile bottom navigation -->
+    <nav class="mobile-bottom-nav fixed bottom-0 left-0 right-0 z-40 border-t border-cacao-900/10 bg-white/95 px-2 py-2 shadow-[0_-10px_30px_rgba(34,20,14,.10)] backdrop-blur md:hidden">
+      <div class="grid grid-cols-4 gap-1">
+        <button data-tab="catalogue" class="mobile-nav-link rounded-xl px-2 py-2 text-[10px] font-bold">
+          <i class="fa-solid fa-box-open mb-1 block text-sm"></i>Catalogue
+        </button>
+        <button data-tab="quiz" class="mobile-nav-link rounded-xl px-2 py-2 text-[10px] font-bold">
+          <i class="fa-solid fa-vial mb-1 block text-sm"></i>Quiz
+        </button>
+        <button data-tab="revision" class="mobile-nav-link relative rounded-xl px-2 py-2 text-[10px] font-bold">
+          <span id="mobileRevisionBadge" class="absolute right-3 top-1 hidden min-w-4 rounded-full bg-turquoise-500 px-1 text-[9px] text-white"></span>
+          <i class="fa-solid fa-arrows-rotate mb-1 block text-sm"></i>Révision
+        </button>
+        <button data-tab="progression" class="mobile-nav-link rounded-xl px-2 py-2 text-[10px] font-bold">
+          <i class="fa-solid fa-chart-line mb-1 block text-sm"></i>Progression
+        </button>
+      </div>
+    </nav>
+  </div>
+
+  <!-- Global modal -->
+  <div id="modalRoot"></div>
+
+  <!-- Toasts -->
+  <div id="toastRoot" class="fixed right-4 top-24 z-[80] w-[min(360px,calc(100vw-32px))] space-y-3"></div>
+
+<script>
+(() => {
+  'use strict';
+
+  // ============================================================
+  // DATA
+  // ============================================================
+  const CHOCOLATES_DB = [
+    {
+      id: "choco-1-maison-de-jeff-blanc",
+      name: "Maison de Jeff blanc", category: "Chocolat blanc 25% Cacao",
+      coating: "Blanc", cacao: "25%",
+      filling: "Praliné amandes", shape: 'square', decor: 'gold',
+      visual: "Image officielle Jeff de Bruges — Maison de Jeff blanc",
+      tastingNotes: "Praliné amandes",
+      mnemonic: "Maison de Jeff blanc — mémorise son nom et son aspect.",
+      image: "https://jeffdebruges-jeffdebruges-fr-storage.omn.proximis.com/Imagestorage/imagesSynchro/190/190/e597a7d87db5b0a32c68238ae5668cdb338701b6_5413676189729_maison_de_jeff_blanc.png"
+    },
+    {
+      id: "choco-3-rocher",
+      name: "Rocher", category: "Chocolat blanc 25% Cacao",
+      coating: "Blanc", cacao: "25%",
+      filling: "Praliné croustillant", shape: 'square', decor: 'gold',
+      visual: "Image officielle Jeff de Bruges — Rocher",
+      tastingNotes: "Praliné croustillant",
+      mnemonic: "Rocher — mémorise son nom et son aspect.",
+      image: "https://jeffdebruges-jeffdebruges-fr-storage.omn.proximis.com/Imagestorage/imagesSynchro/575/575/5877e8b1132c0bc608c4418bdcdb84f5c1111f60_3660523079463_Mini_rocher_blanc.png"
+    },
+    {
+      id: "choco-4-palet-jb-blanc",
+      name: "Palet JB blanc", category: "Chocolat blanc 25% Cacao",
+      coating: "Blanc", cacao: "25%",
+      filling: "Ganache intense de chocolat noir", shape: 'square', decor: 'gold',
+      visual: "Image officielle Jeff de Bruges — Palet JB blanc",
+      tastingNotes: "Ganache intense de chocolat noir",
+      mnemonic: "Palet JB blanc — mémorise son nom et son aspect.",
+      image: "https://jeffdebruges-jeffdebruges-fr-storage.omn.proximis.com/Imagestorage/imagesSynchro/190/190/5f941d044781dd3bebef179d0361b94af2dca6e7_3660523336252_Palet_JB_blanc.png"
+    },
+    {
+      id: "choco-5-biscuitine",
+      name: "Biscuitine", category: "Chocolat blanc 25% Cacao",
+      coating: "Blanc", cacao: "25%",
+      filling: "Praliné gianduja et éclats de riz soufflé", shape: 'square', decor: 'gold',
+      visual: "Image officielle Jeff de Bruges — Biscuitine",
+      tastingNotes: "Praliné gianduja et éclats de riz soufflé",
+      mnemonic: "Biscuitine — mémorise son nom et son aspect.",
+      image: "https://jeffdebruges-jeffdebruges-fr-storage.omn.proximis.com/Imagestorage/imagesSynchro/190/190/3e3e39b5032f525e22ee1cfd6729591d2934b29d_5413676183796_biscuitine.png"
+    },
+    {
+      id: "choco-6-manon-caf-jeff",
+      name: "Manon café Jeff", category: "Chocolat blanc 25% Cacao",
+      coating: "Blanc", cacao: "25%",
+      filling: "Praliné noisettes et crème au beurre au café", shape: 'square', decor: 'gold',
+      visual: "Image officielle Jeff de Bruges — Manon café Jeff",
+      tastingNotes: "Praliné noisettes et crème au beurre au café",
+      mnemonic: "Manon café Jeff — mémorise son nom et son aspect.",
+      image: "https://jeffdebruges-jeffdebruges-fr-storage.omn.proximis.com/Imagestorage/imagesSynchro/575/575/218435b40044e009b469921b39ec06644b010b99_3660523339864_Manon_cafe.png"
+    },
+    {
+      id: "choco-7-manon",
+      name: "Manon", category: "Chocolat blanc 25% Cacao",
+      coating: "Blanc", cacao: "25%",
+      filling: "Praliné noisettes et crème légère vanille", shape: 'square', decor: 'gold',
+      visual: "Image officielle Jeff de Bruges — Manon",
+      tastingNotes: "Praliné noisettes et crème légère vanille",
+      mnemonic: "Manon — mémorise son nom et son aspect.",
+      image: "https://jeffdebruges-jeffdebruges-fr-storage.omn.proximis.com/Imagestorage/imagesSynchro/190/190/343ac2d3c5bbd2266c7fd866f2935509ef3f11d6_5413676188517_manon.png"
+    },
+    {
+      id: "choco-8-vanillon",
+      name: "Vanillon", category: "Chocolat blanc 25% Cacao",
+      coating: "Blanc", cacao: "25%",
+      filling: "Spécialité Jeff de Bruges", shape: 'square', decor: 'gold',
+      visual: "Image officielle Jeff de Bruges — Vanillon",
+      tastingNotes: "Spécialité Jeff de Bruges",
+      mnemonic: "Vanillon — mémorise son nom et son aspect.",
+      image: "https://i.ibb.co/TBfGmCV7/t-l-chargement-4.png"
+    },
+    {
+      id: "choco-9-palet-jb-ambr",
+      name: "Palet JB ambré", category: "Chocolat blanc 25% Cacao",
+      coating: "Blanc", cacao: "25%",
+      filling: "Ganache de chocolat noir au cacao d'Équateur", shape: 'square', decor: 'gold',
+      visual: "Image officielle Jeff de Bruges — Palet JB ambré",
+      tastingNotes: "Ganache de chocolat noir au cacao d'Équateur",
+      mnemonic: "Palet JB ambré — mémorise son nom et son aspect.",
+      image: "https://jeffdebruges-jeffdebruges-fr-storage.omn.proximis.com/Imagestorage/imagesSynchro/575/575/ffeafb2a065f05fbe388160919a3d30c6c42bcab_3660523323009_PALAIT_JB_AMBRE.png"
+    },
+    {
+      id: "choco-10-rocher-ambr",
+      name: "Rocher Ambré", category: "Chocolat blanc 25% Cacao",
+      coating: "Blanc", cacao: "25%",
+      filling: "Praliné et éclats croustillants", shape: 'square', decor: 'gold',
+      visual: "Image officielle Jeff de Bruges — Rocher Ambré",
+      tastingNotes: "Praliné et éclats croustillants",
+      mnemonic: "Rocher Ambré — mémorise son nom et son aspect.",
+      image: "https://jeffdebruges-jeffdebruges-fr-storage.omn.proximis.com/Imagestorage/imagesSynchro/190/190/03c7fdd98278fe2ce6fd7d738568c3a6826b6a0c_minirocherambre_retouch_.png"
+    },
+    {
+      id: "choco-2-eden",
+      name: "Eden", category: "Chocolat blanc 25% Cacao",
+      coating: "Blanc", cacao: "25%",
+      filling: "Praliné noisettes et éclats d'amandes", shape: 'square', decor: 'gold',
+      visual: "Image officielle Jeff de Bruges — Eden",
+      tastingNotes: "Praliné noisettes et éclats d'amandes",
+      mnemonic: "Eden — mémorise son nom et son aspect.",
+      image: "https://jeffdebruges-jeffdebruges-fr-storage.omn.proximis.com/Imagestorage/imagesSynchro/190/190/952df21ba1693f8f0849bcdf90d9538fb8e29376_5413676188692_eden.png"
+    },
+    {
+      id: "choco-11-feuille",
+      name: "Feuille", category: "Chocolat au lait 35% cacao minimum",
+      coating: "Lait", cacao: "35%",
+      filling: "Praliné aux noisettes", shape: 'square', decor: 'gold',
+      visual: "Image officielle Jeff de Bruges — Feuille",
+      tastingNotes: "Praliné aux noisettes",
+      mnemonic: "Feuille — mémorise son nom et son aspect.",
+      image: "https://jeffdebruges-jeffdebruges-fr-storage.omn.proximis.com/Imagestorage/imagesSynchro/190/190/57380031cf7ad544014e246aaef7c1339f27aa65_5413676188630_feuille_lait.png"
+    },
+    {
+      id: "choco-12-duba-style",
+      name: "Dubaï style", category: "Chocolat au lait 35% cacao minimum",
+      coating: "Lait", cacao: "35%",
+      filling: "Praliné amandes, pâte de pistaches et kadaïf", shape: 'square', decor: 'gold',
+      visual: "Image officielle Jeff de Bruges — Dubaï style",
+      tastingNotes: "Praliné amandes, pâte de pistaches et kadaïf",
+      mnemonic: "Dubaï style — mémorise son nom et son aspect.",
+      image: "https://jeffdebruges-jeffdebruges-fr-storage.omn.proximis.com/Imagestorage/imagesSynchro/190/190/19ff0bf90c719ebef1a405f7a1ce647ffc4ed3bc_Dubai_style_entier_et_coupe_v2.png"
+    },
+    {
+      id: "choco-13-cornet-dor",
+      name: "Cornet Doré", category: "Chocolat au lait 35% cacao minimum",
+      coating: "Lait", cacao: "35%",
+      filling: "Gianduja moelleux aux noisettes et amandes", shape: 'square', decor: 'gold',
+      visual: "Image officielle Jeff de Bruges — Cornet Doré",
+      tastingNotes: "Gianduja moelleux aux noisettes et amandes",
+      mnemonic: "Cornet Doré — mémorise son nom et son aspect.",
+      image: "https://jeffdebruges-jeffdebruges-fr-storage.omn.proximis.com/Imagestorage/imagesSynchro/190/190/45c7d0f1f3d05644224e6a01333a115e8fb24c4f_5413676188371_cornet_dore.png"
+    },
+    {
+      id: "choco-14-cornet-bleu",
+      name: "Cornet bleu", category: "Chocolat au lait 35% cacao minimum",
+      coating: "Lait", cacao: "35%",
+      filling: "Gianduja croustillant et éclats de crêpe dentelle", shape: 'square', decor: 'gold',
+      visual: "Image officielle Jeff de Bruges — Cornet bleu",
+      tastingNotes: "Gianduja croustillant et éclats de crêpe dentelle",
+      mnemonic: "Cornet bleu — mémorise son nom et son aspect.",
+      image: "https://jeffdebruges-jeffdebruges-fr-storage.omn.proximis.com/Imagestorage/imagesSynchro/190/190/c7724c736b4318cff6fa71d2a043635b69f14ac1_5413676188333_cornet_bleu.png"
+    },
+    {
+      id: "choco-15-bloc-gianduja",
+      name: "Bloc gianduja", category: "Chocolat au lait 35% cacao minimum",
+      coating: "Lait", cacao: "35%",
+      filling: "Gianduja fondant aux noisettes", shape: 'square', decor: 'gold',
+      visual: "Image officielle Jeff de Bruges — Bloc gianduja",
+      tastingNotes: "Gianduja fondant aux noisettes",
+      mnemonic: "Bloc gianduja — mémorise son nom et son aspect.",
+      image: "https://jeffdebruges-jeffdebruges-fr-storage.omn.proximis.com/Imagestorage/imagesSynchro/190/190/e390fa6b59861d175805e29f5da12ae46573018e_5413676188357_bloc_gianduja.png"
+    },
+    {
+      id: "choco-16-jeff",
+      name: "Jeff", category: "Chocolat au lait 35% cacao minimum",
+      coating: "Lait", cacao: "35%",
+      filling: "Caramel filant à l'ancienne", shape: 'square', decor: 'gold',
+      visual: "Image officielle Jeff de Bruges — Jeff",
+      tastingNotes: "Caramel filant à l'ancienne",
+      mnemonic: "Jeff — mémorise son nom et son aspect.",
+      image: "https://jeffdebruges-jeffdebruges-fr-storage.omn.proximis.com/Imagestorage/imagesSynchro/190/190/fd5d1c9bbd65aa86ee93d658798016d8e627e409_Jefflait_nouveau.png"
+    },
+    {
+      id: "choco-17-samali",
+      name: "Samali", category: "Chocolat au lait 35% cacao minimum",
+      coating: "Lait", cacao: "35%",
+      filling: "Ganache de chocolat au lait aux fruits de la passion", shape: 'square', decor: 'gold',
+      visual: "Image officielle Jeff de Bruges — Samali",
+      tastingNotes: "Ganache de chocolat au lait aux fruits de la passion",
+      mnemonic: "Samali — mémorise son nom et son aspect.",
+      image: "https://jeffdebruges-jeffdebruges-fr-storage.omn.proximis.com/Imagestorage/imagesSynchro/190/190/53317064dd689ee582e575f66e91fe4c9679948e_5413676189934_samali.png"
+    },
+    {
+      id: "choco-18-palet-jb",
+      name: "Palet JB", category: "Chocolat au lait 35% cacao minimum",
+      coating: "Lait", cacao: "35%",
+      filling: "Ganache de chocolat", shape: 'square', decor: 'gold',
+      visual: "Image officielle Jeff de Bruges — Palet JB",
+      tastingNotes: "Ganache de chocolat",
+      mnemonic: "Palet JB — mémorise son nom et son aspect.",
+      image: "https://jeffdebruges-jeffdebruges-fr-storage.omn.proximis.com/Imagestorage/imagesSynchro/190/190/78a24932dac78e075d9c9f5a88c21b61cbfaa2e8_07425paletJBlait_2025.png"
+    },
+    {
+      id: "choco-19-eduardo",
+      name: "Eduardo", category: "Chocolat au lait 35% cacao minimum",
+      coating: "Lait", cacao: "35%",
+      filling: "Ganache de chocolat au lait, coulis de fruit du cacaoyer", shape: 'square', decor: 'gold',
+      visual: "Image officielle Jeff de Bruges — Eduardo",
+      tastingNotes: "Ganache de chocolat au lait, coulis de fruit du cacaoyer",
+      mnemonic: "Eduardo — mémorise son nom et son aspect.",
+      image: "https://i.ibb.co/qMHPz4sJ/t-l-chargement-5.png"
+    },
+    {
+      id: "choco-20-maison-de-jeff-lait",
+      name: "Maison de Jeff lait", category: "Chocolat au lait 35% cacao minimum",
+      coating: "Lait", cacao: "35%",
+      filling: "Praliné aux amandes et éclats de nougat au miel", shape: 'square', decor: 'gold',
+      visual: "Image officielle Jeff de Bruges — Maison de Jeff lait",
+      tastingNotes: "Praliné aux amandes et éclats de nougat au miel",
+      mnemonic: "Maison de Jeff lait — mémorise son nom et son aspect.",
+      image: "https://jeffdebruges-jeffdebruges-fr-storage.omn.proximis.com/Imagestorage/imagesSynchro/190/190/cabf71d228e41520619691c2bbaf1264eacd5286_5413676188562_maison_jeff_lait.png"
+    },
+    {
+      id: "choco-21-rocher-lait",
+      name: "Rocher lait", category: "Chocolat au lait 35% cacao minimum",
+      coating: "Lait", cacao: "35%",
+      filling: "Praliné noisette", shape: 'square', decor: 'gold',
+      visual: "Image officielle Jeff de Bruges — Rocher lait",
+      tastingNotes: "Praliné noisette",
+      mnemonic: "Rocher lait — mémorise son nom et son aspect.",
+      image: "https://jeffdebruges-jeffdebruges-fr-storage.omn.proximis.com/Imagestorage/imagesSynchro/575/575/3bac6aaa0aac1c5173f9e223c7432c7ea690f1c4_3660523317046_Mini_rocher_lait.png"
+    },
+    {
+      id: "choco-22-b-chette",
+      name: "Bûchette", category: "Chocolat au lait 35% cacao minimum",
+      coating: "Lait", cacao: "35%",
+      filling: "Praliné et meringue fondante", shape: 'square', decor: 'gold',
+      visual: "Image officielle Jeff de Bruges — Bûchette",
+      tastingNotes: "Praliné et meringue fondante",
+      mnemonic: "Bûchette — mémorise son nom et son aspect.",
+      image: "https://jeffdebruges-jeffdebruges-fr-storage.omn.proximis.com/Imagestorage/imagesSynchro/190/190/d704505175a08fc4843531b7328a8e572ddee994_5413676188593_buchette.png"
+    },
+    {
+      id: "choco-23-tr-fle",
+      name: "Trèfle", category: "Chocolat au lait 35% cacao minimum",
+      coating: "Lait", cacao: "35%",
+      filling: "Ganache de chocolat au lait au thé Earl Grey", shape: 'square', decor: 'gold',
+      visual: "Image officielle Jeff de Bruges — Trèfle",
+      tastingNotes: "Ganache de chocolat au lait au thé Earl Grey",
+      mnemonic: "Trèfle — mémorise son nom et son aspect.",
+      image: "https://jeffdebruges-jeffdebruges-fr-storage.omn.proximis.com/Imagestorage/imagesSynchro/575/575/7fa1119e535eb6d905b5bc3e9df284334a195468_5413676188579_trefle_lait.png"
+    },
+    {
+      id: "choco-24-bruxelles-lait",
+      name: "Bruxelles lait", category: "Chocolat au lait 35% cacao minimum",
+      coating: "Lait", cacao: "35%",
+      filling: "Ganache de chocolat au lait au cacao de Madagascar", shape: 'square', decor: 'gold',
+      visual: "Image officielle Jeff de Bruges — Bruxelles lait",
+      tastingNotes: "Ganache de chocolat au lait au cacao de Madagascar",
+      mnemonic: "Bruxelles lait — mémorise son nom et son aspect.",
+      image: "https://jeffdebruges-jeffdebruges-fr-storage.omn.proximis.com/Imagestorage/imagesSynchro/190/190/9a7053cabfa6d6329612661aa5d6cc242306245e_Bruxelles_lait_nouveau.png"
+    },
+    {
+      id: "choco-25-feuillantine",
+      name: "Feuillantine", category: "Chocolat au lait 35% cacao minimum",
+      coating: "Lait", cacao: "35%",
+      filling: "Praliné gianduja et émietté de crêpe dentelle", shape: 'square', decor: 'gold',
+      visual: "Image officielle Jeff de Bruges — Feuillantine",
+      tastingNotes: "Praliné gianduja et émietté de crêpe dentelle",
+      mnemonic: "Feuillantine — mémorise son nom et son aspect.",
+      image: "https://jeffdebruges-jeffdebruges-fr-storage.omn.proximis.com/Imagestorage/imagesSynchro/190/190/b58ef832530b5cc5b187f235f4d29dc4f985cc2e_5413676189460_feuillantine.png"
+    },
+    {
+      id: "choco-26-cr-me-br-l-e",
+      name: "Crème brûlée", category: "Chocolat au lait 35% cacao minimum",
+      coating: "Lait", cacao: "35%",
+      filling: "Ganache chocolat blanc vanille et éclats de sucre ambré", shape: 'square', decor: 'gold',
+      visual: "Image officielle Jeff de Bruges — Crème brûlée",
+      tastingNotes: "Ganache chocolat blanc vanille et éclats de sucre ambré",
+      mnemonic: "Crème brûlée — mémorise son nom et son aspect.",
+      image: "https://jeffdebruges-jeffdebruges-fr-storage.omn.proximis.com/Imagestorage/imagesSynchro/190/190/8dd604d8116840343d8b6bd12c2e0cd1c5b66406_Cr_mebr_l_ecoup_.png"
+    },
+    {
+      id: "choco-27-pop-corn",
+      name: "Pop-corn", category: "Chocolat au lait 35% cacao minimum",
+      coating: "Lait", cacao: "35%",
+      filling: "Suprême de chocolat avec éclats de maïs torréfié", shape: 'square', decor: 'gold',
+      visual: "Image officielle Jeff de Bruges — Pop-corn",
+      tastingNotes: "Suprême de chocolat avec éclats de maïs torréfié",
+      mnemonic: "Pop-corn — mémorise son nom et son aspect.",
+      image: "https://i.ibb.co/fYGjz8W2/t-l-chargement-6.png"
+    },
+    {
+      id: "choco-28-nuttine",
+      name: "Nuttine", category: "Chocolat au lait 35% cacao minimum",
+      coating: "Lait", cacao: "35%",
+      filling: "Praliné", shape: 'square', decor: 'gold',
+      visual: "Image officielle Jeff de Bruges — Nuttine",
+      tastingNotes: "Praliné",
+      mnemonic: "Nuttine — mémorise son nom et son aspect.",
+      image: "https://i.ibb.co/dJKBPqp2/nuttine-lait-removebg-preview.png"
+    },
+    {
+      id: "choco-30-ballotin",
+      name: "Ballotin", category: "Chocolat au lait 35% cacao minimum",
+      coating: "Lait", cacao: "35%",
+      filling: "Praliné noisettes et éclats d'amandes caramélisées et salées", shape: 'square', decor: 'gold',
+      visual: "Image officielle Jeff de Bruges — Ballotin",
+      tastingNotes: "Praliné noisettes et éclats d'amandes caramélisées et salées",
+      mnemonic: "Ballotin — mémorise son nom et son aspect.",
+      image: "https://jeffdebruges-jeffdebruges-fr-storage.omn.proximis.com/Imagestorage/imagesSynchro/190/190/4b70f22212f76fd45a06f5326cafbf00d2ad3ef0_Ballotinlait_nouveau.png"
+    },
+    {
+      id: "choco-31-petite-meringue-groseille",
+      name: "Petite meringue groseille", category: "Chocolat au lait 35% cacao minimum",
+      coating: "Lait", cacao: "35%",
+      filling: "Suprême de chocolat noir à la groseille et sa meringue", shape: 'square', decor: 'gold',
+      visual: "Image officielle Jeff de Bruges — Petite meringue groseille",
+      tastingNotes: "Suprême de chocolat noir à la groseille et sa meringue",
+      mnemonic: "Petite meringue groseille — mémorise son nom et son aspect.",
+      image: "https://jeffdebruges-jeffdebruges-fr-storage.omn.proximis.com/Imagestorage/imagesSynchro/190/190/054a894fd0fcf801654e7caad044dbcd5c5442ca_PMgroseilleentie_reetcoupepng.png"
+    },
+    {
+      id: "choco-32-feuille-chocolat-noir",
+      name: "Feuille chocolat noir", category: "Chocolat noir",
+      coating: "Noir", cacao: "70%",
+      filling: "Praliné intense aux noisettes", shape: 'square', decor: 'gold',
+      visual: "Image officielle Jeff de Bruges — Feuille chocolat noir",
+      tastingNotes: "Praliné intense aux noisettes",
+      mnemonic: "Feuille chocolat noir — mémorise son nom et son aspect.",
+      image: "https://jeffdebruges-jeffdebruges-fr-storage.omn.proximis.com/Imagestorage/imagesSynchro/190/190/266cea76e4b11b60da9c868ef1a03704863c9c80_5413676188609_feuille_noir.png"
+    },
+    {
+      id: "choco-33-bruxelles",
+      name: "Bruxelles", category: "Chocolat noir",
+      coating: "Noir", cacao: "70%",
+      filling: "Ganache corsée de chocolat noir au cacao du Pérou", shape: 'square', decor: 'gold',
+      visual: "Image officielle Jeff de Bruges — Bruxelles",
+      tastingNotes: "Ganache corsée de chocolat noir au cacao du Pérou",
+      mnemonic: "Bruxelles — mémorise son nom et son aspect.",
+      image: "https://jeffdebruges-jeffdebruges-fr-storage.omn.proximis.com/Imagestorage/imagesSynchro/190/190/20c1e670e988dc721163317a09df63f48c8feb4c_Bruxelles_noir_nouveau.png"
+    },
+    {
+      id: "choco-34-bagatelle",
+      name: "Bagatelle", category: "Chocolat noir",
+      coating: "Noir", cacao: "70%",
+      filling: "Coulis de framboise et praliné avec éclats de maïs", shape: 'square', decor: 'gold',
+      visual: "Image officielle Jeff de Bruges — Bagatelle",
+      tastingNotes: "Coulis de framboise et praliné avec éclats de maïs",
+      mnemonic: "Bagatelle — mémorise son nom et son aspect.",
+      image: "https://i.ibb.co/tTMMnrMV/t-l-chargement-2.png"
+    },
+    {
+      id: "choco-35-ballotin",
+      name: "Ballotin", category: "Chocolat noir",
+      coating: "Noir", cacao: "70%",
+      filling: "Praliné et éclats de noisettes grillées et caramélisées", shape: 'square', decor: 'gold',
+      visual: "Image officielle Jeff de Bruges — Ballotin",
+      tastingNotes: "Praliné et éclats de noisettes grillées et caramélisées",
+      mnemonic: "Ballotin — mémorise son nom et son aspect.",
+      image: "https://jeffdebruges-jeffdebruges-fr-storage.omn.proximis.com/Imagestorage/imagesSynchro/190/190/8b060ae83f442b3771bda8c2a9bf5032006eec0f_Ballotinnoir_nouveau.png"
+    },
+    {
+      id: "choco-36-palet-noir-70",
+      name: "Palet noir 70%", category: "Chocolat noir",
+      coating: "Noir", cacao: "70%",
+      filling: "Ganache aromatique de chocolat noir au cacao du Venezuela", shape: 'square', decor: 'gold',
+      visual: "Image officielle Jeff de Bruges — Palet noir 70%",
+      tastingNotes: "Ganache aromatique de chocolat noir au cacao du Venezuela",
+      mnemonic: "Palet noir 70% — mémorise son nom et son aspect.",
+      image: "https://jeffdebruges-jeffdebruges-fr-storage.omn.proximis.com/Imagestorage/imagesSynchro/190/190/b3d48bd1dbce9ffe02203d6c41125a04765f1ac7_07426paletJBnoir_new.png"
+    },
+    {
+      id: "choco-37-pistachine",
+      name: "Pistachine", category: "Chocolat noir",
+      coating: "Noir", cacao: "70%",
+      filling: "Pâte d'amandes et pâte de pistaches avec éclats de pistaches", shape: 'square', decor: 'gold',
+      visual: "Image officielle Jeff de Bruges — Pistachine",
+      tastingNotes: "Pâte d'amandes et pâte de pistaches avec éclats de pistaches",
+      mnemonic: "Pistachine — mémorise son nom et son aspect.",
+      image: "https://jeffdebruges-jeffdebruges-fr-storage.omn.proximis.com/Imagestorage/imagesSynchro/190/190/43202eb92ed626564ac13bdec383872bf14c1221_5413676189699_pistachine.png"
+    },
+    {
+      id: "choco-38-s-villana",
+      name: "Sévillana", category: "Chocolat noir",
+      coating: "Noir", cacao: "70%",
+      filling: "Ganache de chocolat noir et pépites d'orange confite", shape: 'square', decor: 'gold',
+      visual: "Image officielle Jeff de Bruges — Sévillana",
+      tastingNotes: "Ganache de chocolat noir et pépites d'orange confite",
+      mnemonic: "Sévillana — mémorise son nom et son aspect.",
+      image: "https://jeffdebruges-jeffdebruges-fr-storage.omn.proximis.com/Imagestorage/imagesSynchro/190/190/8e7ea613c1c807ef912523f2ade4a9ea8ba19ba6_5413676188494_sevillana.png"
+    },
+    {
+      id: "choco-39-tr-fle-noir",
+      name: "Trèfle noir", category: "Chocolat noir",
+      coating: "Noir", cacao: "70%",
+      filling: "Praliné amandes onctueux et éclats de crumble", shape: 'square', decor: 'gold',
+      visual: "Image officielle Jeff de Bruges — Trèfle noir",
+      tastingNotes: "Praliné amandes onctueux et éclats de crumble",
+      mnemonic: "Trèfle noir — mémorise son nom et son aspect.",
+      image: "https://i.ibb.co/FkCLLfbm/t-l-chargement-3.png"
+    },
+    {
+      id: "choco-40-ecuador",
+      name: "Ecuador", category: "Chocolat noir",
+      coating: "Noir", cacao: "70%",
+      filling: "Ganache de chocolat noir intense au cacao d'Équateur", shape: 'square', decor: 'gold',
+      visual: "Image officielle Jeff de Bruges — Ecuador",
+      tastingNotes: "Ganache de chocolat noir intense au cacao d'Équateur",
+      mnemonic: "Ecuador — mémorise son nom et son aspect.",
+      image: "https://jeffdebruges-jeffdebruges-fr-storage.omn.proximis.com/Imagestorage/imagesSynchro/190/190/56877e63e13ddb5c42635713feafdfaa8b11cbc7_5413676189507_ecuador.png"
+    },
+    {
+      id: "choco-41-yuzu",
+      name: "Yuzu", category: "Chocolat noir",
+      coating: "Noir", cacao: "70%",
+      filling: "Praliné gingembre, coulis citron et yuzu", shape: 'square', decor: 'gold',
+      visual: "Image officielle Jeff de Bruges — Yuzu",
+      tastingNotes: "Praliné gingembre, coulis citron et yuzu",
+      mnemonic: "Yuzu — mémorise son nom et son aspect.",
+      image: "https://jeffdebruges-jeffdebruges-fr-storage.omn.proximis.com/Imagestorage/imagesSynchro/190/190/180a043c2b2962afb1de15ae004ffe221540dea0_yuzuchocolat.png"
+    },
+    {
+      id: "choco-42-maison-de-jeff-noir",
+      name: "Maison de Jeff noir", category: "Chocolat noir",
+      coating: "Noir", cacao: "70%",
+      filling: "Praliné noisettes et éclats d'amandes, cannelle et coriandre", shape: 'square', decor: 'gold',
+      visual: "Image officielle Jeff de Bruges — Maison de Jeff noir",
+      tastingNotes: "Praliné noisettes et éclats d'amandes, cannelle et coriandre",
+      mnemonic: "Maison de Jeff noir — mémorise son nom et son aspect.",
+      image: "https://jeffdebruges-jeffdebruges-fr-storage.omn.proximis.com/Imagestorage/imagesSynchro/190/190/99609370b282ac7cfaede1513baba30e4e2b8985_5413676188647_maison_jeff_noir.png"
+    },
+    {
+      id: "choco-43-bruges",
+      name: "Bruges", category: "Chocolat noir",
+      coating: "Noir", cacao: "70%",
+      filling: "Ganache de chocolat noir et caramel fondant", shape: 'square', decor: 'gold',
+      visual: "Image officielle Jeff de Bruges — Bruges",
+      tastingNotes: "Ganache de chocolat noir et caramel fondant",
+      mnemonic: "Bruges — mémorise son nom et son aspect.",
+      image: "https://jeffdebruges-jeffdebruges-fr-storage.omn.proximis.com/Imagestorage/imagesSynchro/190/190/b7ad202278e1471a07a3af892e852b1550019a3c_Bruges_nouveau.png"
+    },
+    {
+      id: "choco-44-orph-e",
+      name: "Orphée", category: "Chocolat noir",
+      coating: "Noir", cacao: "70%",
+      filling: "Duo praliné et mousse de chocolat noir", shape: 'square', decor: 'gold',
+      visual: "Image officielle Jeff de Bruges — Orphée",
+      tastingNotes: "Duo praliné et mousse de chocolat noir",
+      mnemonic: "Orphée — mémorise son nom et son aspect.",
+      image: "https://jeffdebruges-jeffdebruges-fr-storage.omn.proximis.com/Imagestorage/imagesSynchro/190/190/a784e93f84cc782d6907f8b59286f02752769254_5413676190183_orphee.png"
+    },
+    {
+      id: "choco-45-dentelle",
+      name: "Dentelle", category: "Chocolat noir",
+      coating: "Noir", cacao: "70%",
+      filling: "Praliné noisettes avec éclats de crêpe dentelle", shape: 'square', decor: 'gold',
+      visual: "Image officielle Jeff de Bruges — Dentelle",
+      tastingNotes: "Praliné noisettes avec éclats de crêpe dentelle",
+      mnemonic: "Dentelle — mémorise son nom et son aspect.",
+      image: "https://jeffdebruges-jeffdebruges-fr-storage.omn.proximis.com/Imagestorage/imagesSynchro/190/190/a88bd178d5ee2d00e54d1886ede3f5dfe6107d38_5413676189521_dentelle.png"
+    },
+    {
+      id: "choco-46-petite-meringue-chocolat",
+      name: "Petite meringue chocolat", category: "Chocolat noir",
+      coating: "Noir", cacao: "70%",
+      filling: "Suprême de chocolat noir et sa meringue", shape: 'square', decor: 'gold',
+      visual: "Image officielle Jeff de Bruges — Petite meringue chocolat",
+      tastingNotes: "Suprême de chocolat noir et sa meringue",
+      mnemonic: "Petite meringue chocolat — mémorise son nom et son aspect.",
+      image: "https://jeffdebruges-jeffdebruges-fr-storage.omn.proximis.com/Imagestorage/imagesSynchro/190/190/b2a8e48af10f16f7a1ab11c73f8d7bbb2f5546a4_5413676189323_petite_meringue_chocolat.png"
+    },
+    {
+      id: "choco-47-petite-meringue-caf",
+      name: "Petite meringue café", category: "Chocolat noir",
+      coating: "Noir", cacao: "70%",
+      filling: "Suprême de chocolat noir au café et sa meringue", shape: 'square', decor: 'gold',
+      visual: "Image officielle Jeff de Bruges — Petite meringue café",
+      tastingNotes: "Suprême de chocolat noir au café et sa meringue",
+      mnemonic: "Petite meringue café — mémorise son nom et son aspect.",
+      image: "https://jeffdebruges-jeffdebruges-fr-storage.omn.proximis.com/Imagestorage/imagesSynchro/190/190/e156f386aa433042cf56c8360ef4b7c3b4546756_5413676189330_petite_meringue_caf_.png"
+    },
+    {
+      id: "choco-48-chistera",
+      name: "Chistera", category: "Chocolat noir",
+      coating: "Noir", cacao: "70%",
+      filling: "Ganache chocolat noir à la cerise et au piment d'Espelette", shape: 'square', decor: 'gold',
+      visual: "Image officielle Jeff de Bruges — Chistera",
+      tastingNotes: "Ganache chocolat noir à la cerise et au piment d'Espelette",
+      mnemonic: "Chistera — mémorise son nom et son aspect.",
+      image: "https://jeffdebruges-jeffdebruges-fr-storage.omn.proximis.com/Imagestorage/imagesSynchro/190/190/63cba8e66b7db8a80dd54066fee58546a2aab339_5413676189965_chistera.png"
+    },
+    {
+      id: "choco-49-amand-us-cabochon",
+      name: "Amandéus Cabochon", category: "Chocolat noir",
+      coating: "Noir", cacao: "70%",
+      filling: "Praliné amandes et amande entière caramélisée", shape: 'square', decor: 'gold',
+      visual: "Image officielle Jeff de Bruges — Amandéus Cabochon",
+      tastingNotes: "Praliné amandes et amande entière caramélisée",
+      mnemonic: "Amandéus Cabochon — mémorise son nom et son aspect.",
+      image: "https://jeffdebruges-jeffdebruges-fr-storage.omn.proximis.com/Imagestorage/imagesSynchro/190/190/afab7508da1012bf866f565f09c45fa550522e0e_5413676190275_cabochon.png"
+    },
+    {
+      id: "choco-50-velvet",
+      name: "Velvet", category: "Chocolat noir",
+      coating: "Noir", cacao: "70%",
+      filling: "Spécialité Jeff de Bruges", shape: 'square', decor: 'gold',
+      visual: "Image officielle Jeff de Bruges — Velvet",
+      tastingNotes: "Spécialité Jeff de Bruges",
+      mnemonic: "Velvet — mémorise son nom et son aspect.",
+      image: "https://i.ibb.co/QVxskpz/t-l-chargement-7.png"
+    },
+    {
+      id: "choco-51-fraisier",
+      name: "Fraisier", category: "Chocolat noir",
+      coating: "Noir", cacao: "70%",
+      filling: "Crème au beurre à la fraise et éclats de biscuits", shape: 'square', decor: 'gold',
+      visual: "Image officielle Jeff de Bruges — Fraisier",
+      tastingNotes: "Crème au beurre à la fraise et éclats de biscuits",
+      mnemonic: "Fraisier — mémorise son nom et son aspect.",
+      image: "https://jeffdebruges-jeffdebruges-fr-storage.omn.proximis.com/Imagestorage/imagesSynchro/190/190/fa737aa6c37cb251fa282cbe8d4c7505b79afa3e_Fraisiercoup_.png"
+    },
+    {
+      id: "choco-52-tarte-au-citron",
+      name: "Tarte au citron", category: "Chocolat noir",
+      coating: "Noir", cacao: "70%",
+      filling: "Ganache chocolat blanc au citron et éclats de biscuits", shape: 'square', decor: 'gold',
+      visual: "Image officielle Jeff de Bruges — Tarte au citron",
+      tastingNotes: "Ganache chocolat blanc au citron et éclats de biscuits",
+      mnemonic: "Tarte au citron — mémorise son nom et son aspect.",
+      image: "https://jeffdebruges-jeffdebruges-fr-storage.omn.proximis.com/Imagestorage/imagesSynchro/190/190/a133f49fe9d6ba6a65b9c801274467c00fca25aa_Tartecitroncoup_.png"
+    },
+    {
+      id: "choco-53-paris-brest",
+      name: "Paris-Brest", category: "Chocolat noir",
+      coating: "Noir", cacao: "70%",
+      filling: "Crème au beurre noisette et praliné", shape: 'square', decor: 'gold',
+      visual: "Image officielle Jeff de Bruges — Paris-Brest",
+      tastingNotes: "Crème au beurre noisette et praliné",
+      mnemonic: "Paris-Brest — mémorise son nom et son aspect.",
+      image: "https://jeffdebruges-jeffdebruges-fr-storage.omn.proximis.com/Imagestorage/imagesSynchro/190/190/c472edfb8093659f59e0fa65dcfcbecff6a5965f_Paris_Brestcoup_.png"
+    },
+    {
+      id: "choco-54-gavroche",
+      name: "Gavroche", category: "Chocolat noir",
+      coating: "Noir", cacao: "70%",
+      filling: "Praliné aux noisettes", shape: 'square', decor: 'gold',
+      visual: "Image officielle Jeff de Bruges — Gavroche",
+      tastingNotes: "Praliné noisette, chocolat au lait, notes gourmandes et légèrement croustillantes",
+      mnemonic: "Gavroche — mémorise son nom et son aspect.",
+      image: "https://jeffdebruges-jeffdebruges-fr-storage.omn.proximis.com/Imagestorage/imagesSynchro/575/575/e1b8cd4eb0e89ace7a2aa82cbdda59bc2399cf37_5413676189972_gavroche.png"
+    },
+    {
+      id: "choco-55-dentelle",
+      name: "Dentelle", category: "Chocolat noir",
+      coating: "Noir", cacao: "70%",
+      filling: "Praliné aux noisettes et éclats de crêpe dentelle", shape: 'square', decor: 'gold',
+      visual: "Image officielle Jeff de Bruges — Dentelle",
+      tastingNotes: "Chocolat noir, noisette, praliné, notes croustillantes",
+      mnemonic: "Dentelle — mémorise son nom et son aspect.",
+      image: "https://i.ibb.co/Pv9fBZm9/t-l-chargement-8.png"
+    }
+  ];
+
+  // Catégories visibles dans le catalogue : uniquement les familles souhaitées.
+  const CATEGORIES = [
+    'Chocolat blanc 25% Cacao',
+    'Chocolat au lait 35% cacao minimum',
+    'Chocolat noir',
+    'Spécialités de Pâques',
+    'Spécialités de Noël'
+  ];
+  const COATINGS = ['Noir', 'Lait', 'Blanc', 'Blond'];
+
+  function catalogueCategory(c) {
+    if (c.category === 'Spécialités de Pâques' || c.category === 'Spécialités de Noël') return c.category;
+    if (c.coating === 'Blanc') return 'Chocolat blanc 25% Cacao';
+    if (c.coating === 'Lait') return 'Chocolat au lait 35% cacao minimum';
+    if (c.coating === 'Noir') return 'Chocolat noir';
+    return null;
+  }
+
+  const STORAGE_KEY = 'academieCacaoState_v1';
+
+  const defaultState = {
+    masteredIds: [],
+    revisionIds: [],
+    stats: {
+      answered: 0,
+      correct: 0,
+      bestStreak: 0,
+      currentStreak: 0,
+      sessions: 0
+    }
+  };
+
+  let state = loadState();
+
+  let currentTab = 'catalogue';
+  let catalogueState = {
+    search: '',
+    coating: 'Tous',
+    category: 'Toutes'
+  };
+
+  let quizState = null;
+
+  // ============================================================
+  // STORAGE
+  // ============================================================
+  function loadState() {
+    try {
+      const raw = localStorage.getItem(STORAGE_KEY);
+      if (!raw) return structuredClone(defaultState);
+      const parsed = JSON.parse(raw);
+      return {
+        masteredIds: Array.isArray(parsed.masteredIds) ? parsed.masteredIds : [],
+        revisionIds: Array.isArray(parsed.revisionIds) ? parsed.revisionIds : [],
+        stats: {
+          ...defaultState.stats,
+          ...(parsed.stats || {})
+        }
+      };
+    } catch (error) {
+      console.warn('Impossible de lire localStorage:', error);
+      return structuredClone(defaultState);
+    }
+  }
+
+  function saveState() {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+    updateGlobalBadges();
+  }
+
+  function resetState() {
+    state = structuredClone(defaultState);
+    saveState();
+  }
+
+  // ============================================================
+  // HELPERS
+  // ============================================================
+  const $ = (selector, root = document) => root.querySelector(selector);
+  const $$ = (selector, root = document) => [...root.querySelectorAll(selector)];
+
+  function escapeHtml(value) {
+    return String(value)
+      .replaceAll('&', '&amp;')
+      .replaceAll('<', '&lt;')
+      .replaceAll('>', '&gt;')
+      .replaceAll('"', '&quot;')
+      .replaceAll("'", '&#039;');
+  }
+
+  function getChocolate(id) {
+    return CHOCOLATES_DB.find(c => c.id === id);
+  }
+
+  function isMastered(id) {
+    return state.masteredIds.includes(id);
+  }
+
+  function isInRevision(id) {
+    return state.revisionIds.includes(id);
+  }
+
+  function masteryPercent() {
+    return Math.round((state.masteredIds.length / CHOCOLATES_DB.length) * 100);
+  }
+
+  function totalPending() {
+    return state.revisionIds.length;
+  }
+
+  function showToast(message, type = 'success') {
+    const root = $('#toastRoot');
+    const icon = type === 'success' ? 'fa-circle-check' :
+                 type === 'warning' ? 'fa-triangle-exclamation' : 'fa-circle-info';
+    const tone = type === 'success' ? 'text-turquoise-700 bg-turquoise-50 border-turquoise-200' :
+                 type === 'warning' ? 'text-[#775E00] bg-[#FFF9E8] border-[#EAD78B]' :
+                 'text-cacao-700 bg-white border-cacao-200';
+
+    const el = document.createElement('div');
+    el.className = `glass animate-fade-up flex items-start gap-3 rounded-2xl border px-4 py-3 shadow-luxury ${tone}`;
+    el.innerHTML = `
+      <i class="fa-solid ${icon} mt-0.5"></i>
+      <div class="flex-1 text-sm font-semibold leading-5">${escapeHtml(message)}</div>
+      <button class="opacity-50 hover:opacity-100" aria-label="Fermer"><i class="fa-solid fa-xmark"></i></button>
+    `;
+    el.querySelector('button').addEventListener('click', () => el.remove());
+    root.appendChild(el);
+    setTimeout(() => {
+      el.style.opacity = '0';
+      el.style.transform = 'translateY(-4px)';
+      el.style.transition = 'all .25s ease';
+      setTimeout(() => el.remove(), 250);
+    }, 3400);
+  }
+
+  function shuffle(array) {
+    const a = [...array];
+    for (let i = a.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [a[i], a[j]] = [a[j], a[i]];
+    }
+    return a;
+  }
+
+  function sample(array, n) {
+    return shuffle(array).slice(0, n);
+  }
+
+  function coatingClass(coating) {
+    return {
+      Noir: 'bg-cacao-900 text-white',
+      Lait: 'bg-[#9B6A45] text-white',
+      Blanc: 'bg-white text-cacao-700 border border-cacao-200',
+      Blond: 'bg-[#D59F42] text-white'
+    }[coating] || 'bg-cacao-700 text-white';
+  }
+
+  function categoryIcon(category) {
+    if (category.includes('Pralinés')) return 'fa-cookie-bite';
+    if (category.includes('Ganaches')) return 'fa-droplet';
+    if (category.includes('Amande')) return 'fa-seedling';
+    if (category.includes('Pâques')) return 'fa-egg';
+    if (category.includes('Noël')) return 'fa-tree';
+    return 'fa-layer-group';
+  }
+
+  function categoryThemeClass(choco) {
+  if (choco.coating === 'Blanc') return 'category-white';
+  if (choco.coating === 'Lait') return 'category-milk';
+  if (choco.coating === 'Noir') return 'category-dark';
+  return '';
+}
+
+  function questionTypeLabel(type) {
+    return {
+      visual: 'Œil & forme',
+      filling: 'Garniture',
+      coating: 'Enrobage'
+    }[type];
+  }
+
+  function formatDate() {
+    return new Intl.DateTimeFormat('fr-FR', {
+      day: '2-digit', month: '2-digit', year: 'numeric'
+    }).format(new Date());
+  }
+
+  // ============================================================
+  // PROCEDURAL SVG CHOCOLATE ENGINE
+  // ============================================================
+  function generateChocolateSVG(choco, size = 220) {
+    const esc = escapeHtml(choco.name);
+    if (choco.image) {
+      return `<div class="flex items-center justify-center" style="width:${size}px;height:${size}px">
+        <img src="${escapeHtml(choco.image)}" alt="${esc}" loading="lazy"
+          class="max-h-full max-w-full object-contain drop-shadow-[0_12px_12px_rgba(34,20,14,.14)]"
+          referrerpolicy="no-referrer"
+          onerror="this.closest('div').innerHTML='<div class=\'text-center text-xs font-semibold text-cacao-500 p-4\'>Image officielle indisponible</div>'">
+      </div>`;
+    }
+    const uid = ('svg_' + choco.id).replace(/[^a-z0-9_]/gi, '_');
+
+    const palette = {
+      Noir: { main: '#26140C', dark: '#120906', light: '#553024', highlight: '#78503B' },
+      Lait: { main: '#7C4D2E', dark: '#3D2314', light: '#B97A52', highlight: '#D39A6A' },
+      Blanc: { main: '#F4E7D7', dark: '#C7AE91', light: '#FFFDF9', highlight: '#FFFFFF' },
+      Blond: { main: '#B56F1A', dark: '#7A4310', light: '#E3B365', highlight: '#F4D08F' }
+    }[choco.coating];
+
+    const defs = `
+      <defs>
+        <linearGradient id="${uid}_base" x1="0" x2="1" y1="0" y2="1">
+          <stop offset="0%" stop-color="${palette.highlight}" />
+          <stop offset="48%" stop-color="${palette.main}" />
+          <stop offset="100%" stop-color="${palette.dark}" />
+        </linearGradient>
+        <radialGradient id="${uid}_shine" cx="35%" cy="25%" r="70%">
+          <stop offset="0%" stop-color="${palette.light}" stop-opacity=".72"/>
+          <stop offset="42%" stop-color="${palette.main}" stop-opacity=".14"/>
+          <stop offset="100%" stop-color="${palette.dark}" stop-opacity=".56"/>
+        </radialGradient>
+        <filter id="${uid}_shadow" x="-30%" y="-30%" width="160%" height="170%">
+          <feDropShadow dx="0" dy="8" stdDeviation="7" flood-color="#22140E" flood-opacity=".22"/>
+        </filter>
+        <linearGradient id="${uid}_gold" x1="0" x2="1">
+          <stop offset="0%" stop-color="#A77E16"/>
+          <stop offset="42%" stop-color="#F7E7A3"/>
+          <stop offset="68%" stop-color="#D4AF37"/>
+          <stop offset="100%" stop-color="#8D6B12"/>
+        </linearGradient>
+      </defs>
+    `;
+
+    const fill = `url(#${uid}_base)`;
+    const shine = `url(#${uid}_shine)`;
+    let body = '';
+
+    switch (choco.shape) {
+      case 'disc':
+        body = `<ellipse cx="110" cy="116" rx="82" ry="66" fill="${fill}"/>`;
+        break;
+      case 'dome':
+        body = `<path d="M28 142C31 90 64 50 110 50s79 40 82 92c-1 17-14 23-31 23H59c-17 0-30-6-31-23Z" fill="${fill}"/>`;
+        break;
+      case 'square':
+        body = `<rect x="37" y="45" width="146" height="146" rx="24" fill="${fill}"/>`;
+        break;
+      case 'lingot':
+        body = `<path d="M48 62h124l20 28-12 72H48l-12-72 20-28Z" fill="${fill}"/>`;
+        break;
+      case 'oval':
+        body = `<ellipse cx="110" cy="118" rx="94" ry="58" transform="rotate(-8 110 118)" fill="${fill}"/>`;
+        break;
+      case 'losange':
+        body = `<path d="M110 38L186 112L110 190L34 112Z" fill="${fill}"/>`;
+        break;
+      case 'heart':
+        body = `<path d="M110 188C96 176 38 136 38 84c0-22 17-39 38-39 15 0 27 8 34 20 7-12 19-20 34-20 21 0 38 17 38 39 0 52-58 92-72 104Z" fill="${fill}"/>`;
+        break;
+      case 'truffe':
+        body = `<path d="M58 134c-8-21 2-58 31-75 28-16 70-10 83 20 12 28-2 64-24 82-22 17-78 17-90-27Z" fill="${fill}"/>`;
+        break;
+      case 'shell':
+        body = `<path d="M44 160V92c0-33 28-55 66-55s66 22 66 55v68c0 16-11 28-27 28H71c-16 0-27-12-27-28Z" fill="${fill}"/>`;
+        break;
+      case 'hexagon':
+      default:
+        body = `<path d="M69 40h82l44 73-44 73H69l-44-73 44-73Z" fill="${fill}"/>`;
+        break;
+    }
+
+    const commonShine = `<path d="M68 74c22-18 55-28 78-13" fill="none" stroke="#FFFFFF" stroke-opacity=".16" stroke-width="6" stroke-linecap="round"/>`;
+    let decor = '';
+
+    switch (choco.decor) {
+      case 'gold':
+        decor = `
+          <path d="M63 88c24-17 53-22 89-11" fill="none" stroke="url(#${uid}_gold)" stroke-width="9" stroke-linecap="round"/>
+          <circle cx="145" cy="79" r="3" fill="#F7E7A3"/>
+          <circle cx="154" cy="87" r="2" fill="#D4AF37"/>
+        `;
+        break;
+      case 'goldstripe':
+        decor = `
+          <path d="M48 140c27-16 81-24 129-5" fill="none" stroke="url(#${uid}_gold)" stroke-width="8" stroke-linecap="round"/>
+        `;
+        break;
+      case 'zebras':
+        decor = `
+          <path d="M54 83L91 103M50 107l45 24M132 75l33 20M121 102l44 23M112 133l36 18" stroke="#00B2A9" stroke-width="7" stroke-linecap="round" stroke-opacity=".9"/>
+        `;
+        break;
+      case 'cacao':
+        decor = `
+          <g fill="#2F1B12" opacity=".75">
+            <circle cx="69" cy="91" r="4"/><circle cx="92" cy="75" r="3"/><circle cx="126" cy="86" r="4"/>
+            <circle cx="149" cy="106" r="3"/><circle cx="80" cy="127" r="3"/><circle cx="121" cy="140" r="4"/>
+            <circle cx="145" cy="126" r="3"/><circle cx="99" cy="106" r="3"/>
+          </g>
+        `;
+        break;
+      case 'pecan':
+        decor = `
+          <path d="M110 71c14-13 34-11 40 4 7 19-15 33-32 25-15-7-20-18-8-29Z" fill="#8F5F39"/>
+          <path d="M114 74c11-4 22 0 26 9" fill="none" stroke="#D8A779" stroke-width="3" stroke-linecap="round"/>
+        `;
+        break;
+      case 'pistachio':
+        decor = `
+          <path d="M68 157c31-15 68-15 95 0" fill="none" stroke="#83A846" stroke-width="8" stroke-linecap="round"/>
+          <circle cx="66" cy="157" r="4" fill="#C3D98C"/><circle cx="165" cy="157" r="4" fill="#C3D98C"/>
+        `;
+        break;
+      case 'nuts':
+        decor = `
+          <g fill="#B27A50" stroke="#5E361E" stroke-width="2">
+            <ellipse cx="71" cy="88" rx="13" ry="9" transform="rotate(-20 71 88)"/>
+            <ellipse cx="105" cy="73" rx="15" ry="10" transform="rotate(15 105 73)"/>
+            <ellipse cx="145" cy="89" rx="12" ry="9" transform="rotate(-12 145 89)"/>
+            <ellipse cx="125" cy="127" rx="15" ry="10" transform="rotate(18 125 127)"/>
+            <ellipse cx="82" cy="130" rx="13" ry="9" transform="rotate(4 82 130)"/>
+          </g>
+        `;
+        break;
+      case 'orange':
+        decor = `
+          <path d="M132 83c10-11 30-10 34 2 5 14-12 22-24 15-10-6-16-9-10-17Z" fill="#E98630"/>
+          <circle cx="150" cy="89" r="3" fill="#FFC46F"/><circle cx="158" cy="95" r="2" fill="#FFC46F"/>
+        `;
+        break;
+      case 'dots':
+      case 'cocoa-dots':
+        decor = `
+          <g fill="${choco.coating === 'Blanc' ? '#B87333' : '#E7A6A6'}">
+            <circle cx="76" cy="82" r="4"/><circle cx="98" cy="72" r="3"/><circle cx="124" cy="79" r="4"/>
+            <circle cx="149" cy="91" r="3"/><circle cx="86" cy="112" r="3"/><circle cx="114" cy="111" r="4"/>
+            <circle cx="139" cy="125" r="3"/><circle cx="102" cy="137" r="3"/>
+          </g>
+        `;
+        break;
+      case 'line':
+        decor = `<path d="M79 88c29 22 55 15 70-3" fill="none" stroke="#D4AF37" stroke-width="6" stroke-linecap="round"/>`;
+        break;
+      default:
+        decor = '';
+    }
+
+    return `
+      <svg viewBox="0 0 220 220" width="${size}" height="${size}" role="img" aria-label="${esc}" xmlns="http://www.w3.org/2000/svg">
+        ${defs}
+        <g filter="url(#${uid}_shadow)">
+          <ellipse cx="110" cy="184" rx="70" ry="12" fill="#22140E" opacity=".09"/>
+          ${body}
+          <path d="M0 0h220v220H0z" fill="transparent"/>
+          ${commonShine}
+          <path d="M45 158c24 13 107 18 132-3" fill="none" stroke="${palette.dark}" stroke-opacity=".28" stroke-width="6" stroke-linecap="round"/>
+          <path d="M62 62c20-17 59-22 96-10" fill="none" stroke="${shine}" stroke-width="7" stroke-linecap="round" opacity=".52"/>
+          ${decor}
+        </g>
+      </svg>
+    `;
+  }
+
+  // ============================================================
+  // APP SHELL
+  // ============================================================
+  function render() {
+    const main = $('#main');
+
+    if (currentTab === 'catalogue') main.innerHTML = renderCatalogue();
+    if (currentTab === 'quiz') main.innerHTML = renderQuizTab();
+    if (currentTab === 'revision') main.innerHTML = renderRevision();
+    if (currentTab === 'progression') main.innerHTML = renderProgression();
+
+    syncNav();
+
+    const isSeasonalCatalogue = currentTab === 'catalogue';
+
+    document.body.classList.toggle(
+        'christmas-mode',
+        isSeasonalCatalogue && catalogueState.category === 'Spécialités de Noël'
+    );
+
+    document.body.classList.toggle(
+        'easter-mode',
+        isSeasonalCatalogue && catalogueState.category === 'Spécialités de Pâques'
+    );
+
+    /* ==========================================
+       THÈMES PREMIUM DES CHOCOLATS
+       ========================================== */
+
+    document.body.classList.toggle(
+        'category-page-white',
+        isSeasonalCatalogue &&
+        catalogueState.category === 'Chocolat blanc 25% Cacao'
+    );
+
+    document.body.classList.toggle(
+        'category-page-milk',
+        isSeasonalCatalogue &&
+        catalogueState.category === 'Chocolat au lait 35% cacao minimum'
+    );
+
+    document.body.classList.toggle(
+        'category-page-dark',
+        isSeasonalCatalogue &&
+        catalogueState.category === 'Chocolat noir'
+    );
+
+    /* ==========================================
+       COULEUR DU NAVIGATEUR
+       ========================================== */
+
+    const themeMeta = document.querySelector('meta[name="theme-color"]');
+
+    if (themeMeta) {
+        themeMeta.content =
+            catalogueState.category === 'Spécialités de Noël' && isSeasonalCatalogue
+                ? '#123D2A'
+                : catalogueState.category === 'Spécialités de Pâques' && isSeasonalCatalogue
+                ? '#D989B6'
+                : catalogueState.category === 'Chocolat blanc 25% Cacao' && isSeasonalCatalogue
+                ? '#E8D6B5'
+                : catalogueState.category === 'Chocolat au lait 35% cacao minimum' && isSeasonalCatalogue
+                ? '#9A633B'
+                : catalogueState.category === 'Chocolat noir' && isSeasonalCatalogue
+                ? '#22140E'
+                : '#22140E';
+    }
+
+    bindCurrentView();
+    updateGlobalBadges();
+}
+
+  function syncNav() {
+    $$('.nav-link, .mobile-nav-link').forEach(btn => {
+      const active = btn.dataset.tab === currentTab;
+      btn.classList.toggle('nav-active', active);
+      if (!active) {
+        btn.classList.remove('bg-white/10', 'text-white');
+      }
+    });
+  }
+
+  function updateGlobalBadges() {
+    const count = state.revisionIds.length;
+    const desktop = $('#headerRevisionBadge');
+    const mobile = $('#mobileRevisionBadge');
+
+    if (desktop) {
+      desktop.textContent = count;
+      desktop.classList.toggle('hidden', count === 0);
+    }
+    if (mobile) {
+      mobile.textContent = count;
+      mobile.classList.toggle('hidden', count === 0);
+    }
+    const headerMastery = $('#headerMastery');
+    if (headerMastery) headerMastery.textContent = masteryPercent() + '%';
+  }
+
+  function setTab(tab) {
+    currentTab = tab;
+    render();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  // ============================================================
+  // CATALOGUE
+  // ============================================================
+  function renderCatalogue() {
+    const filtered = CHOCOLATES_DB.filter(c => {
+      const q = catalogueState.search.trim().toLowerCase();
+      const haystack = [c.name, c.category, c.coating, c.cacao, c.filling, c.tastingNotes, c.visual].join(' ').toLowerCase();
+      const matchQ = !q || haystack.includes(q);
+      const matchCoating = catalogueState.coating === 'Tous' || c.coating === catalogueState.coating;
+      const matchCategory = catalogueState.category === 'Toutes' || catalogueCategory(c) === catalogueState.category;
+      return matchQ && matchCoating && matchCategory;
+    });
+
+    return `
+      <section class="animate-fade-up overflow-hidden rounded-[30px] bg-cacao-900 p-6 text-white shadow-luxury sm:p-8">
+        <div class="grid gap-8 lg:grid-cols-[1.4fr_.8fr] lg:items-center">
+          <div>
+            <div class="mb-4 inline-flex items-center gap-2 rounded-full border border-gold-400/25 bg-gold-400/10 px-3 py-1.5 text-xs font-bold uppercase tracking-[.18em] text-gold-400">
+              <i class="fa-solid fa-sparkles"></i> Parcours vendeur
+            </div>
+            <h1 class="font-display text-3xl font-semibold tracking-tight sm:text-5xl">Maîtrisez chaque création.</h1>
+            <p class="mt-4 max-w-2xl text-sm leading-7 text-white/68 sm:text-base">
+              Une encyclopédie interactive pour mémoriser les chocolats sélectionnés, avec les visuels officiels Jeff de Bruges quand ils sont disponibles.
+              de la collection Académie Cacao.
+            </p>
+            <div class="mt-7 flex flex-wrap gap-3 text-sm">
+              <span class="rounded-full bg-white/8 px-3 py-2"><strong>${CHOCOLATES_DB.length}</strong> chocolats</span>
+              <span class="rounded-full bg-white/8 px-3 py-2"><strong>${state.masteredIds.length}</strong> maîtrisés</span>
+              <span class="rounded-full bg-turquoise-500/20 px-3 py-2 text-turquoise-200"><strong>${state.revisionIds.length}</strong> à réviser</span>
+            </div>
+          </div>
+          <div class="relative mx-auto flex w-full max-w-[340px] items-center justify-center lg:justify-end">
+            <div class="absolute h-44 w-44 rounded-full bg-turquoise-500/10 blur-3xl"></div>
+            <div class="relative grid grid-cols-2 gap-2 opacity-95">
+              ${CHOCOLATES_DB.slice(0,4).map(c => `<div class="rounded-2xl border border-white/10 bg-white/5 p-1">${generateChocolateSVG(c, 105)}</div>`).join('')}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="mt-6 rounded-[26px] border border-cacao-900/10 bg-white/75 p-4 shadow-card sm:p-5">
+        <div class="grid gap-3 lg:grid-cols-[1fr_auto_auto] lg:items-center">
+          <label class="relative block">
+            <i class="fa-solid fa-magnifying-glass pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-cacao-500/60"></i>
+            <input id="catalogueSearch" type="search" value="${escapeHtml(catalogueState.search)}"
+              placeholder="Rechercher un chocolat, une garniture, une texture..."
+              class="input-premium h-12 w-full rounded-2xl pl-11 pr-4 text-sm font-medium" />
+          </label>
+          <select id="categoryFilter" class="input-premium h-12 rounded-2xl px-4 text-sm font-semibold">
+            <option value="Toutes">Toutes les catégories</option>
+            ${CATEGORIES.map(cat => `<option ${catalogueState.category === cat ? 'selected' : ''} value="${escapeHtml(cat)}">${escapeHtml(cat)}</option>`).join('')}
+          </select>
+          <div class="flex gap-2 overflow-x-auto pb-1 hide-scrollbar">
+            ${['Tous', ...COATINGS].map(coating => `
+              <button data-coating="${escapeHtml(coating)}"
+                class="chip whitespace-nowrap rounded-xl px-3.5 py-2 text-xs font-extrabold ${catalogueState.coating === coating ? 'bg-turquoise-500 text-white shadow-md' : 'bg-cacao-100 text-cacao-700 hover:bg-cacao-200'}">
+                ${coating}
+              </button>
+            `).join('')}
+          </div>
+        </div>
+      </section>
+
+      <div class="mt-7 flex items-end justify-between gap-4">
+        <div>
+          <p class="text-xs font-extrabold uppercase tracking-[.18em] text-turquoise-700">Collection</p>
+          <h2 class="mt-1 font-display text-2xl sm:text-3xl">Les créations</h2>
+        </div>
+        <div class="text-right text-sm text-cacao-500/80"><strong class="text-cacao-900">${filtered.length}</strong> résultat${filtered.length > 1 ? 's' : ''}</div>
+      </div>
+
+      ${catalogueState.category === 'Spécialités de Pâques' ? `
+        <div class="seasonal-banner easter-banner col-span-full">
+          <div class="easter-decoration" aria-hidden="true"><span>🐰</span><span>🥚</span><span>🌷</span><span>🐣</span></div>
+          <div class="seasonal-icon">🐣</div>
+          <h2>Les spécialités de Pâques</h2>
+          <p>Une ambiance printanière pour découvrir les créations spéciales de Pâques.</p>
+          <div class="seasonal-stickers" aria-hidden="true">
+            <span class="sticker">🐰</span><span class="sticker">🥚</span><span class="sticker">🌷</span><span class="sticker">🐣</span><span class="sticker">🌼</span>
+          </div>
+          <div class="easter-confetti" aria-hidden="true">🌸　🥚　🐰　🌷　🐣　🌼</div>
+        </div>
+      ` : ''}
+      ${catalogueState.category === 'Spécialités de Noël' ? `
+        <div class="seasonal-banner christmas-banner col-span-full">
+          <div class="seasonal-icon">🎄</div>
+          <h2>🎄 LES SPÉCIALITÉS DE NOËL ARRIVENT BIENTÔT !</h2>
+          <p>Une sélection festive de chocolats de Noël est en préparation. Découvrez déjà quelques spécialités et revenez bientôt pour la suite de la collection !</p>
+          <div class="mt-4 text-3xl">🎅 🎁 ❄️ 🍫</div>
+        </div>
+      ` : ''}
+
+      <section id="catalogueGrid" class="mt-4 grid gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+        ${filtered.length ? filtered.map(renderChocolateCard).join('') : renderEmptyState('Aucun chocolat trouvé', 'Essaie un autre mot-clé ou enlève un filtre.')}
+      </section>
+    `;
+  }
+
+  function renderChocolateCard(choco) {
+    const mastered = isMastered(choco.id);
+    const revision = isInRevision(choco.id);
+
+    return `
+      <article data-choco-id="${choco.id}" class="catalogue-easter-card group cursor-pointer overflow-hidden rounded-[26px] border border-cacao-900/8 bg-white shadow-card transition hover:-translate-y-1 hover:shadow-luxury">
+        <div class="chocolate-visual relative flex min-h-[250px] items-center justify-center overflow-hidden">
+          <div class="absolute left-4 top-4 z-10 flex gap-2">
+            <span class="rounded-full px-2.5 py-1 text-[10px] font-extrabold ${coatingClass(choco.coating)}">${escapeHtml(choco.coating)}</span>
+            ${mastered ? '<span class="rounded-full bg-turquoise-500 px-2.5 py-1 text-[10px] font-extrabold text-white">Maîtrisé</span>' : ''}
+            ${revision ? '<span class="rounded-full bg-[#FFF8DE] px-2.5 py-1 text-[10px] font-extrabold text-[#795F00]">À réviser</span>' : ''}
+          </div>
+          <div class="transition duration-300 group-hover:scale-105">${generateChocolateSVG(choco, 210)}</div>
+          <div class="absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-black/10 to-transparent"></div>
+        </div>
+        <div class="p-5">
+          <div class="flex items-center gap-2 text-[10px] font-extrabold uppercase tracking-[.16em] text-turquoise-700">
+            <i class="fa-solid ${categoryIcon(choco.category)}"></i>${escapeHtml(choco.category)}
+          </div>
+          <h3 class="mt-2 line-clamp-2 font-display text-xl leading-7">${escapeHtml(choco.name)}</h3>
+          <p class="mt-2 text-xs font-semibold text-cacao-500/85">${escapeHtml(choco.filling)}</p>
+          <div class="mt-4 flex items-center justify-between gap-3 border-t border-cacao-900/8 pt-4">
+            <span class="text-xs font-semibold text-cacao-500">${escapeHtml(choco.cacao)} cacao</span>
+            <span class="text-xs font-extrabold text-turquoise-700">Voir la fiche <i class="fa-solid fa-arrow-right ml-1"></i></span>
+          </div>
+        </div>
+      </article>
+    `;
+  }
+
+  function renderEmptyState(title, text) {
+    return `
+      <div class="col-span-full rounded-[26px] border border-dashed border-cacao-900/15 bg-white/60 p-12 text-center">
+        <div class="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-cacao-100 text-cacao-600"><i class="fa-solid fa-cookie-bite text-xl"></i></div>
+        <h3 class="mt-4 font-display text-xl">${escapeHtml(title)}</h3>
+        <p class="mt-2 text-sm text-cacao-500/80">${escapeHtml(text)}</p>
+      </div>
+    `;
+  }
+
+  // ============================================================
+  // CHOCOLATE MODAL
+  // ============================================================
+  function openChocolateModal(id) {
+    const choco = getChocolate(id);
+    if (!choco) return;
+
+    const mastered = isMastered(id);
+    const revision = isInRevision(id);
+
+    $('#modalRoot').innerHTML = `
+      <div id="chocoModal" class="modal-backdrop fixed inset-0 z-[70] flex items-end justify-center p-0 sm:items-center sm:p-5">
+        <div class="animate-soft-pop max-h-[92vh] w-full overflow-hidden rounded-t-[30px] bg-cacao-100 shadow-2xl sm:max-w-4xl sm:rounded-[30px]">
+          <div class="flex items-center justify-between border-b border-cacao-900/8 bg-white/75 px-5 py-4 sm:px-6">
+            <div>
+              <div class="text-[10px] font-extrabold uppercase tracking-[.18em] text-turquoise-700">Fiche dégustation</div>
+              <div class="mt-1 font-display text-lg">${escapeHtml(choco.name)}</div>
+            </div>
+            <button id="closeModalBtn" class="flex h-10 w-10 items-center justify-center rounded-xl bg-cacao-100 text-cacao-700 transition hover:bg-cacao-200" aria-label="Fermer">
+              <i class="fa-solid fa-xmark"></i>
+            </button>
+          </div>
+          <div class="max-h-[calc(92vh-74px)] overflow-y-auto scrollbar-thin">
+            <div class="grid lg:grid-cols-[360px_1fr]">
+              <div class="flex min-h-[330px] items-center justify-center bg-[radial-gradient(circle_at_50%_28%,#FFFDF9_0,#F3E8DD_48%,#E6D5C2_100%)] p-6">
+                <div class="rounded-[30px] border border-white/60 bg-white/40 p-2 shadow-card">
+                  ${generateChocolateSVG(choco, 300)}
+                </div>
+              </div>
+              <div class="p-6 sm:p-8">
+                <div class="flex flex-wrap gap-2">
+                  <span class="rounded-full px-3 py-1.5 text-xs font-extrabold ${coatingClass(choco.coating)}">${escapeHtml(choco.coating)}</span>
+                  <span class="rounded-full bg-turquoise-50 px-3 py-1.5 text-xs font-extrabold text-turquoise-700">${escapeHtml(choco.cacao)} cacao</span>
+                  <span class="rounded-full bg-white px-3 py-1.5 text-xs font-extrabold text-cacao-600">${escapeHtml(catalogueCategory(choco) || choco.category)}</span>
+                </div>
+                <h2 class="mt-4 font-display text-3xl sm:text-4xl">${escapeHtml(choco.name)}</h2>
+                <p class="mt-3 text-sm leading-7 text-cacao-600">${escapeHtml(choco.visual)}</p>
+
+                <div class="mt-6 grid gap-4 sm:grid-cols-2">
+                  <div class="rounded-2xl border border-cacao-900/8 bg-white/78 p-4">
+                    <div class="text-[10px] font-extrabold uppercase tracking-[.16em] text-cacao-500">Garniture / recette</div>
+                    <div class="mt-2 text-sm font-semibold leading-6">${escapeHtml(choco.filling)}</div>
+                  </div>
+                  <div class="rounded-2xl border border-cacao-900/8 bg-white/78 p-4">
+                    <div class="text-[10px] font-extrabold uppercase tracking-[.16em] text-cacao-500">Forme</div>
+                    <div class="mt-2 text-sm font-semibold capitalize leading-6">${escapeHtml(choco.shape)}</div>
+                  </div>
+                </div>
+
+                <div class="mt-4 rounded-2xl border border-cacao-900/8 bg-white/78 p-4">
+                  <div class="text-[10px] font-extrabold uppercase tracking-[.16em] text-cacao-500">Notes de dégustation</div>
+                  <p class="mt-2 text-sm leading-7 text-cacao-700">${escapeHtml(choco.tastingNotes)}</p>
+                </div>
+
+                <div class="mt-4 rounded-2xl border border-gold-500/20 bg-[#FFF9E6] p-4">
+                  <div class="flex items-center gap-2 text-[10px] font-extrabold uppercase tracking-[.16em] text-[#806600]">
+                    <i class="fa-solid fa-lightbulb"></i> Astuce mnémotechnique
+                  </div>
+                  <p class="mt-2 text-sm font-semibold leading-7 text-cacao-700">${escapeHtml(choco.mnemonic)}</p>
+                </div>
+
+                <div class="mt-6 flex flex-col gap-3 sm:flex-row">
+                  <button id="masteredBtn" data-id="${choco.id}"
+                    class="btn-luxe flex-1 rounded-2xl px-4 py-3.5 text-sm font-extrabold ${mastered ? 'bg-turquoise-500 text-white shadow-md' : 'bg-cacao-900 text-white hover:bg-cacao-700'}">
+                    <i class="fa-solid fa-check mr-2"></i>${mastered ? 'Maîtrisé ✓' : 'Marquer comme maîtrisé'}
+                  </button>
+                  <button id="revisionBtn" data-id="${choco.id}"
+                    class="btn-luxe flex-1 rounded-2xl border px-4 py-3.5 text-sm font-extrabold ${revision ? 'border-[#D4AF37] bg-[#FFF9E6] text-[#765F00]' : 'border-cacao-900/10 bg-white text-cacao-800 hover:bg-cacao-50'}">
+                    <i class="fa-solid fa-arrows-rotate mr-2"></i>${revision ? 'Déjà à réviser' : 'Ajouter à réviser'}
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    `;
+
+    const modal = $('#chocoModal');
+    $('#closeModalBtn').addEventListener('click', closeModal);
+    modal.addEventListener('click', e => {
+      if (e.target === modal) closeModal();
+    });
+
+    $('#masteredBtn').addEventListener('click', () => {
+      toggleMastered(id);
+      openChocolateModal(id);
+    });
+
+    $('#revisionBtn').addEventListener('click', () => {
+      toggleRevision(id);
+      openChocolateModal(id);
+    });
+
+    document.addEventListener('keydown', escCloseOnce, { once: true });
+  }
+
+  function escCloseOnce(e) {
+    if (e.key === 'Escape') closeModal();
+  }
+
+  function closeModal() {
+    $('#modalRoot').innerHTML = '';
+  }
+
+  function toggleMastered(id) {
+    if (isMastered(id)) {
+      state.masteredIds = state.masteredIds.filter(x => x !== id);
+      showToast('Chocolat retiré des maîtrisés.', 'warning');
+    } else {
+      state.masteredIds.push(id);
+      state.revisionIds = state.revisionIds.filter(x => x !== id);
+      showToast('Chocolat marqué comme maîtrisé.');
+    }
+    saveState();
+    render();
+  }
+
+  function toggleRevision(id) {
+    if (isInRevision(id)) {
+      state.revisionIds = state.revisionIds.filter(x => x !== id);
+      showToast('Chocolat retiré de la révision.');
+    } else {
+      state.revisionIds.push(id);
+      showToast('Ajouté à la liste de révision.');
+    }
+    saveState();
+    render();
+  }
+
+  // ============================================================
+  // QUIZ
+  // ============================================================
+  function renderQuizTab() {
+    if (quizState?.mode === 'playing') return renderQuizGame();
+    if (quizState?.mode === 'result') return renderQuizResult();
+    return renderQuizSetup();
+  }
+
+  function renderQuizSetup() {
+    const selectedCats = quizState?.selectedCategories || ['Toutes'];
+    const size = quizState?.questionCount || 10;
+
+    return `
+      <section class="animate-fade-up">
+        <div class="grid gap-6 lg:grid-cols-[1.25fr_.75fr]">
+          <div class="rounded-[30px] bg-cacao-900 p-7 text-white shadow-luxury sm:p-9">
+            <div class="text-xs font-extrabold uppercase tracking-[.18em] text-gold-400">Quiz dégustation</div>
+            <h1 class="mt-3 font-display text-3xl sm:text-5xl">Votre palais passe l’examen.</h1>
+            <p class="mt-4 max-w-2xl text-sm leading-7 text-white/65">
+              Alternez observation, garnitures et enrobages. Chaque erreur peut nourrir votre prochaine session de révision.
+            </p>
+            <div class="mt-7 flex flex-wrap gap-3">
+              <span class="rounded-full bg-white/8 px-3 py-2 text-xs font-semibold"><i class="fa-solid fa-fire mr-2 text-gold-400"></i>Streak actuel : ${state.stats.currentStreak}</span>
+              <span class="rounded-full bg-white/8 px-3 py-2 text-xs font-semibold"><i class="fa-solid fa-bullseye mr-2 text-turquoise-400"></i>Précision : ${state.stats.answered ? Math.round(state.stats.correct / state.stats.answered * 100) : 0}%</span>
+            </div>
+          </div>
+
+          <div class="rounded-[30px] border border-cacao-900/10 bg-white/80 p-6 shadow-card sm:p-7">
+            <div class="text-xs font-extrabold uppercase tracking-[.18em] text-turquoise-700">Session</div>
+            <h2 class="mt-2 font-display text-2xl">Configurer votre dégustation</h2>
+
+            <div class="mt-6">
+              <div class="text-xs font-extrabold uppercase tracking-[.16em] text-cacao-500">Nombre de questions</div>
+              <div class="mt-3 grid grid-cols-3 gap-2">
+                ${[5,10,20].map(n => `
+                  <button data-question-count="${n}" class="question-count rounded-xl px-3 py-2.5 text-sm font-extrabold ${size === n ? 'bg-turquoise-500 text-white' : 'bg-cacao-100 text-cacao-800 hover:bg-cacao-200'}">${n}</button>
+                `).join('')}
+              </div>
+            </div>
+
+            <div class="mt-6">
+              <div class="text-xs font-extrabold uppercase tracking-[.16em] text-cacao-500">Catégories</div>
+              <div class="mt-3 grid gap-2">
+                ${['Toutes', ...CATEGORIES].map(cat => `
+                  <label class="flex cursor-pointer items-center gap-3 rounded-xl border border-cacao-900/8 bg-white px-3 py-2.5 transition hover:border-turquoise-500/30">
+                    <input type="checkbox" class="quiz-cat h-4 w-4 accent-[#00B2A9]" value="${escapeHtml(cat)}"
+                      ${selectedCats.includes(cat) ? 'checked' : ''} />
+                    <span class="text-sm font-semibold">${escapeHtml(cat)}</span>
+                  </label>
+                `).join('')}
+              </div>
+            </div>
+
+            <button id="startQuizBtn" class="btn-luxe mt-6 w-full rounded-2xl bg-cacao-900 px-4 py-3.5 text-sm font-extrabold text-white shadow-lg hover:bg-cacao-700">
+              <i class="fa-solid fa-play mr-2 text-turquoise-400"></i>Lancer la session
+            </button>
+
+            ${state.revisionIds.length ? `
+              <button id="startCatchupBtn" class="mt-3 w-full rounded-2xl border border-turquoise-500/20 bg-turquoise-50 px-4 py-3.5 text-sm font-extrabold text-turquoise-700 hover:bg-turquoise-100">
+                <i class="fa-solid fa-arrows-rotate mr-2"></i>Quiz rattrapage (${state.revisionIds.length})
+              </button>
+            ` : ''}
+          </div>
+        </div>
+
+        <div class="mt-6 grid gap-4 md:grid-cols-3">
+          ${[
+            ['fa-eye', 'Œil & forme', 'Reconnaissez un chocolat grâce à sa silhouette et ses indices visuels.'],
+            ['fa-spoon', 'Garniture', 'Associez le bon fourrage à la bonne création.'],
+            ['fa-layer-group', 'Enrobage', 'Travaillez vos repères Noir, Lait, Blanc et Blond.']
+          ].map(([icon, title, text]) => `
+            <div class="rounded-[24px] border border-cacao-900/8 bg-white/72 p-5 shadow-card">
+              <div class="flex h-10 w-10 items-center justify-center rounded-xl bg-turquoise-50 text-turquoise-700"><i class="fa-solid ${icon}"></i></div>
+              <h3 class="mt-4 font-display text-lg">${title}</h3>
+              <p class="mt-2 text-sm leading-6 text-cacao-500/85">${text}</p>
+            </div>
+          `).join('')}
+        </div>
+      </section>
+    `;
+  }
+
+  function createQuizSession(categories, count, revisionOnly = false) {
+    let pool = CHOCOLATES_DB.filter(c => revisionOnly ? state.revisionIds.includes(c.id) : true);
+
+    if (!revisionOnly && !categories.includes('Toutes')) {
+      pool = pool.filter(c => {
+  const cat = catalogueCategory(c) || c.category;
+  return categories.includes(cat);
+});
+    }
+
+    if (revisionOnly) {
+      pool = pool.length ? pool : CHOCOLATES_DB;
+    }
+
+    const actualCount = Math.min(count, pool.length);
+    const selected = sample(pool, actualCount);
+
+    quizState = {
+      mode: 'playing',
+      revisionOnly,
+      selectedCategories: categories,
+      questionCount: actualCount,
+      questions: selected,
+      index: 0,
+      score: 0,
+      sessionStreak: 0,
+      sessionBestStreak: 0,
+      answeredInSession: 0,
+      results: [],
+      answeredCurrent: false,
+      currentQuestionType: null,
+      currentOptions: []
+    };
+
+    prepareCurrentQuestion();
+  }
+
+  function prepareCurrentQuestion() {
+    const q = quizState.questions[quizState.index];
+    const types = ['visual', 'filling', 'coating'];
+    quizState.currentQuestionType = types[quizState.index % types.length];
+    quizState.currentOptions = createOptions(q, quizState.currentQuestionType);
+    quizState.answeredCurrent = false;
+  }
+
+  function createOptions(correct, type) {
+    const others = CHOCOLATES_DB.filter(c => c.id !== correct.id);
+    if (type === 'visual') return shuffle([correct, ...sample(others, 3)]);
+    if (type === 'filling') return shuffle([correct.filling, ...sample(others, 3).map(c => c.filling)]);
+    if (type === 'coating') return shuffle([correct.coating, ...sample(COATINGS.filter(c => c !== correct.coating), 3)]);
+    return [];
+  }
+
+  function renderQuizGame() {
+    const q = quizState.questions[quizState.index];
+    const total = quizState.questions.length;
+    const progress = Math.round(((quizState.index) / total) * 100);
+    const type = quizState.currentQuestionType;
+
+    let questionContent = '';
+
+    if (type === 'visual') {
+      questionContent = `
+        <div class="grid gap-6 lg:grid-cols-[340px_1fr]">
+          <div class="rounded-[28px] bg-[radial-gradient(circle_at_50%_28%,#FFFDF9_0,#F2E7DC_48%,#E4D3C1_100%)] p-5 text-center">
+            ${generateChocolateSVG(q, 270)}
+          </div>
+          <div>
+            <p class="text-xs font-extrabold uppercase tracking-[.16em] text-turquoise-700">Quel chocolat est-ce ?</p>
+            <h2 class="mt-3 font-display text-3xl leading-tight">Identifiez la création à partir du visuel.</h2>
+            <div class="mt-6 grid gap-3 sm:grid-cols-2">
+              ${quizState.currentOptions.map(opt => `
+                <button data-answer-id="${opt.id}" class="quiz-answer rounded-2xl border border-cacao-900/9 bg-white p-4 text-left font-semibold shadow-sm transition hover:-translate-y-0.5 hover:border-turquoise-500/35 hover:shadow-md">
+                  <span class="block font-display text-lg">${escapeHtml(opt.name)}</span>
+                  <span class="mt-1 block text-xs text-cacao-500">${escapeHtml(opt.coating)} · ${escapeHtml(opt.shape)}</span>
+                </button>
+              `).join('')}
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    if (type === 'filling') {
+      questionContent = `
+        <div class="rounded-[28px] border border-cacao-900/8 bg-white/75 p-6">
+          <div class="flex flex-col gap-6 sm:flex-row sm:items-center">
+            <div class="shrink-0 rounded-2xl bg-cacao-100 p-2">${generateChocolateSVG(q, 180)}</div>
+            <div>
+              <p class="text-xs font-extrabold uppercase tracking-[.16em] text-turquoise-700">Quelle garniture ?</p>
+              <h2 class="mt-3 font-display text-3xl">${escapeHtml(q.name)}</h2>
+              <p class="mt-2 max-w-xl text-sm leading-6 text-cacao-500">Choisissez la garniture la plus fidèle à la recette de cette création.</p>
+            </div>
+          </div>
+          <div class="mt-7 grid gap-3 sm:grid-cols-2">
+            ${quizState.currentOptions.map((opt, i) => `
+              <button data-answer-index="${i}" class="quiz-answer rounded-2xl border border-cacao-900/9 bg-white p-4 text-left font-semibold shadow-sm transition hover:-translate-y-0.5 hover:border-turquoise-500/35 hover:shadow-md">
+                <span class="mr-3 inline-flex h-7 w-7 items-center justify-center rounded-lg bg-cacao-100 text-xs font-extrabold">${String.fromCharCode(65+i)}</span>
+                ${escapeHtml(opt)}
+              </button>
+            `).join('')}
+          </div>
+        </div>
+      `;
+    }
+
+    if (type === 'coating') {
+      questionContent = `
+        <div class="rounded-[28px] border border-cacao-900/8 bg-white/75 p-6">
+          <div class="flex flex-col gap-6 sm:flex-row sm:items-center">
+            <div class="shrink-0 rounded-2xl bg-cacao-100 p-2">${generateChocolateSVG(q, 180)}</div>
+            <div>
+              <p class="text-xs font-extrabold uppercase tracking-[.16em] text-turquoise-700">Quel enrobage ?</p>
+              <h2 class="mt-3 font-display text-3xl">${escapeHtml(q.name)}</h2>
+              <p class="mt-2 max-w-xl text-sm leading-6 text-cacao-500">Repérez la famille d’enrobage associée à cette création.</p>
+            </div>
+          </div>
+          <div class="mt-7 grid grid-cols-2 gap-3 sm:grid-cols-4">
+            ${quizState.currentOptions.map(opt => `
+              <button data-answer-value="${escapeHtml(opt)}" class="quiz-answer rounded-2xl border border-cacao-900/9 bg-white p-4 text-center text-sm font-extrabold shadow-sm transition hover:-translate-y-0.5 hover:border-turquoise-500/35 hover:shadow-md">
+                <span class="mx-auto mb-2 block h-9 w-9 rounded-xl border border-cacao-900/8 ${coatingClass(opt)}"></span>
+                ${escapeHtml(opt)}
+              </button>
+            `).join('')}
+          </div>
+        </div>
+      `;
+    }
+
+    return `
+      <section class="animate-fade-up">
+        <div class="flex flex-wrap items-center justify-between gap-4">
+          <div>
+            <p class="text-xs font-extrabold uppercase tracking-[.18em] text-turquoise-700">${quizState.revisionOnly ? 'Rattrapage ciblé' : 'Session dégustation'}</p>
+            <h1 class="mt-1 font-display text-2xl sm:text-3xl">Question ${quizState.index + 1} / ${total}</h1>
+          </div>
+          <button id="quitQuizBtn" class="rounded-xl bg-white px-3 py-2 text-xs font-extrabold text-cacao-700 shadow-sm ring-1 ring-cacao-900/8 hover:bg-cacao-50">
+            <i class="fa-solid fa-arrow-left mr-2"></i>Quitter
+          </button>
+        </div>
+
+        <div class="mt-5 h-2 overflow-hidden rounded-full bg-cacao-200">
+          <div class="h-full rounded-full bg-gradient-to-r from-turquoise-500 to-gold-500 transition-all duration-500" style="width:${Math.max(progress, 3)}%"></div>
+        </div>
+
+        <div class="mt-5 grid gap-3 sm:grid-cols-3">
+          <div class="rounded-2xl border border-cacao-900/8 bg-white/75 p-4">
+            <div class="text-[10px] font-extrabold uppercase tracking-[.16em] text-cacao-500">Score</div>
+            <div id="quizScore" class="mt-1 font-display text-2xl">${quizState.score}</div>
+          </div>
+          <div class="rounded-2xl border border-cacao-900/8 bg-white/75 p-4">
+            <div class="text-[10px] font-extrabold uppercase tracking-[.16em] text-cacao-500">Série</div>
+            <div id="quizStreak" class="mt-1 font-display text-2xl">${quizState.sessionStreak}</div>
+          </div>
+          <div class="rounded-2xl border border-cacao-900/8 bg-white/75 p-4">
+            <div class="text-[10px] font-extrabold uppercase tracking-[.16em] text-cacao-500">Type</div>
+            <div class="mt-1 font-display text-2xl">${questionTypeLabel(type)}</div>
+          </div>
+        </div>
+
+        <div class="mt-6">${questionContent}</div>
+      </section>
+    `;
+  }
+
+  function answerCurrentQuiz(answer) {
+    if (!quizState || quizState.answeredCurrent) return;
+
+    const q = quizState.questions[quizState.index];
+    const type = quizState.currentQuestionType;
+
+    let isCorrect = false;
+    if (type === 'visual') isCorrect = answer === q.id;
+    if (type === 'filling') isCorrect = answer === q.filling;
+    if (type === 'coating') isCorrect = answer === q.coating;
+
+    quizState.answeredCurrent = true;
+    quizState.answeredInSession += 1;
+
+    state.stats.answered += 1;
+
+    if (isCorrect) {
+      state.stats.correct += 1;
+      quizState.score += 1;
+      quizState.sessionStreak += 1;
+      quizState.sessionBestStreak = Math.max(quizState.sessionBestStreak, quizState.sessionStreak);
+      state.stats.currentStreak += 1;
+      state.stats.bestStreak = Math.max(state.stats.bestStreak, state.stats.currentStreak);
+      state.masteredIds = [...new Set([...state.masteredIds, q.id])];
+      state.revisionIds = state.revisionIds.filter(id => id !== q.id);
+    } else {
+      quizState.sessionStreak = 0;
+      state.stats.currentStreak = 0;
+      if (!state.revisionIds.includes(q.id)) state.revisionIds.push(q.id);
+    }
+
+    quizState.results.push({ id: q.id, correct: isCorrect, type });
+    saveState();
+    renderFeedbackModal(q, isCorrect, type);
+  }
+
+  function renderFeedbackModal(q, correct, type) {
+    const score = quizState.score;
+    const totalAnswered = quizState.answeredInSession;
+    const pct = Math.round((score / totalAnswered) * 100);
+    $('#modalRoot').innerHTML = `
+      <div id="feedbackModal" class="modal-backdrop fixed inset-0 z-[70] flex items-end justify-center p-0 sm:items-center sm:p-5">
+        <div class="animate-soft-pop w-full overflow-hidden rounded-t-[30px] bg-cacao-100 shadow-2xl sm:max-w-2xl sm:rounded-[30px]">
+          <div class="relative px-6 pb-5 pt-7 text-white ${correct ? 'bg-[#006F6A]' : 'bg-cacao-900'}">
+            <div class="absolute right-5 top-5 rounded-full bg-white/10 px-3 py-1 text-[10px] font-extrabold uppercase tracking-[.16em]">
+              ${correct ? 'Bien vu' : 'À retravailler'}
+            </div>
+            <div class="flex items-start gap-4">
+              <div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-white/10 text-xl">
+                <i class="fa-solid ${correct ? 'fa-check' : 'fa-xmark'}"></i>
+              </div>
+              <div>
+                <div class="text-xs font-extrabold uppercase tracking-[.16em] text-white/55">${questionTypeLabel(type)}</div>
+                <h2 class="mt-1 font-display text-2xl">${correct ? 'Excellent réflexe.' : 'Le bon repère est à mémoriser.'}</h2>
+              </div>
+            </div>
+          </div>
+
+          <div class="max-h-[70vh] overflow-y-auto p-6 sm:p-7">
+            <div class="grid gap-5 sm:grid-cols-[170px_1fr] sm:items-center">
+              <div class="rounded-2xl bg-white p-2 shadow-sm">${generateChocolateSVG(q, 160)}</div>
+              <div>
+                <h3 class="font-display text-2xl">${escapeHtml(q.name)}</h3>
+                <p class="mt-2 text-sm font-semibold text-cacao-600">${escapeHtml(q.filling)} · ${escapeHtml(q.coating)} · ${escapeHtml(q.cacao)}</p>
+                <p class="mt-3 text-sm leading-7 text-cacao-600">${escapeHtml(q.tastingNotes)}</p>
+              </div>
+            </div>
+
+            <div class="mt-5 rounded-2xl border border-gold-500/20 bg-[#FFF9E6] p-4">
+              <div class="text-[10px] font-extrabold uppercase tracking-[.16em] text-[#806600]"><i class="fa-solid fa-lightbulb mr-1"></i>Rappel</div>
+              <p class="mt-2 text-sm font-semibold leading-7">${escapeHtml(q.mnemonic)}</p>
+            </div>
+
+            <div class="mt-5 flex items-center justify-between gap-3 rounded-2xl bg-white p-4 shadow-sm">
+              <div>
+                <div class="text-[10px] font-extrabold uppercase tracking-[.16em] text-cacao-500">Session</div>
+                <div class="mt-1 text-sm font-bold">Score ${score}/${totalAnswered} · ${pct}%</div>
+              </div>
+              <span class="rounded-full px-3 py-1.5 text-xs font-extrabold ${correct ? 'bg-turquoise-50 text-turquoise-700' : 'bg-[#FFF8DE] text-[#795F00]'}">
+                ${correct ? '+1 maîtrisé' : 'Ajouté à réviser'}
+              </span>
+            </div>
+
+            <button id="nextQuizBtn" class="btn-luxe mt-5 w-full rounded-2xl bg-cacao-900 px-4 py-3.5 text-sm font-extrabold text-white hover:bg-cacao-700">
+              ${quizState.index + 1 >= quizState.questions.length ? 'Voir le bilan' : 'Question suivante'}
+              <i class="fa-solid fa-arrow-right ml-2"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    `;
+
+    $('#nextQuizBtn').addEventListener('click', nextQuizStep);
+  }
+
+  function nextQuizStep() {
+    closeModal();
+    if (!quizState) return;
+
+    if (quizState.index + 1 >= quizState.questions.length) {
+      quizState.mode = 'result';
+      state.stats.sessions += 1;
+      saveState();
+      render();
+      return;
+    }
+
+    quizState.index += 1;
+    prepareCurrentQuestion();
+    render();
+  }
+
+  function renderQuizResult() {
+    const total = quizState.questions.length;
+    const correct = quizState.score;
+    const pct = Math.round(correct / total * 100);
+    const wrong = total - correct;
+    const newlyRevision = quizState.results.filter(r => !r.correct).map(r => r.id);
+
+    return `
+      <section class="animate-fade-up">
+        <div class="rounded-[30px] bg-cacao-900 p-7 text-white shadow-luxury sm:p-10">
+          <div class="text-xs font-extrabold uppercase tracking-[.18em] text-gold-400">Bilan terminé</div>
+          <div class="mt-3 flex flex-col gap-7 lg:flex-row lg:items-end lg:justify-between">
+            <div>
+              <h1 class="font-display text-4xl sm:text-6xl">${pct}% de précision</h1>
+              <p class="mt-3 max-w-2xl text-sm leading-7 text-white/65">Session du ${formatDate()} · ${correct} bonne${correct > 1 ? 's' : ''} réponse${correct > 1 ? 's' : ''} sur ${total}.</p>
+            </div>
+            <div class="flex flex-wrap gap-3 text-xs font-bold">
+              <span class="rounded-full bg-turquoise-500/20 px-3 py-2 text-turquoise-200"><i class="fa-solid fa-check mr-1"></i>${correct} correctes</span>
+              <span class="rounded-full bg-white/8 px-3 py-2 text-white/80"><i class="fa-solid fa-xmark mr-1"></i>${wrong} erreur${wrong > 1 ? 's' : ''}</span>
+              <span class="rounded-full bg-gold-500/15 px-3 py-2 text-gold-400"><i class="fa-solid fa-fire mr-1"></i>Meilleure série : ${quizState.sessionBestStreak}</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-6 grid gap-5 lg:grid-cols-[1fr_.85fr]">
+          <div class="rounded-[26px] border border-cacao-900/8 bg-white/75 p-6 shadow-card">
+            <div class="text-xs font-extrabold uppercase tracking-[.16em] text-turquoise-700">Ce qu’il reste à consolider</div>
+            <h2 class="mt-2 font-display text-2xl">Les erreurs de cette session</h2>
+            <div class="mt-5 space-y-3">
+              ${newlyRevision.length ? newlyRevision.map(id => {
+                const c = getChocolate(id);
+                return `
+                  <button data-result-choco="${id}" class="flex w-full items-center gap-3 rounded-2xl bg-cacao-50 p-3 text-left transition hover:bg-cacao-100">
+                    <div class="h-14 w-14 shrink-0 rounded-xl bg-white p-0.5">${generateChocolateSVG(c, 54)}</div>
+                    <div class="min-w-0 flex-1">
+                      <div class="truncate font-display text-base">${escapeHtml(c.name)}</div>
+                      <div class="mt-0.5 text-xs font-semibold text-cacao-500">${escapeHtml(c.filling)}</div>
+                    </div>
+                    <i class="fa-solid fa-arrow-right text-cacao-400"></i>
+                  </button>
+                `;
+              }).join('') : `
+                <div class="rounded-2xl bg-turquoise-50 p-5 text-sm font-semibold text-turquoise-700">
+                  <i class="fa-solid fa-wand-magic-sparkles mr-2"></i>Aucune erreur cette fois. Très belle session.
+                </div>
+              `}
+            </div>
+          </div>
+
+          <div class="rounded-[26px] border border-cacao-900/8 bg-white/75 p-6 shadow-card">
+            <div class="text-xs font-extrabold uppercase tracking-[.16em] text-cacao-500">Actions</div>
+            <h2 class="mt-2 font-display text-2xl">Continuer l’entraînement</h2>
+            <div class="mt-5 grid gap-3">
+              <button id="backToQuizSetup" class="btn-luxe rounded-2xl bg-cacao-900 px-4 py-3.5 text-sm font-extrabold text-white hover:bg-cacao-700">
+                <i class="fa-solid fa-rotate-right mr-2"></i>Nouvelle session
+              </button>
+              <button id="resultRevisionBtn" class="rounded-2xl bg-turquoise-50 px-4 py-3.5 text-sm font-extrabold text-turquoise-700 hover:bg-turquoise-100">
+                <i class="fa-solid fa-arrows-rotate mr-2"></i>Voir ma révision (${state.revisionIds.length})
+              </button>
+            </div>
+            <div class="mt-6 rounded-2xl border border-cacao-900/8 bg-white p-4">
+              <div class="text-[10px] font-extrabold uppercase tracking-[.16em] text-cacao-500">Record global</div>
+              <div class="mt-1 font-display text-3xl">${state.stats.bestStreak}</div>
+              <div class="text-xs font-semibold text-cacao-500">meilleure série de réponses correctes</div>
+            </div>
+          </div>
+        </div>
+      </section>
+    `;
+  }
+
+  // ============================================================
+  // REVISION
+  // ============================================================
+  function renderRevision() {
+    const items = state.revisionIds.map(getChocolate).filter(Boolean);
+
+    return `
+      <section class="animate-fade-up">
+        <div class="grid gap-6 lg:grid-cols-[1.2fr_.8fr]">
+          <div class="rounded-[30px] bg-cacao-900 p-7 text-white shadow-luxury sm:p-9">
+            <div class="text-xs font-extrabold uppercase tracking-[.18em] text-gold-400">Spaced repetition</div>
+            <h1 class="mt-3 font-display text-3xl sm:text-5xl">Votre mémoire a sa liste noire.</h1>
+            <p class="mt-4 max-w-2xl text-sm leading-7 text-white/65">
+              Chaque réponse ratée ajoute automatiquement le chocolat à cette file. Revenez ici pour cibler les points qui résistent.
+            </p>
+            <div class="mt-7 flex items-center gap-3">
+              <div class="flex h-12 w-12 items-center justify-center rounded-2xl bg-turquoise-500 text-white"><i class="fa-solid fa-arrows-rotate"></i></div>
+              <div><div class="font-display text-2xl">${items.length}</div><div class="text-xs text-white/55">élément${items.length > 1 ? 's' : ''} en attente</div></div>
+            </div>
+          </div>
+          <div class="rounded-[30px] border border-cacao-900/10 bg-white/80 p-6 shadow-card sm:p-7">
+            <div class="text-xs font-extrabold uppercase tracking-[.16em] text-turquoise-700">Raccourci</div>
+            <h2 class="mt-2 font-display text-2xl">Rattrapage express</h2>
+            <p class="mt-2 text-sm leading-6 text-cacao-500">Une session ciblée, uniquement sur vos erreurs en attente.</p>
+            <button id="revisionQuizBtn" ${items.length ? '' : 'disabled'} class="btn-luxe mt-5 w-full rounded-2xl px-4 py-3.5 text-sm font-extrabold ${items.length ? 'bg-turquoise-500 text-white shadow-md hover:bg-turquoise-600' : 'cursor-not-allowed bg-cacao-100 text-cacao-400'}">
+              <i class="fa-solid fa-play mr-2"></i>Quiz rattrapage
+            </button>
+            ${items.length ? `<button id="clearRevisionBtn" class="mt-3 w-full rounded-2xl border border-cacao-900/10 bg-white px-4 py-3 text-sm font-extrabold text-cacao-700 hover:bg-cacao-50"><i class="fa-solid fa-trash-can mr-2"></i>Vider la liste</button>` : ''}
+          </div>
+        </div>
+
+        <div class="mt-7 flex items-end justify-between gap-4">
+          <div>
+            <p class="text-xs font-extrabold uppercase tracking-[.18em] text-turquoise-700">À revoir</p>
+            <h2 class="mt-1 font-display text-2xl sm:text-3xl">Vos chocolats fragiles</h2>
+          </div>
+          <div class="text-right text-sm text-cacao-500">${items.length} en mémoire active</div>
+        </div>
+
+        <div class="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          ${items.length ? items.map(renderRevisionCard).join('') : renderEmptyState('Votre liste est vide', 'Une erreur de quiz viendra automatiquement s’ajouter ici.')}
+        </div>
+      </section>
+    `;
+  }
+
+  function renderRevisionCard(choco) {
+    return `
+      <article class="rounded-[24px] border border-cacao-900/8 bg-white/80 p-4 shadow-card">
+        <div class="flex gap-4">
+          <div class="flex h-24 w-24 shrink-0 items-center justify-center rounded-2xl bg-cacao-100">${generateChocolateSVG(choco, 96)}</div>
+          <div class="min-w-0 flex-1">
+            <div class="text-[10px] font-extrabold uppercase tracking-[.16em] text-turquoise-700">${escapeHtml(choco.category)}</div>
+            <h3 class="mt-1 line-clamp-2 font-display text-lg">${escapeHtml(choco.name)}</h3>
+            <p class="mt-1 line-clamp-2 text-xs leading-5 text-cacao-500">${escapeHtml(choco.mnemonic)}</p>
+          </div>
+        </div>
+        <div class="mt-4 flex gap-2">
+          <button data-revision-open="${choco.id}" class="flex-1 rounded-xl bg-cacao-900 px-3 py-2.5 text-xs font-extrabold text-white hover:bg-cacao-700">Revoir la fiche</button>
+          <button data-revision-remove="${choco.id}" class="flex h-10 w-10 items-center justify-center rounded-xl border border-cacao-900/10 bg-white text-cacao-500 hover:bg-cacao-50" aria-label="Retirer">
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+        </div>
+      </article>
+    `;
+  }
+
+  // ============================================================
+  // PROGRESSION
+  // ============================================================
+  function renderProgression() {
+    const mastery = masteryPercent();
+    const precision = state.stats.answered ? Math.round(state.stats.correct / state.stats.answered * 100) : 0;
+    const circumference = 2 * Math.PI * 47;
+    const dashOffset = circumference - (mastery / 100) * circumference;
+
+    const mastered = CHOCOLATES_DB.filter(c => isMastered(c.id));
+    const remaining = CHOCOLATES_DB.filter(c => !isMastered(c.id));
+
+    return `
+      <section class="animate-fade-up">
+        <div class="rounded-[30px] bg-cacao-900 p-7 text-white shadow-luxury sm:p-9">
+          <div class="text-xs font-extrabold uppercase tracking-[.18em] text-gold-400">Tableau de bord</div>
+          <div class="mt-3 grid gap-8 lg:grid-cols-[1fr_240px] lg:items-center">
+            <div>
+              <h1 class="font-display text-3xl sm:text-5xl">Votre progression, en clair.</h1>
+              <p class="mt-4 max-w-2xl text-sm leading-7 text-white/65">Suivez votre maîtrise de la collection, votre précision et vos séries sur les quiz.</p>
+            </div>
+            <div class="flex items-center justify-center">
+              <div class="relative h-48 w-48">
+                <svg viewBox="0 0 120 120" class="h-full w-full">
+                  <circle cx="60" cy="60" r="47" fill="none" stroke="rgba(255,255,255,.12)" stroke-width="8"></circle>
+                  <circle cx="60" cy="60" r="47" fill="none" stroke="#00B2A9" stroke-width="8"
+                    stroke-linecap="round" stroke-dasharray="${circumference}" stroke-dashoffset="${dashOffset}" class="progress-ring-circle"></circle>
+                </svg>
+                <div class="absolute inset-0 flex flex-col items-center justify-center">
+                  <div class="font-display text-4xl">${mastery}%</div>
+                  <div class="text-[10px] uppercase tracking-[.16em] text-white/50">collection</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-6 grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+          ${renderKPI('fa-list-check', 'Questions répondues', state.stats.answered, 'Tous quiz confondus')}
+          ${renderKPI('fa-bullseye', 'Précision globale', precision + '%', 'Réponses correctes')}
+          ${renderKPI('fa-fire', 'Meilleure série', state.stats.bestStreak, 'Bonnes réponses consécutives')}
+          ${renderKPI('fa-arrows-rotate', 'Erreurs en attente', state.revisionIds.length, 'À revoir')}
+        </div>
+
+        <div class="mt-6 grid gap-5 lg:grid-cols-2">
+          <div class="rounded-[26px] border border-cacao-900/8 bg-white/78 p-6 shadow-card">
+            <div class="text-xs font-extrabold uppercase tracking-[.16em] text-turquoise-700">Collection maîtrisée</div>
+            <h2 class="mt-2 font-display text-2xl">${mastered.length} / ${CHOCOLATES_DB.length}</h2>
+            <div class="mt-5 space-y-3 max-h-[420px] overflow-y-auto pr-1 scrollbar-thin">
+              ${mastered.length ? mastered.map(c => `
+                <div class="flex items-center gap-3 rounded-2xl bg-turquoise-50 p-3">
+                  <div class="h-12 w-12 rounded-xl bg-white">${generateChocolateSVG(c, 46)}</div>
+                  <div class="min-w-0 flex-1">
+                    <div class="truncate font-semibold">${escapeHtml(c.name)}</div>
+                    <div class="text-xs text-cacao-500">${escapeHtml(c.coating)} · ${escapeHtml(c.cacao)}</div>
+                  </div>
+                  <i class="fa-solid fa-check text-turquoise-600"></i>
+                </div>
+              `).join('') : `<p class="rounded-2xl bg-cacao-50 p-4 text-sm text-cacao-500">Commencez un quiz ou marquez une fiche comme maîtrisée.</p>`}
+            </div>
+          </div>
+
+          <div class="rounded-[26px] border border-cacao-900/8 bg-white/78 p-6 shadow-card">
+            <div class="text-xs font-extrabold uppercase tracking-[.16em] text-cacao-500">Prochaines découvertes</div>
+            <h2 class="mt-2 font-display text-2xl">${remaining.length} à maîtriser</h2>
+            <div class="mt-5 space-y-3 max-h-[420px] overflow-y-auto pr-1 scrollbar-thin">
+              ${remaining.slice(0, 10).map(c => `
+                <button data-progress-open="${c.id}" class="flex w-full items-center gap-3 rounded-2xl bg-cacao-50 p-3 text-left transition hover:bg-cacao-100">
+                  <div class="h-12 w-12 rounded-xl bg-white">${generateChocolateSVG(c, 46)}</div>
+                  <div class="min-w-0 flex-1">
+                    <div class="truncate font-semibold">${escapeHtml(c.name)}</div>
+                    <div class="text-xs text-cacao-500">${escapeHtml(c.category)}</div>
+                  </div>
+                  <i class="fa-solid fa-arrow-right text-cacao-400"></i>
+                </button>
+              `).join('')}
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-6 rounded-[26px] border border-[#D9AFA5] bg-[#FFF6F4] p-6">
+          <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+            <div>
+              <div class="text-xs font-extrabold uppercase tracking-[.16em] text-[#9D4B40]">Zone sensible</div>
+              <h2 class="mt-1 font-display text-xl">Réinitialiser la progression</h2>
+              <p class="mt-1 text-sm text-cacao-600">Efface les maîtrises, la révision et toutes les statistiques enregistrées dans ce navigateur.</p>
+            </div>
+            <button id="resetDataBtn" class="rounded-2xl bg-white px-4 py-3 text-sm font-extrabold text-[#9D4B40] shadow-sm ring-1 ring-[#D9AFA5] hover:bg-[#FFFDFB]">
+              <i class="fa-solid fa-trash-can mr-2"></i>Réinitialiser
+            </button>
+          </div>
+        </div>
+      </section>
+    `;
+  }
+
+  function renderKPI(icon, title, value, sub) {
+    return `
+      <div class="rounded-[24px] border border-cacao-900/8 bg-white/78 p-5 shadow-card transition hover:-translate-y-1 hover:shadow-luxury">
+        <div class="flex items-center justify-between">
+          <div class="flex h-10 w-10 items-center justify-center rounded-xl bg-cacao-100 text-cacao-700"><i class="fa-solid ${icon}"></i></div>
+          <span class="text-[10px] font-extrabold uppercase tracking-[.14em] text-cacao-400">KPI</span>
+        </div>
+        <div class="mt-5 font-display text-3xl">${escapeHtml(value)}</div>
+        <div class="mt-1 text-sm font-bold">${escapeHtml(title)}</div>
+        <div class="mt-1 text-xs text-cacao-500/80">${escapeHtml(sub)}</div>
+      </div>
+    `;
+  }
+
+  // ============================================================
+  // EVENT BINDING
+  // ============================================================
+  function bindCurrentView() {
+    // Header / navigation
+    $$('[data-tab]').forEach(btn => {
+      btn.addEventListener('click', () => setTab(btn.dataset.tab));
+    });
+
+    $('#brandBtn')?.addEventListener('click', () => setTab('catalogue'));
+
+    if (currentTab === 'catalogue') bindCatalogue();
+    if (currentTab === 'quiz') bindQuiz();
+    if (currentTab === 'revision') bindRevision();
+    if (currentTab === 'progression') bindProgression();
+  }
+
+  function bindCatalogue() {
+    $('#catalogueSearch')?.addEventListener('input', e => {
+      catalogueState.search = e.target.value;
+      render();
+      const input = $('#catalogueSearch');
+      if (input) {
+        input.focus();
+        input.setSelectionRange(input.value.length, input.value.length);
+      }
+    });
+
+    $('#categoryFilter')?.addEventListener('change', e => {
+      catalogueState.category = e.target.value;
+      render();
+    });
+
+    $$('[data-coating]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        catalogueState.coating = btn.dataset.coating;
+        render();
+      });
+    });
+
+    $$('[data-choco-id]').forEach(card => {
+      card.addEventListener('click', () => openChocolateModal(card.dataset.chocoId));
+    });
+  }
+
+  function bindQuiz() {
+    $$('.question-count').forEach(btn => {
+      btn.addEventListener('click', () => {
+        quizState = quizState || {};
+        quizState.questionCount = Number(btn.dataset.questionCount);
+        render();
+      });
+    });
+
+    $$('.quiz-cat').forEach(input => {
+  input.addEventListener('change', (event) => {
+    quizState = quizState || {};
+
+    const clicked = event.target.value;
+
+    // Si on clique sur "Toutes"
+    if (clicked === 'Toutes') {
+      $$('.quiz-cat').forEach(i => {
+        i.checked = i.value === 'Toutes';
+      });
+
+      quizState.selectedCategories = ['Toutes'];
+    } 
+    
+    // Si on clique sur une catégorie
+    else {
+      const toutes = $('.quiz-cat[value="Toutes"]');
+
+      // Désactive "Toutes"
+      if (toutes) toutes.checked = false;
+
+      const checked = $$('.quiz-cat:checked')
+        .map(i => i.value)
+        .filter(value => value !== 'Toutes');
+
+      // Si aucune catégorie n'est sélectionnée
+      if (checked.length === 0) {
+        if (toutes) toutes.checked = true;
+        quizState.selectedCategories = ['Toutes'];
+      } else {
+        quizState.selectedCategories = checked;
+      }
+    }
+
+    render();
+  });
+});
+
+    $('#startQuizBtn')?.addEventListener('click', () => {
+      const categories = quizState?.selectedCategories || ['Toutes'];
+      const count = quizState?.questionCount || 10;
+      createQuizSession(categories, count, false);
+      render();
+    });
+
+    $('#startCatchupBtn')?.addEventListener('click', () => {
+      createQuizSession(['Toutes'], Math.min(10, Math.max(5, state.revisionIds.length)), true);
+      render();
+    });
+
+    $('#quitQuizBtn')?.addEventListener('click', () => {
+      quizState = null;
+      render();
+    });
+
+    $$('.quiz-answer').forEach(btn => {
+      if (btn.dataset.answerId) {
+        btn.addEventListener('click', () => answerCurrentQuiz(btn.dataset.answerId));
+      }
+      if (btn.dataset.answerIndex) {
+        btn.addEventListener('click', () => {
+          const index = Number(btn.dataset.answerIndex);
+          answerCurrentQuiz(quizState.currentOptions[index]);
+        });
+      }
+      if (btn.dataset.answerValue) {
+        btn.addEventListener('click', () => answerCurrentQuiz(btn.dataset.answerValue));
+      }
+    });
+
+    $('#backToQuizSetup')?.addEventListener('click', () => {
+      quizState = null;
+      render();
+    });
+
+    $('#resultRevisionBtn')?.addEventListener('click', () => setTab('revision'));
+
+    $$('[data-result-choco]').forEach(btn => {
+      btn.addEventListener('click', () => openChocolateModal(btn.dataset.resultChoco));
+    });
+  }
+
+  function bindRevision() {
+    $('#revisionQuizBtn')?.addEventListener('click', () => {
+      createQuizSession(['Toutes'], Math.min(10, Math.max(5, state.revisionIds.length)), true);
+      setTab('quiz');
+    });
+
+    $('#clearRevisionBtn')?.addEventListener('click', () => {
+      if (!state.revisionIds.length) return;
+      state.revisionIds = [];
+      saveState();
+      showToast('Liste de révision vidée.', 'warning');
+      render();
+    });
+
+    $$('[data-revision-open]').forEach(btn => {
+      btn.addEventListener('click', () => openChocolateModal(btn.dataset.revisionOpen));
+    });
+
+    $$('[data-revision-remove]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        state.revisionIds = state.revisionIds.filter(id => id !== btn.dataset.revisionRemove);
+        saveState();
+        render();
+      });
+    });
+  }
+
+  function bindProgression() {
+    $('#resetDataBtn')?.addEventListener('click', () => {
+      const ok = window.confirm('Réinitialiser toutes les données de l’Académie Cacao sur ce navigateur ?');
+      if (!ok) return;
+      resetState();
+      quizState = null;
+      showToast('Progression réinitialisée.', 'warning');
+      render();
+    });
+
+    $$('[data-progress-open]').forEach(btn => {
+      btn.addEventListener('click', () => openChocolateModal(btn.dataset.progressOpen));
+    });
+  }
+
+  // ============================================================
+  // START
+  // ============================================================
+  render();
+})();
+</script>
+<footer class="site-disclaimer">
+  <div class="site-disclaimer-inner">
+    <div class="site-disclaimer-icon">⚠️</div>
+
+    <div class="site-disclaimer-content">
+      <strong>Site fictif à but pédagogique</strong>
+
+      <p>
+        Tout ceci est un site fictif créé dans le cadre de l'apprentissage.
+        Il peut contenir des erreurs ou des informations incorrectes.
+        Ce site n'est pas affilié à Jeff de Bruges.
+      </p>
+
+      <a
+        href="https://www.jeff-de-bruges.com/"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="official-link"
+      >
+        Visiter le vrai site officiel Jeff de Bruges
+        <span>→</span>
+      </a>
+    </div>
+  </div>
+</footer>
+```
+
+</body>
+</html>
