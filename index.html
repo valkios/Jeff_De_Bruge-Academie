@@ -501,7 +501,7 @@ body.category-page-milk #main article,
 body.category-page-dark #main article {
   /* aucun changement de fond */
 }
-css
+
 /* ============================================================
    ⚠️ FOOTER — SITE FICTIF
    ============================================================ */
@@ -642,7 +642,420 @@ body.category-page-white .site-disclaimer-inner {
     font-size: 11px;
   }
 }
-  </style>
+
+/* ============================================================
+   🖤 CHOCOLAT NOIR — AMÉLIORATIONS (accents or, texture, lisibilité)
+   ============================================================ */
+body.category-page-dark::before {
+  background:
+    radial-gradient(ellipse at 50% -5%, rgba(212,175,55,.14), transparent 45%),
+    linear-gradient(rgba(255,255,255,.022) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,.022) 1px, transparent 1px);
+  background-size: auto, 72px 72px, 72px 72px;
+}
+
+/* En-tête et navigation */
+body.category-page-dark header {
+  background: linear-gradient(90deg, #120a06, #24150d 50%, #120a06) !important;
+  border-bottom: 1px solid rgba(212,175,55,.28) !important;
+}
+body.category-page-dark header .bg-turquoise-500 { background: #d4af37 !important; color: #22140E !important; }
+body.category-page-dark .nav-active {
+  background: rgba(212,175,55,.14); color: #e9cf7a;
+  box-shadow: inset 0 0 0 1px rgba(212,175,55,.3);
+}
+body.category-page-dark .mobile-bottom-nav {
+  background: rgba(18,10,6,.96) !important;
+  border-top-color: rgba(212,175,55,.28) !important;
+}
+
+/* Bandeau d'accueil */
+body.category-page-dark #main > section:first-child {
+  border: 1px solid rgba(212,175,55,.32);
+  box-shadow: 0 24px 60px rgba(0,0,0,.45), inset 0 1px 0 rgba(255,255,255,.05);
+}
+body.category-page-dark #main > section:first-child h1 { text-shadow: 0 2px 24px rgba(212,175,55,.25); }
+
+/* Accents : le turquoise devient or */
+body.category-page-dark #main .text-turquoise-700,
+body.category-page-dark #main .text-turquoise-600 { color: #d4af37 !important; }
+body.category-page-dark #main .text-turquoise-200 { color: #ecd88f !important; }
+body.category-page-dark #main .bg-turquoise-500\/20 { background: rgba(212,175,55,.18) !important; }
+body.category-page-dark #main .bg-turquoise-500 {
+  background: linear-gradient(135deg, #e2c866, #b89222) !important; color: #22140E !important;
+}
+
+/* Recherche, filtre et pastilles (lisibles sur fond sombre) */
+body.category-page-dark #main .input-premium {
+  background: rgba(255,248,239,.06) !important;
+  border-color: rgba(212,175,55,.25) !important;
+  color: #fff8ef !important;
+}
+body.category-page-dark #main .input-premium::placeholder { color: #b9a591; }
+body.category-page-dark #main .input-premium:focus {
+  border-color: #d4af37 !important; box-shadow: 0 0 0 4px rgba(212,175,55,.14) !important;
+}
+body.category-page-dark #main select.input-premium option { background: #24150d; color: #fff8ef; }
+body.category-page-dark #main .fa-magnifying-glass { color: #d4af37 !important; }
+body.category-page-dark #main > section:nth-of-type(2) .bg-cacao-100 {
+  background: rgba(255,248,239,.07) !important; color: #e9d9c3 !important;
+}
+body.category-page-dark #main > section:nth-of-type(2) .bg-cacao-100:hover { background: rgba(212,175,55,.16) !important; }
+
+/* Cartes : fonds inchangés, bordure et survol dorés */
+body.category-page-dark #catalogueGrid article {
+  border: 1px solid rgba(212,175,55,.3) !important;
+  box-shadow: 0 14px 36px rgba(0,0,0,.4) !important;
+}
+body.category-page-dark #catalogueGrid article:hover {
+  border-color: rgba(226,200,102,.8) !important;
+  box-shadow: 0 0 0 1px rgba(212,175,55,.35), 0 22px 50px rgba(0,0,0,.5), 0 0 34px rgba(212,175,55,.18) !important;
+}
+body.category-page-dark #catalogueGrid article p { color: #6E4932; }
+body.category-page-dark #catalogueGrid article .text-turquoise-700 { color: #8a6a12 !important; }
+
+/* État vide */
+body.category-page-dark #main .border-dashed {
+  background: rgba(255,248,239,.05) !important; border-color: rgba(212,175,55,.3) !important;
+}
+body.category-page-dark #main .border-dashed .bg-cacao-100 { background: rgba(212,175,55,.14) !important; color: #e2c866 !important; }
+body.category-page-dark #main .border-dashed .text-cacao-500\/80 { color: #d8c5b3 !important; }
+
+/* ============================================================
+   🥛 CHOCOLAT AU LAIT — AMÉLIORATIONS (accents caramel, texture, lisibilité)
+   ============================================================ */
+body.category-page-milk::before {
+  background:
+    radial-gradient(ellipse at 50% -5%, rgba(255,244,220,.8), transparent 50%),
+    linear-gradient(rgba(94,54,30,.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(94,54,30,.05) 1px, transparent 1px);
+  background-size: auto, 72px 72px, 72px 72px;
+}
+
+/* En-tête et navigation */
+body.category-page-milk header {
+  background: linear-gradient(90deg, #3a2112, #5a3620 50%, #3a2112) !important;
+  border-bottom: 1px solid rgba(226,170,110,.4) !important;
+}
+body.category-page-milk header .bg-turquoise-500 { background: #c98a4b !important; }
+body.category-page-milk .nav-link.nav-active {
+  background: rgba(255,214,160,.18); color: #ffd9a8;
+  box-shadow: inset 0 0 0 1px rgba(255,214,160,.32);
+}
+body.category-page-milk .mobile-bottom-nav {
+  background: rgba(255,244,223,.96) !important;
+  border-top-color: rgba(154,99,59,.3) !important;
+}
+body.category-page-milk .mobile-nav-link.nav-active {
+  background: rgba(154,99,59,.14); color: #8a4f24;
+  box-shadow: inset 0 0 0 1px rgba(154,99,59,.25);
+}
+
+/* Bandeau d'accueil */
+body.category-page-milk #main > section:first-child {
+  box-shadow: 0 22px 55px rgba(82,50,25,.22), inset 0 1px 0 rgba(255,255,255,.55);
+}
+body.category-page-milk #main > section:first-child .text-gold-400 { color: #7a5a0f !important; }
+body.category-page-milk #main > section:first-child .text-turquoise-200 { color: #6b3f1e !important; }
+body.category-page-milk #main > section:first-child .bg-turquoise-500\/20 { background: rgba(154,99,59,.2) !important; }
+
+/* Accents : le turquoise devient caramel */
+body.category-page-milk #main .text-turquoise-700,
+body.category-page-milk #main .text-turquoise-600 { color: #8a4f24 !important; }
+body.category-page-milk #main .bg-turquoise-500 {
+  background: linear-gradient(135deg, #c98a4b, #9a633b) !important; color: #fff !important;
+}
+
+/* Recherche, filtre et pastilles */
+body.category-page-milk #main .input-premium {
+  background: rgba(255,255,255,.78) !important; border-color: rgba(154,99,59,.35) !important;
+}
+body.category-page-milk #main .input-premium:focus {
+  border-color: #b4692f !important; box-shadow: 0 0 0 4px rgba(180,105,47,.14) !important;
+}
+body.category-page-milk #main .fa-magnifying-glass { color: #9a633b !important; }
+body.category-page-milk #main > section:nth-of-type(2) .bg-cacao-100 {
+  background: rgba(255,255,255,.55) !important; color: #5d402b !important;
+}
+body.category-page-milk #main > section:nth-of-type(2) .bg-cacao-100:hover { background: rgba(201,138,75,.22) !important; }
+
+/* Cartes : bordure et survol caramel, visuel sur fond crème chaud */
+body.category-page-milk #catalogueGrid article {
+  border: 1px solid rgba(154,99,59,.28) !important;
+  box-shadow: 0 12px 30px rgba(82,50,25,.16) !important;
+}
+body.category-page-milk #catalogueGrid article:hover {
+  border-color: rgba(180,105,47,.7) !important;
+  box-shadow: 0 0 0 1px rgba(180,105,47,.3), 0 22px 46px rgba(82,50,25,.28) !important;
+}
+body.category-page-milk #catalogueGrid article .chocolate-visual {
+  background: radial-gradient(circle at 50% 40%, #fff7e8, #f3dcb9 78%);
+}
+
+/* ============================================================
+   🏠 PAGE D'ACCUEIL (catalogue, toutes catégories)
+   ============================================================ */
+body.home-mode::before {
+  content: '';
+  position: fixed; inset: 0; z-index: -1; pointer-events: none;
+  background:
+    linear-gradient(rgba(61,35,20,.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(61,35,20,.035) 1px, transparent 1px);
+  background-size: 72px 72px;
+}
+body.home-mode #main { animation: categoryThemeEnter .45s ease both; }
+/* Accueil : bandeau, tuiles de familles, saisons */
+.home-hero {
+  background:
+    radial-gradient(circle at 90% 8%, rgba(212,175,55,.22), transparent 38%),
+    radial-gradient(circle at 6% 100%, rgba(0,178,169,.18), transparent 40%),
+    linear-gradient(135deg, #22140E 0%, #3D2314 58%, #2C1A11 100%);
+  border: 1px solid rgba(212,175,55,.3);
+  box-shadow: 0 30px 70px rgba(34,20,14,.30), inset 0 1px 0 rgba(255,255,255,.06);
+}
+.home-hero::before {
+  content: ''; position: absolute; inset: 0; pointer-events: none;
+  background-image:
+    linear-gradient(rgba(255,255,255,.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,.035) 1px, transparent 1px);
+  background-size: 56px 56px;
+  -webkit-mask-image: radial-gradient(circle at 75% 40%, #000, transparent 70%);
+          mask-image: radial-gradient(circle at 75% 40%, #000, transparent 70%);
+}
+.home-stat { border: 1px solid rgba(255,255,255,.10); background: rgba(255,255,255,.05); border-radius: 18px; padding: 12px 14px; }
+.home-float {
+  position: absolute; border-radius: 22px; padding: 4px;
+  border: 1px solid rgba(255,255,255,.16); background: rgba(255,255,255,.09);
+  backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
+  box-shadow: 0 14px 30px rgba(0,0,0,.28);
+}
+.home-tile {
+  position: relative; overflow: hidden; border-radius: 28px; padding: 22px; text-align: left;
+  min-height: 220px; display: flex; flex-direction: column; justify-content: space-between;
+  transition: transform .25s ease, box-shadow .25s ease;
+}
+.home-tile:hover { transform: translateY(-4px); }
+.home-tile .tile-arrow {
+  position: absolute; right: 18px; top: 18px; width: 38px; height: 38px; border-radius: 999px;
+  display: flex; align-items: center; justify-content: center; font-size: 13px;
+  background: rgba(255,255,255,.35); transition: transform .25s ease;
+}
+.home-tile:hover .tile-arrow { transform: translateX(3px); }
+.home-tile .tile-imgs { display: flex; align-items: flex-end; }
+.home-tile .tile-imgs > span { margin-left: -22px; filter: drop-shadow(0 10px 10px rgba(34,20,14,.22)); }
+.home-tile .tile-imgs > span:first-child { margin-left: 0; }
+.home-tile.white { background: linear-gradient(135deg, #fffdf8, #f2e1c3); color: #302218; border: 1px solid rgba(137,96,38,.28); box-shadow: 0 16px 40px rgba(82,55,24,.14); }
+.home-tile.milk  { background: linear-gradient(135deg, #fff0d8, #dcb184 58%, #b98251); color: #382316; border: 1px solid rgba(112,72,39,.3); box-shadow: 0 16px 40px rgba(82,50,25,.2); }
+.home-tile.dark  { background: linear-gradient(135deg, #3a2114, #1c100a); color: #fff8ef; border: 1px solid rgba(212,175,55,.32); box-shadow: 0 16px 40px rgba(34,20,14,.34); }
+.home-tile.dark .tile-arrow { background: rgba(212,175,55,.22); color: #e2c866; }
+.home-tile.white:hover { box-shadow: 0 22px 50px rgba(82,55,24,.24); }
+.home-tile.milk:hover  { box-shadow: 0 22px 50px rgba(82,50,25,.32); }
+.home-tile.dark:hover  { box-shadow: 0 22px 50px rgba(34,20,14,.5), 0 0 30px rgba(212,175,55,.16); }
+.home-season {
+  display: flex; align-items: center; gap: 14px; text-align: left; border-radius: 22px; padding: 14px 16px;
+  transition: transform .2s ease, box-shadow .2s ease;
+}
+.home-season:hover { transform: translateY(-2px); }
+.home-season .season-emoji { font-size: 30px; line-height: 1; }
+.home-season.easter { background: linear-gradient(135deg, #fff0f8, #fff8d9); color: #533b58; border: 1px solid rgba(216,137,182,.35); }
+.home-season.xmas   { background: linear-gradient(135deg, #123d2a, #6b1f2a); color: #fff8e8; border: 1px solid rgba(226,200,102,.4); }
+.home-season.hw     { background: linear-gradient(135deg, #1a0b2e, #3a1457 60%, #7a2a0a); color: #fff1dc; border: 1px solid rgba(255,122,24,.45); }
+
+body.home-mode #main > div.mt-7 h2::after {
+  content: ''; display: block; width: 56px; height: 3px; margin-top: 8px; border-radius: 999px;
+  background: linear-gradient(90deg, #D4AF37, #00B2A9);
+}
+body.home-mode #catalogueGrid article {
+  border-color: rgba(61,35,20,.10);
+}
+body.home-mode #catalogueGrid article:hover {
+  border-color: rgba(0,178,169,.5);
+  box-shadow: 0 0 0 1px rgba(0,178,169,.18), 0 22px 46px rgba(34,20,14,.16);
+}
+body.home-mode #catalogueGrid article .chocolate-visual {
+  background: radial-gradient(circle at 50% 40%, #FFFDF9, #F3E8DD 78%);
+}
+
+/* Encadré « site fictif » — page d'accueil */
+body.home-mode .site-disclaimer-inner {
+  background:
+    radial-gradient(circle at 92% 10%, rgba(212,175,55,.16), transparent 40%),
+    linear-gradient(135deg, #22140E, #3D2314);
+  border-color: rgba(212,175,55,.35);
+  box-shadow: 0 16px 40px rgba(34,20,14,.25), inset 0 1px 0 rgba(255,255,255,.06);
+}
+body.home-mode .site-disclaimer-content strong { color: #fff8ef; }
+body.home-mode .site-disclaimer-content p { color: #dbc8b5; }
+body.home-mode .site-disclaimer-icon { background: rgba(212,175,55,.16); }
+body.home-mode .official-link { color: #e2c866; }
+body.home-mode .official-link:hover { color: #f1dc8f; }
+
+/* ============================================================
+   🎃 THÈME HALLOWEEN — Spécialités d'Halloween
+   ============================================================ */
+body.halloween-mode {
+  background:
+    radial-gradient(circle at 14% 8%, rgba(255,122,24,.24), transparent 26%),
+    radial-gradient(circle at 88% 14%, rgba(138,63,252,.28), transparent 28%),
+    radial-gradient(circle at 50% 108%, rgba(255,90,0,.20), transparent 36%),
+    linear-gradient(160deg, #0c0414 0%, #1a0b2e 45%, #2a0f1a 100%);
+  color: #f6e9ff;
+  min-height: 100vh;
+  transition: background .6s ease, color .3s ease;
+}
+body.halloween-mode #main { color: #f6e9ff; animation: categoryThemeEnter .45s ease both; }
+
+/* Motifs d'Halloween en fond (deux calques qui dérivent lentement) */
+body.halloween-mode::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+}
+body.halloween-mode::before {
+  background-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20width%3D%27340%27%20height%3D%27340%27%3E%3Cg%20font-size%3D%2738%27%20text-anchor%3D%27middle%27%3E%3Ctext%20x%3D%2740%27%20y%3D%2760%27%20transform%3D%27rotate%28-14%2040%2060%29%27%3E%F0%9F%8E%83%3C%2Ftext%3E%3Ctext%20x%3D%27170%27%20y%3D%2745%27%20transform%3D%27rotate%2810%20170%2045%29%27%3E%F0%9F%91%BB%3C%2Ftext%3E%3Ctext%20x%3D%27285%27%20y%3D%2795%27%20transform%3D%27rotate%28-8%20285%2095%29%27%3E%F0%9F%A6%87%3C%2Ftext%3E%3Ctext%20x%3D%2795%27%20y%3D%27170%27%20transform%3D%27rotate%280%2095%20170%29%27%3E%F0%9F%95%B8%EF%B8%8F%3C%2Ftext%3E%3Ctext%20x%3D%27230%27%20y%3D%27205%27%20transform%3D%27rotate%2812%20230%20205%29%27%3E%F0%9F%95%B7%EF%B8%8F%3C%2Ftext%3E%3Ctext%20x%3D%2740%27%20y%3D%27285%27%20transform%3D%27rotate%28-10%2040%20285%29%27%3E%F0%9F%92%80%3C%2Ftext%3E%3Ctext%20x%3D%27150%27%20y%3D%27305%27%20transform%3D%27rotate%2818%20150%20305%29%27%3E%F0%9F%8D%AC%3C%2Ftext%3E%3Ctext%20x%3D%27290%27%20y%3D%27300%27%20transform%3D%27rotate%28-12%20290%20300%29%27%3E%F0%9F%8C%99%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fsvg%3E");
+  background-size: 420px 420px;
+  opacity: .08;
+}
+
+/* Petits éléments qui survolent (créés en JS dans #halloweenLayer) */
+.hw-ghost {
+  position: fixed; z-index: -1; line-height: 1; left: 3vw; top: 42vh;
+  font-size: 3rem; opacity: .2;
+  filter: drop-shadow(0 0 14px rgba(190,160,255,.55));
+  animation: hwFloat 8s ease-in-out infinite;
+}
+.hw-bat {
+  position: fixed; top: var(--top); left: 0; z-index: 35; line-height: 1;
+  font-size: var(--size, 1.5rem); opacity: .55; transform: translateX(-12vw);
+  animation: hwBatFly var(--dur, 30s) linear var(--delay, 0s) infinite;
+  will-change: transform; pointer-events: none;
+}
+.hw-bat b { display: block; font-weight: 400; animation: hwFlap .6s ease-in-out infinite alternate; }
+@keyframes hwBatFly { from { transform: translateX(-12vw); } to { transform: translateX(112vw); } }
+@keyframes hwFlap   { from { transform: translateY(-5px) scaleX(1) rotate(-5deg); } to { transform: translateY(6px) scaleX(.8) rotate(5deg); } }
+@keyframes hwFloat  { 0%,100% { transform: translateY(0) rotate(-4deg); } 50% { transform: translateY(-22px) rotate(4deg); } }
+@media (max-width: 640px) { .hw-ghost { display: none; } }
+@media (prefers-reduced-motion: reduce) { .hw-ghost, .hw-bat, .hw-bat b { animation: none !important; } .hw-bat { display: none; } }
+
+/* En-tête et navigation */
+body.halloween-mode header {
+  background: linear-gradient(90deg, #12051d, #2b0f45 50%, #12051d) !important;
+  border-bottom: 1px solid rgba(255,122,24,.35) !important;
+  box-shadow: 0 10px 40px rgba(0,0,0,.45) !important;
+}
+body.halloween-mode header .text-gold-400 { color: #ff9a3c !important; }
+body.halloween-mode header .bg-turquoise-500 { background: #e8590c !important; }
+body.halloween-mode .nav-active {
+  background: rgba(255,122,24,.16); color: #ffb066;
+  box-shadow: inset 0 0 0 1px rgba(255,122,24,.32);
+}
+body.halloween-mode .mobile-bottom-nav {
+  background: rgba(18,5,29,.96) !important;
+  border-top-color: rgba(255,122,24,.35) !important;
+}
+
+/* Textes */
+body.halloween-mode #main .text-cacao-900 { color: #fff1dc !important; }
+body.halloween-mode #main .text-cacao-800,
+body.halloween-mode #main .text-cacao-700,
+body.halloween-mode #main .text-cacao-600 { color: #ffdcb0 !important; }
+body.halloween-mode #main .text-cacao-500,
+body.halloween-mode #main .text-cacao-500\/80,
+body.halloween-mode #main .text-cacao-500\/85,
+body.halloween-mode #main .text-cacao-500\/60,
+body.halloween-mode #main .text-cacao-400 { color: #cdb6ea !important; }
+body.halloween-mode #main .text-turquoise-700,
+body.halloween-mode #main .text-turquoise-600 { color: #ff9a3c !important; }
+body.halloween-mode #main .text-turquoise-200 { color: #ffc58a !important; }
+body.halloween-mode #main .bg-turquoise-500\/20 { background: rgba(255,122,24,.22) !important; }
+body.halloween-mode #main .fa-magnifying-glass { color: #ffb066 !important; }
+
+/* Surfaces et boutons */
+body.halloween-mode #main .bg-white { background-color: rgba(36,14,58,.9) !important; color: #ffe9cf; }
+body.halloween-mode #main .bg-cacao-100 { background-color: #2e1650 !important; color: #ffd9a8 !important; }
+body.halloween-mode #main .hover\:bg-cacao-200:hover { background-color: #43206f !important; }
+body.halloween-mode #main .bg-turquoise-500 {
+  background: linear-gradient(135deg, #ff7a18, #e8590c) !important; color: #fff !important;
+}
+
+/* Recherche et filtre */
+body.halloween-mode #main .input-premium {
+  background: rgba(24,8,40,.88) !important;
+  border-color: rgba(255,122,24,.28) !important;
+  color: #ffe9cf !important;
+}
+body.halloween-mode #main .input-premium::placeholder { color: #b99fd6; }
+body.halloween-mode #main .input-premium:focus {
+  border-color: #ff7a18 !important; box-shadow: 0 0 0 4px rgba(255,122,24,.16) !important;
+}
+body.halloween-mode #main select.input-premium option { background: #1d0d33; color: #ffe9cf; }
+
+/* Bandeau d'accueil + panneau de filtres */
+body.halloween-mode #main > section:first-child {
+  background:
+    radial-gradient(circle at 85% 20%, rgba(255,122,24,.30), transparent 34%),
+    radial-gradient(circle at 10% 90%, rgba(138,63,252,.28), transparent 38%),
+    linear-gradient(135deg, rgba(26,11,46,.95), rgba(58,20,87,.95) 55%, rgba(110,38,8,.92)) !important;
+  border: 1px solid rgba(255,122,24,.35);
+  box-shadow: 0 24px 60px rgba(0,0,0,.45), 0 0 40px rgba(255,100,0,.12);
+}
+body.halloween-mode #main > section:first-child h1 { color: #fff1dc !important; text-shadow: 0 0 22px rgba(255,122,24,.4); }
+body.halloween-mode #main > section:nth-of-type(2) {
+  background: rgba(28,10,46,.82) !important;
+  border-color: rgba(255,122,24,.25) !important;
+  backdrop-filter: blur(10px);
+}
+
+/* Cartes produits */
+body.halloween-mode #catalogueGrid article {
+  background: linear-gradient(160deg, rgba(40,16,66,.96), rgba(22,8,36,.96)) !important;
+  border: 1px solid rgba(255,122,24,.22) !important;
+  box-shadow: 0 12px 34px rgba(0,0,0,.4) !important;
+}
+body.halloween-mode #catalogueGrid article:hover {
+  border-color: rgba(255,154,60,.7) !important;
+  box-shadow: 0 0 0 1px rgba(255,122,24,.35), 0 22px 50px rgba(255,100,0,.25) !important;
+}
+body.halloween-mode #catalogueGrid article .chocolate-visual {
+  background: radial-gradient(circle at 50% 42%, rgba(255,170,80,.30), rgba(138,63,252,.12) 55%, transparent 76%);
+}
+body.halloween-mode #catalogueGrid article .border-t { border-color: rgba(255,122,24,.22) !important; }
+body.halloween-mode #catalogueGrid article h3 { color: #fff1dc !important; }
+body.halloween-mode #main .border-dashed {
+  background: rgba(28,10,46,.72) !important; border-color: rgba(255,122,24,.38) !important;
+}
+
+/* Bannière Halloween */
+.halloween-banner {
+  background:
+    radial-gradient(circle at 18% 20%, rgba(255,122,24,.30), transparent 32%),
+    radial-gradient(circle at 85% 80%, rgba(138,63,252,.38), transparent 36%),
+    linear-gradient(135deg, #1a0b2e 0%, #3a1457 48%, #7a2a0a 100%);
+  border: 2px solid rgba(255,122,24,.55);
+  color: #fff1dc;
+  box-shadow: 0 0 0 1px rgba(255,154,60,.15), 0 24px 70px rgba(255,100,0,.22), inset 0 0 60px rgba(0,0,0,.35);
+  min-height: 180px;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+}
+.halloween-banner h2 {
+  color: #ffb066 !important;
+  text-shadow: 0 0 14px rgba(255,122,24,.45);
+}
+.halloween-banner p { color: #f1dcff; }
+/* Pied de page */
+body.halloween-mode .site-disclaimer-inner {
+  background: linear-gradient(135deg, #2a1346, #16081f);
+  border-color: rgba(255,122,24,.3);
+  box-shadow: 0 18px 45px rgba(0,0,0,.35);
+}
+body.halloween-mode .site-disclaimer-content strong { color: #fff1dc; }
+body.halloween-mode .site-disclaimer-content p { color: #d6c2ee; }
+body.halloween-mode .site-disclaimer-icon { background: rgba(255,154,60,.14); }
+body.halloween-mode .official-link { color: #ffb066; }
+body.halloween-mode .official-link:hover { color: #ffd09e; }
+</style>
 </head>
 
 <body class="min-h-screen">
@@ -721,19 +1134,27 @@ body.category-page-white .site-disclaimer-inner {
       id: "choco-1-maison-de-jeff-blanc",
       name: "Maison de Jeff blanc", category: "Chocolat blanc 25% Cacao",
       coating: "Blanc", cacao: "25%",
-      filling: "Praliné amandes", shape: 'square', decor: 'gold',
+      filling: "Praliné amande avec éclats d'amandes caramélisées et de miel", shape: 'square', decor: 'gold',
       visual: "Image officielle Jeff de Bruges — Maison de Jeff blanc",
-      tastingNotes: "Praliné amandes",
+      tastingNotes: "Praliné amandes Praliné amande avec éclats d'amandes caramélisées et de miel",
       mnemonic: "Maison de Jeff blanc — mémorise son nom et son aspect.",
       image: "https://jeffdebruges-jeffdebruges-fr-storage.omn.proximis.com/Imagestorage/imagesSynchro/190/190/e597a7d87db5b0a32c68238ae5668cdb338701b6_5413676189729_maison_de_jeff_blanc.png"
     },
     {
-      id: "choco-3-rocher",
-      name: "Rocher", category: "Chocolat blanc 25% Cacao",
+      id: "choco-2-eden",
+      name: "Eden", category: "Chocolat blanc 25% Cacao",
       coating: "Blanc", cacao: "25%",
-      filling: "Praliné croustillant", shape: 'square', decor: 'gold',
+      filling: "Praliné noisettes et éclats d'amandes Enrobé de chocolat aulait et de copaux de chocolat blanc", shape: 'square', decor: 'gold',
+      visual: "Image officielle Jeff de Bruges — Eden",
+      mnemonic: "Eden — mémorise son nom et son aspect.",
+      image: "https://jeffdebruges-jeffdebruges-fr-storage.omn.proximis.com/Imagestorage/imagesSynchro/190/190/952df21ba1693f8f0849bcdf90d9538fb8e29376_5413676188692_eden.png"
+    },
+    {
+      id: "choco-3-rocher",
+      name: "Rocher Blanc", category: "Chocolat blanc 25% Cacao",
+      coating: "Blanc", cacao: "25%",
+      filling: "Praliné croustillant et éclats croustillants", shape: 'square', decor: 'gold',
       visual: "Image officielle Jeff de Bruges — Rocher",
-      tastingNotes: "Praliné croustillant",
       mnemonic: "Rocher — mémorise son nom et son aspect.",
       image: "https://jeffdebruges-jeffdebruges-fr-storage.omn.proximis.com/Imagestorage/imagesSynchro/575/575/5877e8b1132c0bc608c4418bdcdb84f5c1111f60_3660523079463_Mini_rocher_blanc.png"
     },
@@ -741,9 +1162,8 @@ body.category-page-white .site-disclaimer-inner {
       id: "choco-4-palet-jb-blanc",
       name: "Palet JB blanc", category: "Chocolat blanc 25% Cacao",
       coating: "Blanc", cacao: "25%",
-      filling: "Ganache intense de chocolat noir", shape: 'square', decor: 'gold',
+      filling: "Ganache intense de chocolat noir au cacao de Sao Tomé", shape: 'square', decor: 'gold',
       visual: "Image officielle Jeff de Bruges — Palet JB blanc",
-      tastingNotes: "Ganache intense de chocolat noir",
       mnemonic: "Palet JB blanc — mémorise son nom et son aspect.",
       image: "https://jeffdebruges-jeffdebruges-fr-storage.omn.proximis.com/Imagestorage/imagesSynchro/190/190/5f941d044781dd3bebef179d0361b94af2dca6e7_3660523336252_Palet_JB_blanc.png"
     },
@@ -753,7 +1173,6 @@ body.category-page-white .site-disclaimer-inner {
       coating: "Blanc", cacao: "25%",
       filling: "Praliné gianduja et éclats de riz soufflé", shape: 'square', decor: 'gold',
       visual: "Image officielle Jeff de Bruges — Biscuitine",
-      tastingNotes: "Praliné gianduja et éclats de riz soufflé",
       mnemonic: "Biscuitine — mémorise son nom et son aspect.",
       image: "https://jeffdebruges-jeffdebruges-fr-storage.omn.proximis.com/Imagestorage/imagesSynchro/190/190/3e3e39b5032f525e22ee1cfd6729591d2934b29d_5413676183796_biscuitine.png"
     },
@@ -761,9 +1180,8 @@ body.category-page-white .site-disclaimer-inner {
       id: "choco-6-manon-caf-jeff",
       name: "Manon café Jeff", category: "Chocolat blanc 25% Cacao",
       coating: "Blanc", cacao: "25%",
-      filling: "Praliné noisettes et crème au beurre au café", shape: 'square', decor: 'gold',
+      filling: "Duo praliné noisettes et crème au beurre au café, avec sa noisette caramélisées", shape: 'square', decor: 'gold',
       visual: "Image officielle Jeff de Bruges — Manon café Jeff",
-      tastingNotes: "Praliné noisettes et crème au beurre au café",
       mnemonic: "Manon café Jeff — mémorise son nom et son aspect.",
       image: "https://jeffdebruges-jeffdebruges-fr-storage.omn.proximis.com/Imagestorage/imagesSynchro/575/575/218435b40044e009b469921b39ec06644b010b99_3660523339864_Manon_cafe.png"
     },
@@ -771,9 +1189,8 @@ body.category-page-white .site-disclaimer-inner {
       id: "choco-7-manon",
       name: "Manon", category: "Chocolat blanc 25% Cacao",
       coating: "Blanc", cacao: "25%",
-      filling: "Praliné noisettes et crème légère vanille", shape: 'square', decor: 'gold',
+      filling: "Duo praliné noisettes et crème légère vanille éclats de noisettes caramélisées", shape: 'square', decor: 'gold',
       visual: "Image officielle Jeff de Bruges — Manon",
-      tastingNotes: "Praliné noisettes et crème légère vanille",
       mnemonic: "Manon — mémorise son nom et son aspect.",
       image: "https://jeffdebruges-jeffdebruges-fr-storage.omn.proximis.com/Imagestorage/imagesSynchro/190/190/343ac2d3c5bbd2266c7fd866f2935509ef3f11d6_5413676188517_manon.png"
     },
@@ -781,9 +1198,8 @@ body.category-page-white .site-disclaimer-inner {
       id: "choco-8-vanillon",
       name: "Vanillon", category: "Chocolat blanc 25% Cacao",
       coating: "Blanc", cacao: "25%",
-      filling: "Spécialité Jeff de Bruges", shape: 'square', decor: 'gold',
+      filling: "Crème au beurre à la vanille de madagascar et sa noisette caramélisée", shape: 'square', decor: 'gold',
       visual: "Image officielle Jeff de Bruges — Vanillon",
-      tastingNotes: "Spécialité Jeff de Bruges",
       mnemonic: "Vanillon — mémorise son nom et son aspect.",
       image: "https://i.ibb.co/TBfGmCV7/t-l-chargement-4.png"
     },
@@ -793,7 +1209,6 @@ body.category-page-white .site-disclaimer-inner {
       coating: "Blanc", cacao: "25%",
       filling: "Ganache de chocolat noir au cacao d'Équateur", shape: 'square', decor: 'gold',
       visual: "Image officielle Jeff de Bruges — Palet JB ambré",
-      tastingNotes: "Ganache de chocolat noir au cacao d'Équateur",
       mnemonic: "Palet JB ambré — mémorise son nom et son aspect.",
       image: "https://jeffdebruges-jeffdebruges-fr-storage.omn.proximis.com/Imagestorage/imagesSynchro/575/575/ffeafb2a065f05fbe388160919a3d30c6c42bcab_3660523323009_PALAIT_JB_AMBRE.png"
     },
@@ -801,29 +1216,17 @@ body.category-page-white .site-disclaimer-inner {
       id: "choco-10-rocher-ambr",
       name: "Rocher Ambré", category: "Chocolat blanc 25% Cacao",
       coating: "Blanc", cacao: "25%",
-      filling: "Praliné et éclats croustillants", shape: 'square', decor: 'gold',
+      filling: "Praliné noisettes et éclats croustillants", shape: 'square', decor: 'gold',
       visual: "Image officielle Jeff de Bruges — Rocher Ambré",
-      tastingNotes: "Praliné et éclats croustillants",
       mnemonic: "Rocher Ambré — mémorise son nom et son aspect.",
       image: "https://jeffdebruges-jeffdebruges-fr-storage.omn.proximis.com/Imagestorage/imagesSynchro/190/190/03c7fdd98278fe2ce6fd7d738568c3a6826b6a0c_minirocherambre_retouch_.png"
-    },
-    {
-      id: "choco-2-eden",
-      name: "Eden", category: "Chocolat blanc 25% Cacao",
-      coating: "Blanc", cacao: "25%",
-      filling: "Praliné noisettes et éclats d'amandes", shape: 'square', decor: 'gold',
-      visual: "Image officielle Jeff de Bruges — Eden",
-      tastingNotes: "Praliné noisettes et éclats d'amandes",
-      mnemonic: "Eden — mémorise son nom et son aspect.",
-      image: "https://jeffdebruges-jeffdebruges-fr-storage.omn.proximis.com/Imagestorage/imagesSynchro/190/190/952df21ba1693f8f0849bcdf90d9538fb8e29376_5413676188692_eden.png"
     },
     {
       id: "choco-11-feuille",
       name: "Feuille", category: "Chocolat au lait 35% cacao minimum",
       coating: "Lait", cacao: "35%",
-      filling: "Praliné aux noisettes", shape: 'square', decor: 'gold',
+      filling: "Praliné Tendre aux noisettes", shape: 'square', decor: 'gold',
       visual: "Image officielle Jeff de Bruges — Feuille",
-      tastingNotes: "Praliné aux noisettes",
       mnemonic: "Feuille — mémorise son nom et son aspect.",
       image: "https://jeffdebruges-jeffdebruges-fr-storage.omn.proximis.com/Imagestorage/imagesSynchro/190/190/57380031cf7ad544014e246aaef7c1339f27aa65_5413676188630_feuille_lait.png"
     },
@@ -831,9 +1234,8 @@ body.category-page-white .site-disclaimer-inner {
       id: "choco-12-duba-style",
       name: "Dubaï style", category: "Chocolat au lait 35% cacao minimum",
       coating: "Lait", cacao: "35%",
-      filling: "Praliné amandes, pâte de pistaches et kadaïf", shape: 'square', decor: 'gold',
+      filling: "Praliné aux amandes, pâte de pistaches et kadaïf", shape: 'square', decor: 'gold',
       visual: "Image officielle Jeff de Bruges — Dubaï style",
-      tastingNotes: "Praliné amandes, pâte de pistaches et kadaïf",
       mnemonic: "Dubaï style — mémorise son nom et son aspect.",
       image: "https://jeffdebruges-jeffdebruges-fr-storage.omn.proximis.com/Imagestorage/imagesSynchro/190/190/19ff0bf90c719ebef1a405f7a1ce647ffc4ed3bc_Dubai_style_entier_et_coupe_v2.png"
     },
@@ -843,7 +1245,6 @@ body.category-page-white .site-disclaimer-inner {
       coating: "Lait", cacao: "35%",
       filling: "Gianduja moelleux aux noisettes et amandes", shape: 'square', decor: 'gold',
       visual: "Image officielle Jeff de Bruges — Cornet Doré",
-      tastingNotes: "Gianduja moelleux aux noisettes et amandes",
       mnemonic: "Cornet Doré — mémorise son nom et son aspect.",
       image: "https://jeffdebruges-jeffdebruges-fr-storage.omn.proximis.com/Imagestorage/imagesSynchro/190/190/45c7d0f1f3d05644224e6a01333a115e8fb24c4f_5413676188371_cornet_dore.png"
     },
@@ -853,7 +1254,6 @@ body.category-page-white .site-disclaimer-inner {
       coating: "Lait", cacao: "35%",
       filling: "Gianduja croustillant et éclats de crêpe dentelle", shape: 'square', decor: 'gold',
       visual: "Image officielle Jeff de Bruges — Cornet bleu",
-      tastingNotes: "Gianduja croustillant et éclats de crêpe dentelle",
       mnemonic: "Cornet bleu — mémorise son nom et son aspect.",
       image: "https://jeffdebruges-jeffdebruges-fr-storage.omn.proximis.com/Imagestorage/imagesSynchro/190/190/c7724c736b4318cff6fa71d2a043635b69f14ac1_5413676188333_cornet_bleu.png"
     },
@@ -863,7 +1263,6 @@ body.category-page-white .site-disclaimer-inner {
       coating: "Lait", cacao: "35%",
       filling: "Gianduja fondant aux noisettes", shape: 'square', decor: 'gold',
       visual: "Image officielle Jeff de Bruges — Bloc gianduja",
-      tastingNotes: "Gianduja fondant aux noisettes",
       mnemonic: "Bloc gianduja — mémorise son nom et son aspect.",
       image: "https://jeffdebruges-jeffdebruges-fr-storage.omn.proximis.com/Imagestorage/imagesSynchro/190/190/e390fa6b59861d175805e29f5da12ae46573018e_5413676188357_bloc_gianduja.png"
     },
@@ -873,7 +1272,6 @@ body.category-page-white .site-disclaimer-inner {
       coating: "Lait", cacao: "35%",
       filling: "Caramel filant à l'ancienne", shape: 'square', decor: 'gold',
       visual: "Image officielle Jeff de Bruges — Jeff",
-      tastingNotes: "Caramel filant à l'ancienne",
       mnemonic: "Jeff — mémorise son nom et son aspect.",
       image: "https://jeffdebruges-jeffdebruges-fr-storage.omn.proximis.com/Imagestorage/imagesSynchro/190/190/fd5d1c9bbd65aa86ee93d658798016d8e627e409_Jefflait_nouveau.png"
     },
@@ -883,7 +1281,6 @@ body.category-page-white .site-disclaimer-inner {
       coating: "Lait", cacao: "35%",
       filling: "Ganache de chocolat au lait aux fruits de la passion", shape: 'square', decor: 'gold',
       visual: "Image officielle Jeff de Bruges — Samali",
-      tastingNotes: "Ganache de chocolat au lait aux fruits de la passion",
       mnemonic: "Samali — mémorise son nom et son aspect.",
       image: "https://jeffdebruges-jeffdebruges-fr-storage.omn.proximis.com/Imagestorage/imagesSynchro/190/190/53317064dd689ee582e575f66e91fe4c9679948e_5413676189934_samali.png"
     },
@@ -891,9 +1288,8 @@ body.category-page-white .site-disclaimer-inner {
       id: "choco-18-palet-jb",
       name: "Palet JB", category: "Chocolat au lait 35% cacao minimum",
       coating: "Lait", cacao: "35%",
-      filling: "Ganache de chocolat", shape: 'square', decor: 'gold',
+      filling: "Ganache de chocolat noir au cacao de saint domingue", shape: 'square', decor: 'gold',
       visual: "Image officielle Jeff de Bruges — Palet JB",
-      tastingNotes: "Ganache de chocolat",
       mnemonic: "Palet JB — mémorise son nom et son aspect.",
       image: "https://jeffdebruges-jeffdebruges-fr-storage.omn.proximis.com/Imagestorage/imagesSynchro/190/190/78a24932dac78e075d9c9f5a88c21b61cbfaa2e8_07425paletJBlait_2025.png"
     },
@@ -901,9 +1297,8 @@ body.category-page-white .site-disclaimer-inner {
       id: "choco-19-eduardo",
       name: "Eduardo", category: "Chocolat au lait 35% cacao minimum",
       coating: "Lait", cacao: "35%",
-      filling: "Ganache de chocolat au lait, coulis de fruit du cacaoyer", shape: 'square', decor: 'gold',
+      filling: "Ganache de chocolat au lait et coulis de fruit du cacaoyer éclats de fèves de cacao", shape: 'square', decor: 'gold',
       visual: "Image officielle Jeff de Bruges — Eduardo",
-      tastingNotes: "Ganache de chocolat au lait, coulis de fruit du cacaoyer",
       mnemonic: "Eduardo — mémorise son nom et son aspect.",
       image: "https://i.ibb.co/qMHPz4sJ/t-l-chargement-5.png"
     },
@@ -913,7 +1308,6 @@ body.category-page-white .site-disclaimer-inner {
       coating: "Lait", cacao: "35%",
       filling: "Praliné aux amandes et éclats de nougat au miel", shape: 'square', decor: 'gold',
       visual: "Image officielle Jeff de Bruges — Maison de Jeff lait",
-      tastingNotes: "Praliné aux amandes et éclats de nougat au miel",
       mnemonic: "Maison de Jeff lait — mémorise son nom et son aspect.",
       image: "https://jeffdebruges-jeffdebruges-fr-storage.omn.proximis.com/Imagestorage/imagesSynchro/190/190/cabf71d228e41520619691c2bbaf1264eacd5286_5413676188562_maison_jeff_lait.png"
     },
@@ -921,9 +1315,8 @@ body.category-page-white .site-disclaimer-inner {
       id: "choco-21-rocher-lait",
       name: "Rocher lait", category: "Chocolat au lait 35% cacao minimum",
       coating: "Lait", cacao: "35%",
-      filling: "Praliné noisette", shape: 'square', decor: 'gold',
+      filling: "Praliné noisettes et éclats croustillants", shape: 'square', decor: 'gold',
       visual: "Image officielle Jeff de Bruges — Rocher lait",
-      tastingNotes: "Praliné noisette",
       mnemonic: "Rocher lait — mémorise son nom et son aspect.",
       image: "https://jeffdebruges-jeffdebruges-fr-storage.omn.proximis.com/Imagestorage/imagesSynchro/575/575/3bac6aaa0aac1c5173f9e223c7432c7ea690f1c4_3660523317046_Mini_rocher_lait.png"
     },
@@ -933,65 +1326,23 @@ body.category-page-white .site-disclaimer-inner {
       coating: "Lait", cacao: "35%",
       filling: "Praliné et meringue fondante", shape: 'square', decor: 'gold',
       visual: "Image officielle Jeff de Bruges — Bûchette",
-      tastingNotes: "Praliné et meringue fondante",
       mnemonic: "Bûchette — mémorise son nom et son aspect.",
       image: "https://jeffdebruges-jeffdebruges-fr-storage.omn.proximis.com/Imagestorage/imagesSynchro/190/190/d704505175a08fc4843531b7328a8e572ddee994_5413676188593_buchette.png"
     },
     {
       id: "choco-23-tr-fle",
-      name: "Trèfle", category: "Chocolat au lait 35% cacao minimum",
+      name: "Trèfle lait", category: "Chocolat au lait 35% cacao minimum",
       coating: "Lait", cacao: "35%",
       filling: "Ganache de chocolat au lait au thé Earl Grey", shape: 'square', decor: 'gold',
       visual: "Image officielle Jeff de Bruges — Trèfle",
-      tastingNotes: "Ganache de chocolat au lait au thé Earl Grey",
       mnemonic: "Trèfle — mémorise son nom et son aspect.",
       image: "https://jeffdebruges-jeffdebruges-fr-storage.omn.proximis.com/Imagestorage/imagesSynchro/575/575/7fa1119e535eb6d905b5bc3e9df284334a195468_5413676188579_trefle_lait.png"
-    },
-    {
-      id: "choco-24-bruxelles-lait",
-      name: "Bruxelles lait", category: "Chocolat au lait 35% cacao minimum",
-      coating: "Lait", cacao: "35%",
-      filling: "Ganache de chocolat au lait au cacao de Madagascar", shape: 'square', decor: 'gold',
-      visual: "Image officielle Jeff de Bruges — Bruxelles lait",
-      tastingNotes: "Ganache de chocolat au lait au cacao de Madagascar",
-      mnemonic: "Bruxelles lait — mémorise son nom et son aspect.",
-      image: "https://jeffdebruges-jeffdebruges-fr-storage.omn.proximis.com/Imagestorage/imagesSynchro/190/190/9a7053cabfa6d6329612661aa5d6cc242306245e_Bruxelles_lait_nouveau.png"
-    },
-    {
-      id: "choco-25-feuillantine",
-      name: "Feuillantine", category: "Chocolat au lait 35% cacao minimum",
-      coating: "Lait", cacao: "35%",
-      filling: "Praliné gianduja et émietté de crêpe dentelle", shape: 'square', decor: 'gold',
-      visual: "Image officielle Jeff de Bruges — Feuillantine",
-      tastingNotes: "Praliné gianduja et émietté de crêpe dentelle",
-      mnemonic: "Feuillantine — mémorise son nom et son aspect.",
-      image: "https://jeffdebruges-jeffdebruges-fr-storage.omn.proximis.com/Imagestorage/imagesSynchro/190/190/b58ef832530b5cc5b187f235f4d29dc4f985cc2e_5413676189460_feuillantine.png"
-    },
-    {
-      id: "choco-26-cr-me-br-l-e",
-      name: "Crème brûlée", category: "Chocolat au lait 35% cacao minimum",
-      coating: "Lait", cacao: "35%",
-      filling: "Ganache chocolat blanc vanille et éclats de sucre ambré", shape: 'square', decor: 'gold',
-      visual: "Image officielle Jeff de Bruges — Crème brûlée",
-      tastingNotes: "Ganache chocolat blanc vanille et éclats de sucre ambré",
-      mnemonic: "Crème brûlée — mémorise son nom et son aspect.",
-      image: "https://jeffdebruges-jeffdebruges-fr-storage.omn.proximis.com/Imagestorage/imagesSynchro/190/190/8dd604d8116840343d8b6bd12c2e0cd1c5b66406_Cr_mebr_l_ecoup_.png"
-    },
-    {
-      id: "choco-27-pop-corn",
-      name: "Pop-corn", category: "Chocolat au lait 35% cacao minimum",
-      coating: "Lait", cacao: "35%",
-      filling: "Suprême de chocolat avec éclats de maïs torréfié", shape: 'square', decor: 'gold',
-      visual: "Image officielle Jeff de Bruges — Pop-corn",
-      tastingNotes: "Suprême de chocolat avec éclats de maïs torréfié",
-      mnemonic: "Pop-corn — mémorise son nom et son aspect.",
-      image: "https://i.ibb.co/fYGjz8W2/t-l-chargement-6.png"
     },
     {
       id: "choco-28-nuttine",
       name: "Nuttine", category: "Chocolat au lait 35% cacao minimum",
       coating: "Lait", cacao: "35%",
-      filling: "Praliné", shape: 'square', decor: 'gold',
+      filling: "Praliné croustillant et noisette entière caramélisée", shape: 'square', decor: 'gold',
       visual: "Image officielle Jeff de Bruges — Nuttine",
       tastingNotes: "Praliné",
       mnemonic: "Nuttine — mémorise son nom et son aspect.",
@@ -1003,17 +1354,51 @@ body.category-page-white .site-disclaimer-inner {
       coating: "Lait", cacao: "35%",
       filling: "Praliné noisettes et éclats d'amandes caramélisées et salées", shape: 'square', decor: 'gold',
       visual: "Image officielle Jeff de Bruges — Ballotin",
-      tastingNotes: "Praliné noisettes et éclats d'amandes caramélisées et salées",
       mnemonic: "Ballotin — mémorise son nom et son aspect.",
       image: "https://jeffdebruges-jeffdebruges-fr-storage.omn.proximis.com/Imagestorage/imagesSynchro/190/190/4b70f22212f76fd45a06f5326cafbf00d2ad3ef0_Ballotinlait_nouveau.png"
+    },
+    {
+      id: "choco-24-bruxelles-lait",
+      name: "Bruxelles lait", category: "Chocolat au lait 35% cacao minimum",
+      coating: "Lait", cacao: "35%",
+      filling: "Ganache de chocolat au lait au cacao de Madagascar", shape: 'square', decor: 'gold',
+      visual: "Image officielle Jeff de Bruges — Bruxelles lait",
+      mnemonic: "Bruxelles lait — mémorise son nom et son aspect.",
+      image: "https://jeffdebruges-jeffdebruges-fr-storage.omn.proximis.com/Imagestorage/imagesSynchro/190/190/9a7053cabfa6d6329612661aa5d6cc242306245e_Bruxelles_lait_nouveau.png"
+    },
+    {
+      id: "choco-25-feuillantine",
+      name: "Feuillantine", category: "Chocolat au lait 35% cacao minimum",
+      coating: "Lait", cacao: "35%",
+      filling: "Praliné gianduja et émietté de crêpe dentelle", shape: 'square', decor: 'gold',
+      visual: "Image officielle Jeff de Bruges — Feuillantine",
+      mnemonic: "Feuillantine — mémorise son nom et son aspect.",
+      image: "https://jeffdebruges-jeffdebruges-fr-storage.omn.proximis.com/Imagestorage/imagesSynchro/190/190/b58ef832530b5cc5b187f235f4d29dc4f985cc2e_5413676189460_feuillantine.png"
+    },
+    {
+      id: "choco-26-cr-me-br-l-e",
+      name: "Crème brûlée", category: "Chocolat au lait 35% cacao minimum",
+      coating: "Lait", cacao: "35%",
+      filling: "Ganache chocolat blanc vanille et éclats de sucre ambré", shape: 'square', decor: 'gold',
+      visual: "Image officielle Jeff de Bruges — Crème brûlée",
+      mnemonic: "Crème brûlée — mémorise son nom et son aspect.",
+      image: "https://jeffdebruges-jeffdebruges-fr-storage.omn.proximis.com/Imagestorage/imagesSynchro/190/190/8dd604d8116840343d8b6bd12c2e0cd1c5b66406_Cr_mebr_l_ecoup_.png"
+    },
+    {
+      id: "choco-27-pop-corn",
+      name: "Pop-corn", category: "Chocolat au lait 35% cacao minimum",
+      coating: "Lait", cacao: "35%",
+      filling: "Suprême de chocolat avec éclats de maïs torréfié", shape: 'square', decor: 'gold',
+      visual: "Image officielle Jeff de Bruges — Pop-corn",
+      mnemonic: "Pop-corn — mémorise son nom et son aspect.",
+      image: "https://i.ibb.co/fYGjz8W2/t-l-chargement-6.png"
     },
     {
       id: "choco-31-petite-meringue-groseille",
       name: "Petite meringue groseille", category: "Chocolat au lait 35% cacao minimum",
       coating: "Lait", cacao: "35%",
-      filling: "Suprême de chocolat noir à la groseille et sa meringue", shape: 'square', decor: 'gold',
+      filling: "Suprême de chocolat noir à la groseille et sa meringue éclats de biscuits", shape: 'square', decor: 'gold',
       visual: "Image officielle Jeff de Bruges — Petite meringue groseille",
-      tastingNotes: "Suprême de chocolat noir à la groseille et sa meringue",
       mnemonic: "Petite meringue groseille — mémorise son nom et son aspect.",
       image: "https://jeffdebruges-jeffdebruges-fr-storage.omn.proximis.com/Imagestorage/imagesSynchro/190/190/054a894fd0fcf801654e7caad044dbcd5c5442ca_PMgroseilleentie_reetcoupepng.png"
     },
@@ -1023,7 +1408,6 @@ body.category-page-white .site-disclaimer-inner {
       coating: "Noir", cacao: "70%",
       filling: "Praliné intense aux noisettes", shape: 'square', decor: 'gold',
       visual: "Image officielle Jeff de Bruges — Feuille chocolat noir",
-      tastingNotes: "Praliné intense aux noisettes",
       mnemonic: "Feuille chocolat noir — mémorise son nom et son aspect.",
       image: "https://jeffdebruges-jeffdebruges-fr-storage.omn.proximis.com/Imagestorage/imagesSynchro/190/190/266cea76e4b11b60da9c868ef1a03704863c9c80_5413676188609_feuille_noir.png"
     },
@@ -1033,7 +1417,6 @@ body.category-page-white .site-disclaimer-inner {
       coating: "Noir", cacao: "70%",
       filling: "Ganache corsée de chocolat noir au cacao du Pérou", shape: 'square', decor: 'gold',
       visual: "Image officielle Jeff de Bruges — Bruxelles",
-      tastingNotes: "Ganache corsée de chocolat noir au cacao du Pérou",
       mnemonic: "Bruxelles — mémorise son nom et son aspect.",
       image: "https://jeffdebruges-jeffdebruges-fr-storage.omn.proximis.com/Imagestorage/imagesSynchro/190/190/20c1e670e988dc721163317a09df63f48c8feb4c_Bruxelles_noir_nouveau.png"
     },
@@ -1041,9 +1424,8 @@ body.category-page-white .site-disclaimer-inner {
       id: "choco-34-bagatelle",
       name: "Bagatelle", category: "Chocolat noir",
       coating: "Noir", cacao: "70%",
-      filling: "Coulis de framboise et praliné avec éclats de maïs", shape: 'square', decor: 'gold',
+      filling: "Duo d'un coulis de framboise et praliné avec éclats de maïs", shape: 'square', decor: 'gold',
       visual: "Image officielle Jeff de Bruges — Bagatelle",
-      tastingNotes: "Coulis de framboise et praliné avec éclats de maïs",
       mnemonic: "Bagatelle — mémorise son nom et son aspect.",
       image: "https://i.ibb.co/tTMMnrMV/t-l-chargement-2.png"
     },
@@ -1053,9 +1435,17 @@ body.category-page-white .site-disclaimer-inner {
       coating: "Noir", cacao: "70%",
       filling: "Praliné et éclats de noisettes grillées et caramélisées", shape: 'square', decor: 'gold',
       visual: "Image officielle Jeff de Bruges — Ballotin",
-      tastingNotes: "Praliné et éclats de noisettes grillées et caramélisées",
       mnemonic: "Ballotin — mémorise son nom et son aspect.",
       image: "https://jeffdebruges-jeffdebruges-fr-storage.omn.proximis.com/Imagestorage/imagesSynchro/190/190/8b060ae83f442b3771bda8c2a9bf5032006eec0f_Ballotinnoir_nouveau.png"
+    },
+    {
+      id: "choco-54-gavroche",
+      name: "Gavroche", category: "Chocolat noir",
+      coating: "Noir", cacao: "70%",
+      filling: "Praliné croustillant aux éclats de biscuits et de graines", shape: 'square', decor: 'gold',
+      visual: "Image officielle Jeff de Bruges — Gavroche",
+      mnemonic: "Gavroche — mémorise son nom et son aspect.",
+      image: "https://jeffdebruges-jeffdebruges-fr-storage.omn.proximis.com/Imagestorage/imagesSynchro/575/575/e1b8cd4eb0e89ace7a2aa82cbdda59bc2399cf37_5413676189972_gavroche.png"
     },
     {
       id: "choco-36-palet-noir-70",
@@ -1063,7 +1453,6 @@ body.category-page-white .site-disclaimer-inner {
       coating: "Noir", cacao: "70%",
       filling: "Ganache aromatique de chocolat noir au cacao du Venezuela", shape: 'square', decor: 'gold',
       visual: "Image officielle Jeff de Bruges — Palet noir 70%",
-      tastingNotes: "Ganache aromatique de chocolat noir au cacao du Venezuela",
       mnemonic: "Palet noir 70% — mémorise son nom et son aspect.",
       image: "https://jeffdebruges-jeffdebruges-fr-storage.omn.proximis.com/Imagestorage/imagesSynchro/190/190/b3d48bd1dbce9ffe02203d6c41125a04765f1ac7_07426paletJBnoir_new.png"
     },
@@ -1073,9 +1462,17 @@ body.category-page-white .site-disclaimer-inner {
       coating: "Noir", cacao: "70%",
       filling: "Pâte d'amandes et pâte de pistaches avec éclats de pistaches", shape: 'square', decor: 'gold',
       visual: "Image officielle Jeff de Bruges — Pistachine",
-      tastingNotes: "Pâte d'amandes et pâte de pistaches avec éclats de pistaches",
       mnemonic: "Pistachine — mémorise son nom et son aspect.",
       image: "https://jeffdebruges-jeffdebruges-fr-storage.omn.proximis.com/Imagestorage/imagesSynchro/190/190/43202eb92ed626564ac13bdec383872bf14c1221_5413676189699_pistachine.png"
+    },
+    {
+      id: "choco-38-rocher-noir",
+      name: "Rocher Noir", category: "Chocolat noir",
+      coating: "Noir", cacao: "70%",
+      filling: "Praliné noisettes et éclats croustillants", shape: 'square', decor: 'gold',
+      visual: "Image officielle Jeff de Bruges — Rocher Noir",
+      mnemonic: "Rocher Noir — mémorise son nom et son aspect.",
+      image: "https://i.ibb.co/nsHJbSjL/rocher-noir-removebg-preview.png"
     },
     {
       id: "choco-38-s-villana",
@@ -1083,7 +1480,6 @@ body.category-page-white .site-disclaimer-inner {
       coating: "Noir", cacao: "70%",
       filling: "Ganache de chocolat noir et pépites d'orange confite", shape: 'square', decor: 'gold',
       visual: "Image officielle Jeff de Bruges — Sévillana",
-      tastingNotes: "Ganache de chocolat noir et pépites d'orange confite",
       mnemonic: "Sévillana — mémorise son nom et son aspect.",
       image: "https://jeffdebruges-jeffdebruges-fr-storage.omn.proximis.com/Imagestorage/imagesSynchro/190/190/8e7ea613c1c807ef912523f2ade4a9ea8ba19ba6_5413676188494_sevillana.png"
     },
@@ -1093,17 +1489,15 @@ body.category-page-white .site-disclaimer-inner {
       coating: "Noir", cacao: "70%",
       filling: "Praliné amandes onctueux et éclats de crumble", shape: 'square', decor: 'gold',
       visual: "Image officielle Jeff de Bruges — Trèfle noir",
-      tastingNotes: "Praliné amandes onctueux et éclats de crumble",
       mnemonic: "Trèfle noir — mémorise son nom et son aspect.",
       image: "https://i.ibb.co/FkCLLfbm/t-l-chargement-3.png"
     },
     {
       id: "choco-40-ecuador",
-      name: "Ecuador", category: "Chocolat noir",
+      name: "Ecuador ", category: "Chocolat noir",
       coating: "Noir", cacao: "70%",
       filling: "Ganache de chocolat noir intense au cacao d'Équateur", shape: 'square', decor: 'gold',
       visual: "Image officielle Jeff de Bruges — Ecuador",
-      tastingNotes: "Ganache de chocolat noir intense au cacao d'Équateur",
       mnemonic: "Ecuador — mémorise son nom et son aspect.",
       image: "https://jeffdebruges-jeffdebruges-fr-storage.omn.proximis.com/Imagestorage/imagesSynchro/190/190/56877e63e13ddb5c42635713feafdfaa8b11cbc7_5413676189507_ecuador.png"
     },
@@ -1111,9 +1505,8 @@ body.category-page-white .site-disclaimer-inner {
       id: "choco-41-yuzu",
       name: "Yuzu", category: "Chocolat noir",
       coating: "Noir", cacao: "70%",
-      filling: "Praliné gingembre, coulis citron et yuzu", shape: 'square', decor: 'gold',
+      filling: "Duo de praliné gingembre, coulis citron et yuzu", shape: 'square', decor: 'gold',
       visual: "Image officielle Jeff de Bruges — Yuzu",
-      tastingNotes: "Praliné gingembre, coulis citron et yuzu",
       mnemonic: "Yuzu — mémorise son nom et son aspect.",
       image: "https://jeffdebruges-jeffdebruges-fr-storage.omn.proximis.com/Imagestorage/imagesSynchro/190/190/180a043c2b2962afb1de15ae004ffe221540dea0_yuzuchocolat.png"
     },
@@ -1121,9 +1514,8 @@ body.category-page-white .site-disclaimer-inner {
       id: "choco-42-maison-de-jeff-noir",
       name: "Maison de Jeff noir", category: "Chocolat noir",
       coating: "Noir", cacao: "70%",
-      filling: "Praliné noisettes et éclats d'amandes, cannelle et coriandre", shape: 'square', decor: 'gold',
+      filling: "Praliné noisettes et éclats d'amandes, épicé de cannelle et coriandre", shape: 'square', decor: 'gold',
       visual: "Image officielle Jeff de Bruges — Maison de Jeff noir",
-      tastingNotes: "Praliné noisettes et éclats d'amandes, cannelle et coriandre",
       mnemonic: "Maison de Jeff noir — mémorise son nom et son aspect.",
       image: "https://jeffdebruges-jeffdebruges-fr-storage.omn.proximis.com/Imagestorage/imagesSynchro/190/190/99609370b282ac7cfaede1513baba30e4e2b8985_5413676188647_maison_jeff_noir.png"
     },
@@ -1133,7 +1525,6 @@ body.category-page-white .site-disclaimer-inner {
       coating: "Noir", cacao: "70%",
       filling: "Ganache de chocolat noir et caramel fondant", shape: 'square', decor: 'gold',
       visual: "Image officielle Jeff de Bruges — Bruges",
-      tastingNotes: "Ganache de chocolat noir et caramel fondant",
       mnemonic: "Bruges — mémorise son nom et son aspect.",
       image: "https://jeffdebruges-jeffdebruges-fr-storage.omn.proximis.com/Imagestorage/imagesSynchro/190/190/b7ad202278e1471a07a3af892e852b1550019a3c_Bruges_nouveau.png"
     },
@@ -1143,7 +1534,6 @@ body.category-page-white .site-disclaimer-inner {
       coating: "Noir", cacao: "70%",
       filling: "Duo praliné et mousse de chocolat noir", shape: 'square', decor: 'gold',
       visual: "Image officielle Jeff de Bruges — Orphée",
-      tastingNotes: "Duo praliné et mousse de chocolat noir",
       mnemonic: "Orphée — mémorise son nom et son aspect.",
       image: "https://jeffdebruges-jeffdebruges-fr-storage.omn.proximis.com/Imagestorage/imagesSynchro/190/190/a784e93f84cc782d6907f8b59286f02752769254_5413676190183_orphee.png"
     },
@@ -1151,9 +1541,8 @@ body.category-page-white .site-disclaimer-inner {
       id: "choco-45-dentelle",
       name: "Dentelle", category: "Chocolat noir",
       coating: "Noir", cacao: "70%",
-      filling: "Praliné noisettes avec éclats de crêpe dentelle", shape: 'square', decor: 'gold',
+      filling: "Praliné onctueux aux noisettes enveloppé d'éclats de crêpe dentelle", shape: 'square', decor: 'gold',
       visual: "Image officielle Jeff de Bruges — Dentelle",
-      tastingNotes: "Praliné noisettes avec éclats de crêpe dentelle",
       mnemonic: "Dentelle — mémorise son nom et son aspect.",
       image: "https://jeffdebruges-jeffdebruges-fr-storage.omn.proximis.com/Imagestorage/imagesSynchro/190/190/a88bd178d5ee2d00e54d1886ede3f5dfe6107d38_5413676189521_dentelle.png"
     },
@@ -1161,9 +1550,8 @@ body.category-page-white .site-disclaimer-inner {
       id: "choco-46-petite-meringue-chocolat",
       name: "Petite meringue chocolat", category: "Chocolat noir",
       coating: "Noir", cacao: "70%",
-      filling: "Suprême de chocolat noir et sa meringue", shape: 'square', decor: 'gold',
+      filling: "Suprême de chocolat noir et sa meringue éclats de fève de cacao", shape: 'square', decor: 'gold',
       visual: "Image officielle Jeff de Bruges — Petite meringue chocolat",
-      tastingNotes: "Suprême de chocolat noir et sa meringue",
       mnemonic: "Petite meringue chocolat — mémorise son nom et son aspect.",
       image: "https://jeffdebruges-jeffdebruges-fr-storage.omn.proximis.com/Imagestorage/imagesSynchro/190/190/b2a8e48af10f16f7a1ab11c73f8d7bbb2f5546a4_5413676189323_petite_meringue_chocolat.png"
     },
@@ -1173,9 +1561,17 @@ body.category-page-white .site-disclaimer-inner {
       coating: "Noir", cacao: "70%",
       filling: "Suprême de chocolat noir au café et sa meringue", shape: 'square', decor: 'gold',
       visual: "Image officielle Jeff de Bruges — Petite meringue café",
-      tastingNotes: "Suprême de chocolat noir au café et sa meringue",
       mnemonic: "Petite meringue café — mémorise son nom et son aspect.",
       image: "https://jeffdebruges-jeffdebruges-fr-storage.omn.proximis.com/Imagestorage/imagesSynchro/190/190/e156f386aa433042cf56c8360ef4b7c3b4546756_5413676189330_petite_meringue_caf_.png"
+    },
+    {
+      id: "choco-48-petite-meringue-citron",
+      name: "Petite Meringue Citron", category: "Chocolat noir",
+      coating: "Noir", cacao: "70%",
+      filling: "Suprême de chocolat noir au citron et sa meringue", shape: 'square', decor: 'gold',
+      visual: "Image officielle Jeff de Bruges — Petite meringue café",
+      mnemonic: "Petite meringue Citron — mémorise son nom et son aspect.",
+      image: "https://i.ibb.co/bMqSx6w2/petite-meringue-citron-noir-removebg-preview.png"
     },
     {
       id: "choco-48-chistera",
@@ -1188,22 +1584,29 @@ body.category-page-white .site-disclaimer-inner {
       image: "https://jeffdebruges-jeffdebruges-fr-storage.omn.proximis.com/Imagestorage/imagesSynchro/190/190/63cba8e66b7db8a80dd54066fee58546a2aab339_5413676189965_chistera.png"
     },
     {
-      id: "choco-49-amand-us-cabochon",
-      name: "Amandéus Cabochon", category: "Chocolat noir",
+      id: "choco-49-Amandéus",
+      name: "Amendéus", category: "Chocolat noir",
+      coating: "Noir", cacao: "60%",
+      filling: "Praminé amandes et amandes entière caramélisée", shape: 'square', decor: 'gold',
+      visual: "Image officielle Jeff de Bruges — Amandéus ",
+      mnemonic: "Amandéus  — mémorise son nom et son aspect.",
+      image: "https://i.ibb.co/SDvf0QcF/AMANDEUS-removebg-preview.png"
+    },
+    {
+      id: "choco-49-cabochon",
+      name: " Cabochon", category: "Chocolat noir",
       coating: "Noir", cacao: "70%",
       filling: "Praliné amandes et amande entière caramélisée", shape: 'square', decor: 'gold',
-      visual: "Image officielle Jeff de Bruges — Amandéus Cabochon",
-      tastingNotes: "Praliné amandes et amande entière caramélisée",
-      mnemonic: "Amandéus Cabochon — mémorise son nom et son aspect.",
+      visual: "Image officielle Jeff de Bruges —  Cabochon",
+      mnemonic: "Cabochon — mémorise son nom et son aspect.",
       image: "https://jeffdebruges-jeffdebruges-fr-storage.omn.proximis.com/Imagestorage/imagesSynchro/190/190/afab7508da1012bf866f565f09c45fa550522e0e_5413676190275_cabochon.png"
     },
     {
       id: "choco-50-velvet",
       name: "Velvet", category: "Chocolat noir",
       coating: "Noir", cacao: "70%",
-      filling: "Spécialité Jeff de Bruges", shape: 'square', decor: 'gold',
+      filling: "Duo Gianduja noisettes et crème au beurre au chocolat noir intense, éclats de fèves de cacao", shape: 'square', decor: 'gold',
       visual: "Image officielle Jeff de Bruges — Velvet",
-      tastingNotes: "Spécialité Jeff de Bruges",
       mnemonic: "Velvet — mémorise son nom et son aspect.",
       image: "https://i.ibb.co/QVxskpz/t-l-chargement-7.png"
     },
@@ -1213,7 +1616,6 @@ body.category-page-white .site-disclaimer-inner {
       coating: "Noir", cacao: "70%",
       filling: "Crème au beurre à la fraise et éclats de biscuits", shape: 'square', decor: 'gold',
       visual: "Image officielle Jeff de Bruges — Fraisier",
-      tastingNotes: "Crème au beurre à la fraise et éclats de biscuits",
       mnemonic: "Fraisier — mémorise son nom et son aspect.",
       image: "https://jeffdebruges-jeffdebruges-fr-storage.omn.proximis.com/Imagestorage/imagesSynchro/190/190/fa737aa6c37cb251fa282cbe8d4c7505b79afa3e_Fraisiercoup_.png"
     },
@@ -1223,7 +1625,6 @@ body.category-page-white .site-disclaimer-inner {
       coating: "Noir", cacao: "70%",
       filling: "Ganache chocolat blanc au citron et éclats de biscuits", shape: 'square', decor: 'gold',
       visual: "Image officielle Jeff de Bruges — Tarte au citron",
-      tastingNotes: "Ganache chocolat blanc au citron et éclats de biscuits",
       mnemonic: "Tarte au citron — mémorise son nom et son aspect.",
       image: "https://jeffdebruges-jeffdebruges-fr-storage.omn.proximis.com/Imagestorage/imagesSynchro/190/190/a133f49fe9d6ba6a65b9c801274467c00fca25aa_Tartecitroncoup_.png"
     },
@@ -1231,32 +1632,11 @@ body.category-page-white .site-disclaimer-inner {
       id: "choco-53-paris-brest",
       name: "Paris-Brest", category: "Chocolat noir",
       coating: "Noir", cacao: "70%",
-      filling: "Crème au beurre noisette et praliné", shape: 'square', decor: 'gold',
+      filling: "Crème au beurre à la noisette et au praliné et éclats de noisettes caramélisées", shape: 'square', decor: 'gold',
       visual: "Image officielle Jeff de Bruges — Paris-Brest",
-      tastingNotes: "Crème au beurre noisette et praliné",
       mnemonic: "Paris-Brest — mémorise son nom et son aspect.",
       image: "https://jeffdebruges-jeffdebruges-fr-storage.omn.proximis.com/Imagestorage/imagesSynchro/190/190/c472edfb8093659f59e0fa65dcfcbecff6a5965f_Paris_Brestcoup_.png"
     },
-    {
-      id: "choco-54-gavroche",
-      name: "Gavroche", category: "Chocolat noir",
-      coating: "Noir", cacao: "70%",
-      filling: "Praliné aux noisettes", shape: 'square', decor: 'gold',
-      visual: "Image officielle Jeff de Bruges — Gavroche",
-      tastingNotes: "Praliné noisette, chocolat au lait, notes gourmandes et légèrement croustillantes",
-      mnemonic: "Gavroche — mémorise son nom et son aspect.",
-      image: "https://jeffdebruges-jeffdebruges-fr-storage.omn.proximis.com/Imagestorage/imagesSynchro/575/575/e1b8cd4eb0e89ace7a2aa82cbdda59bc2399cf37_5413676189972_gavroche.png"
-    },
-    {
-      id: "choco-55-dentelle",
-      name: "Dentelle", category: "Chocolat noir",
-      coating: "Noir", cacao: "70%",
-      filling: "Praliné aux noisettes et éclats de crêpe dentelle", shape: 'square', decor: 'gold',
-      visual: "Image officielle Jeff de Bruges — Dentelle",
-      tastingNotes: "Chocolat noir, noisette, praliné, notes croustillantes",
-      mnemonic: "Dentelle — mémorise son nom et son aspect.",
-      image: "https://i.ibb.co/Pv9fBZm9/t-l-chargement-8.png"
-    }
   ];
 
   // Catégories visibles dans le catalogue : uniquement les familles souhaitées.
@@ -1265,12 +1645,14 @@ body.category-page-white .site-disclaimer-inner {
     'Chocolat au lait 35% cacao minimum',
     'Chocolat noir',
     'Spécialités de Pâques',
-    'Spécialités de Noël'
+    'Spécialités de Noël',
+    "Spécialités d'Halloween"
   ];
-  const COATINGS = ['Noir', 'Lait', 'Blanc', 'Blond'];
+  const HALLOWEEN = "Spécialités d'Halloween";
+  const COATINGS = ['Noir', 'Lait', 'Blanc'];
 
   function catalogueCategory(c) {
-    if (c.category === 'Spécialités de Pâques' || c.category === 'Spécialités de Noël') return c.category;
+    if (c.category === 'Spécialités de Pâques' || c.category === 'Spécialités de Noël' || c.category === HALLOWEEN) return c.category;
     if (c.coating === 'Blanc') return 'Chocolat blanc 25% Cacao';
     if (c.coating === 'Lait') return 'Chocolat au lait 35% cacao minimum';
     if (c.coating === 'Noir') return 'Chocolat noir';
@@ -1412,7 +1794,6 @@ body.category-page-white .site-disclaimer-inner {
       Noir: 'bg-cacao-900 text-white',
       Lait: 'bg-[#9B6A45] text-white',
       Blanc: 'bg-white text-cacao-700 border border-cacao-200',
-      Blond: 'bg-[#D59F42] text-white'
     }[coating] || 'bg-cacao-700 text-white';
   }
 
@@ -1422,6 +1803,7 @@ body.category-page-white .site-disclaimer-inner {
     if (category.includes('Amande')) return 'fa-seedling';
     if (category.includes('Pâques')) return 'fa-egg';
     if (category.includes('Noël')) return 'fa-tree';
+    if (category.includes('Halloween')) return 'fa-ghost';
     return 'fa-layer-group';
   }
 
@@ -1465,7 +1847,6 @@ body.category-page-white .site-disclaimer-inner {
       Noir: { main: '#26140C', dark: '#120906', light: '#553024', highlight: '#78503B' },
       Lait: { main: '#7C4D2E', dark: '#3D2314', light: '#B97A52', highlight: '#D39A6A' },
       Blanc: { main: '#F4E7D7', dark: '#C7AE91', light: '#FFFDF9', highlight: '#FFFFFF' },
-      Blond: { main: '#B56F1A', dark: '#7A4310', light: '#E3B365', highlight: '#F4D08F' }
     }[choco.coating];
 
     const defs = `
@@ -1647,6 +2028,11 @@ body.category-page-white .site-disclaimer-inner {
         isSeasonalCatalogue && catalogueState.category === 'Spécialités de Pâques'
     );
 
+    const isHalloween = isSeasonalCatalogue && catalogueState.category === HALLOWEEN;
+    document.body.classList.toggle('halloween-mode', isHalloween);
+    document.body.classList.toggle('home-mode', isSeasonalCatalogue && catalogueState.category === 'Toutes');
+    syncHalloweenLayer(isHalloween);
+
     /* ==========================================
        THÈMES PREMIUM DES CHOCOLATS
        ========================================== */
@@ -1677,7 +2063,9 @@ body.category-page-white .site-disclaimer-inner {
 
     if (themeMeta) {
         themeMeta.content =
-            catalogueState.category === 'Spécialités de Noël' && isSeasonalCatalogue
+            isHalloween
+                ? '#1A0B2E'
+                : catalogueState.category === 'Spécialités de Noël' && isSeasonalCatalogue
                 ? '#123D2A'
                 : catalogueState.category === 'Spécialités de Pâques' && isSeasonalCatalogue
                 ? '#D989B6'
@@ -1693,6 +2081,22 @@ body.category-page-white .site-disclaimer-inner {
     bindCurrentView();
     updateGlobalBadges();
 }
+
+  // Petits éléments qui survolent le thème Halloween (2 chauves-souris + 1 fantôme)
+  function syncHalloweenLayer(active) {
+    let layer = document.getElementById('halloweenLayer');
+    if (!active) { if (layer) layer.remove(); return; }
+    if (layer) return;
+    layer = document.createElement('div');
+    layer.id = 'halloweenLayer';
+    layer.setAttribute('aria-hidden', 'true');
+    layer.innerHTML = `
+      <div class="hw-ghost">👻</div>
+      <div class="hw-bat" style="--top:22vh;--size:1.5rem;--dur:30s;--delay:0s"><b>🦇</b></div>
+      <div class="hw-bat" style="--top:60vh;--size:1.3rem;--dur:36s;--delay:-17s"><b>🦇</b></div>
+    `;
+    document.body.appendChild(layer);
+  }
 
   function syncNav() {
     $$('.nav-link, .mobile-nav-link').forEach(btn => {
@@ -1730,6 +2134,124 @@ body.category-page-white .site-disclaimer-inner {
   // ============================================================
   // CATALOGUE
   // ============================================================
+  function renderHomeIntro(showTiles) {
+    const mastery = masteryPercent();
+    const circumference = 2 * Math.PI * 47;
+    const dashOffset = circumference - (mastery / 100) * circumference;
+    const precision = state.stats.answered ? Math.round(state.stats.correct / state.stats.answered * 100) : 0;
+    const withImage = coating => CHOCOLATES_DB.filter(c => c.coating === coating && c.image);
+    const showcase = [withImage('Noir')[0], withImage('Lait')[0], withImage('Blanc')[0]].filter(Boolean);
+    const floatPos = [
+      'left:-2%;top:4%;transform:rotate(-8deg)',
+      'right:-4%;top:36%;transform:rotate(7deg)',
+      'left:10%;bottom:-2%;transform:rotate(-4deg)'
+    ];
+
+    const families = [
+      { cat: 'Chocolat blanc 25% Cacao',           title: 'Chocolat blanc',   sub: '25 % de cacao',         coating: 'Blanc', cls: 'white' },
+      { cat: 'Chocolat au lait 35% cacao minimum', title: 'Chocolat au lait', sub: '35 % de cacao minimum', coating: 'Lait',  cls: 'milk' },
+      { cat: 'Chocolat noir',                      title: 'Chocolat noir',    sub: '70 % de cacao',         coating: 'Noir',  cls: 'dark' }
+    ];
+    const seasons = [
+      { cat: 'Spécialités de Pâques', emoji: '🐣', title: 'Pâques',    cls: 'easter' },
+      { cat: 'Spécialités de Noël',   emoji: '🎄', title: 'Noël',      cls: 'xmas' },
+      { cat: HALLOWEEN,               emoji: '🎃', title: 'Halloween', cls: 'hw' }
+    ];
+
+    const tiles = !showTiles ? '' : `
+      <section class="mt-8 animate-fade-up">
+        <p class="text-xs font-extrabold uppercase tracking-[.18em] text-turquoise-700">Parcourir</p>
+        <h2 class="mt-1 font-display text-2xl sm:text-3xl">Choisissez une famille</h2>
+
+        <div class="mt-5 grid gap-4 md:grid-cols-3">
+          ${families.map(f => {
+            const items = CHOCOLATES_DB.filter(c => c.coating === f.coating);
+            const imgs = items.filter(c => c.image).slice(0, 3);
+            return `
+              <button data-home-cat="${escapeHtml(f.cat)}" class="home-tile ${f.cls}">
+                <span class="tile-arrow"><i class="fa-solid fa-arrow-right"></i></span>
+                <div>
+                  <div class="text-[10px] font-extrabold uppercase tracking-[.18em] opacity-70">${items.length} création${items.length > 1 ? 's' : ''}</div>
+                  <div class="mt-2 font-display text-2xl leading-tight">${f.title}</div>
+                  <div class="mt-1 text-xs font-semibold opacity-75">${f.sub}</div>
+                </div>
+                <div class="tile-imgs mt-5">
+                  ${imgs.map(c => `<span>${generateChocolateSVG(c, 84)}</span>`).join('')}
+                </div>
+              </button>`;
+          }).join('')}
+        </div>
+
+        <div class="mt-4 grid gap-3 sm:grid-cols-3">
+          ${seasons.map(se => {
+            const n = CHOCOLATES_DB.filter(c => catalogueCategory(c) === se.cat).length;
+            return `
+              <button data-home-cat="${escapeHtml(se.cat)}" class="home-season ${se.cls}">
+                <span class="season-emoji">${se.emoji}</span>
+                <span>
+                  <span class="block font-display text-lg leading-tight">${se.title}</span>
+                  <span class="block text-xs font-semibold opacity-75">${n ? n + ' création' + (n > 1 ? 's' : '') : 'Bientôt disponible'}</span>
+                </span>
+                <i class="fa-solid fa-arrow-right ml-auto text-xs opacity-60"></i>
+              </button>`;
+          }).join('')}
+        </div>
+      </section>
+    `;
+
+    return `
+      <section class="home-hero animate-fade-up relative overflow-hidden rounded-[34px] p-6 text-white sm:p-10">
+        <div class="relative z-10 grid gap-10 lg:grid-cols-[1.15fr_.85fr] lg:items-center">
+          <div>
+            <div class="mb-5 inline-flex items-center gap-2 rounded-full border border-gold-400/25 bg-gold-400/10 px-3 py-1.5 text-xs font-bold uppercase tracking-[.18em] text-gold-400">
+              <i class="fa-solid fa-sparkles"></i> Parcours vendeur
+            </div>
+            <h1 class="font-display text-4xl font-semibold leading-[1.1] tracking-tight sm:text-6xl">
+              Reconnaissez <span class="text-gradient">chaque création</span>.
+            </h1>
+            <p class="mt-5 max-w-xl text-sm leading-7 text-white/70 sm:text-base">
+              Explorez la collection, révisez les garnitures et testez votre palais avec des quiz. Chaque bonne réponse vous rapproche de la maîtrise complète.
+            </p>
+
+            <div class="mt-8 flex flex-wrap gap-3">
+              <button data-tab="quiz" class="btn-luxe rounded-2xl bg-turquoise-500 px-5 py-3.5 text-sm font-extrabold text-white shadow-lg hover:bg-turquoise-600">
+                <i class="fa-solid fa-play mr-2"></i>Lancer un quiz
+              </button>
+              <button id="homeExplore" class="btn-luxe rounded-2xl border border-white/20 bg-white/10 px-5 py-3.5 text-sm font-extrabold text-white hover:bg-white/15">
+                Explorer le catalogue<i class="fa-solid fa-arrow-down ml-2 text-xs"></i>
+              </button>
+              ${state.revisionIds.length ? `
+                <button data-tab="revision" class="btn-luxe rounded-2xl border border-gold-400/30 bg-gold-400/10 px-5 py-3.5 text-sm font-extrabold text-gold-400 hover:bg-gold-400/15">
+                  <i class="fa-solid fa-arrows-rotate mr-2"></i>Réviser mes erreurs (${state.revisionIds.length})
+                </button>` : ''}
+            </div>
+
+            <div class="mt-9 grid max-w-md grid-cols-3 gap-3">
+              <div class="home-stat"><div class="font-display text-2xl">${CHOCOLATES_DB.length}</div><div class="mt-0.5 text-[11px] text-white/55">chocolats</div></div>
+              <div class="home-stat"><div class="font-display text-2xl">${state.masteredIds.length}</div><div class="mt-0.5 text-[11px] text-white/55">maîtrisés</div></div>
+              <div class="home-stat"><div class="font-display text-2xl">${precision}%</div><div class="mt-0.5 text-[11px] text-white/55">de précision</div></div>
+            </div>
+          </div>
+
+          <div class="relative mx-auto h-[300px] w-[300px] max-w-full">
+            <div class="absolute inset-6 rounded-full bg-turquoise-500/10 blur-3xl"></div>
+            <svg viewBox="0 0 120 120" class="absolute inset-4 h-[calc(100%-2rem)] w-[calc(100%-2rem)]">
+              <circle cx="60" cy="60" r="47" fill="none" stroke="rgba(255,255,255,.10)" stroke-width="5"></circle>
+              <circle cx="60" cy="60" r="47" fill="none" stroke="#D4AF37" stroke-width="5" stroke-linecap="round"
+                stroke-dasharray="${circumference}" stroke-dashoffset="${dashOffset}" class="progress-ring-circle"></circle>
+            </svg>
+            <div class="absolute inset-0 flex flex-col items-center justify-center text-center">
+              <div class="font-display text-5xl">${mastery}%</div>
+              <div class="mt-1 text-[10px] font-bold uppercase tracking-[.18em] text-white/50">collection maîtrisée</div>
+            </div>
+            ${showcase.map((c, i) => `<div class="home-float" style="${floatPos[i]}">${generateChocolateSVG(c, 84)}</div>`).join('')}
+          </div>
+        </div>
+      </section>
+      ${tiles}
+    `;
+  }
+
   function renderCatalogue() {
     const filtered = CHOCOLATES_DB.filter(c => {
       const q = catalogueState.search.trim().toLowerCase();
@@ -1740,8 +2262,10 @@ body.category-page-white .site-disclaimer-inner {
       return matchQ && matchCoating && matchCategory;
     });
 
+    const isHome = catalogueState.category === 'Toutes';
+
     return `
-      <section class="animate-fade-up overflow-hidden rounded-[30px] bg-cacao-900 p-6 text-white shadow-luxury sm:p-8">
+      ${isHome ? renderHomeIntro(!catalogueState.search.trim()) : `<section class="animate-fade-up overflow-hidden rounded-[30px] bg-cacao-900 p-6 text-white shadow-luxury sm:p-8">
         <div class="grid gap-8 lg:grid-cols-[1.4fr_.8fr] lg:items-center">
           <div>
             <div class="mb-4 inline-flex items-center gap-2 rounded-full border border-gold-400/25 bg-gold-400/10 px-3 py-1.5 text-xs font-bold uppercase tracking-[.18em] text-gold-400">
@@ -1765,10 +2289,10 @@ body.category-page-white .site-disclaimer-inner {
             </div>
           </div>
         </div>
-      </section>
+      </section>`}
 
-      <section class="mt-6 rounded-[26px] border border-cacao-900/10 bg-white/75 p-4 shadow-card sm:p-5">
-        <div class="grid gap-3 lg:grid-cols-[1fr_auto_auto] lg:items-center">
+      <section id="catalogueFilters" class="mt-6 scroll-mt-24 rounded-[26px] border border-cacao-900/10 bg-white/75 p-4 shadow-card sm:p-5">
+        <div class="grid gap-3 lg:grid-cols-[1fr_auto] lg:items-center">
           <label class="relative block">
             <i class="fa-solid fa-magnifying-glass pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-cacao-500/60"></i>
             <input id="catalogueSearch" type="search" value="${escapeHtml(catalogueState.search)}"
@@ -1779,21 +2303,13 @@ body.category-page-white .site-disclaimer-inner {
             <option value="Toutes">Toutes les catégories</option>
             ${CATEGORIES.map(cat => `<option ${catalogueState.category === cat ? 'selected' : ''} value="${escapeHtml(cat)}">${escapeHtml(cat)}</option>`).join('')}
           </select>
-          <div class="flex gap-2 overflow-x-auto pb-1 hide-scrollbar">
-            ${['Tous', ...COATINGS].map(coating => `
-              <button data-coating="${escapeHtml(coating)}"
-                class="chip whitespace-nowrap rounded-xl px-3.5 py-2 text-xs font-extrabold ${catalogueState.coating === coating ? 'bg-turquoise-500 text-white shadow-md' : 'bg-cacao-100 text-cacao-700 hover:bg-cacao-200'}">
-                ${coating}
-              </button>
-            `).join('')}
-          </div>
         </div>
       </section>
 
       <div class="mt-7 flex items-end justify-between gap-4">
         <div>
           <p class="text-xs font-extrabold uppercase tracking-[.18em] text-turquoise-700">Collection</p>
-          <h2 class="mt-1 font-display text-2xl sm:text-3xl">Les créations</h2>
+          <h2 class="mt-1 font-display text-2xl sm:text-3xl">${isHome ? 'Toutes les créations' : 'Les créations'}</h2>
         </div>
         <div class="text-right text-sm text-cacao-500/80"><strong class="text-cacao-900">${filtered.length}</strong> résultat${filtered.length > 1 ? 's' : ''}</div>
       </div>
@@ -1819,8 +2335,19 @@ body.category-page-white .site-disclaimer-inner {
         </div>
       ` : ''}
 
+      ${catalogueState.category === HALLOWEEN ? `
+        <div class="seasonal-banner halloween-banner col-span-full">
+          <div class="seasonal-icon">🎃</div>
+          <h2>Les spécialités d'Halloween</h2>
+          <p>Frissons gourmands garantis ! Entrez dans l'antre des chocolats ensorcelés, entre citrouilles, fantômes et chauves-souris.</p>
+        </div>
+      ` : ''}
+
       <section id="catalogueGrid" class="mt-4 grid gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-        ${filtered.length ? filtered.map(renderChocolateCard).join('') : renderEmptyState('Aucun chocolat trouvé', 'Essaie un autre mot-clé ou enlève un filtre.')}
+        ${filtered.length ? filtered.map(renderChocolateCard).join('')
+          : (catalogueState.category === HALLOWEEN && !catalogueState.search.trim() && catalogueState.coating === 'Tous')
+            ? renderEmptyState('Les chocolats mijotent dans le chaudron…', 'La collection d\'Halloween arrive bientôt. Revenez vite !')
+            : renderEmptyState('Aucun chocolat trouvé', 'Essaie un autre mot-clé ou enlève un filtre.')}
       </section>
     `;
   }
@@ -1903,21 +2430,17 @@ body.category-page-white .site-disclaimer-inner {
                 <h2 class="mt-4 font-display text-3xl sm:text-4xl">${escapeHtml(choco.name)}</h2>
                 <p class="mt-3 text-sm leading-7 text-cacao-600">${escapeHtml(choco.visual)}</p>
 
-                <div class="mt-6 grid gap-4 sm:grid-cols-2">
-                  <div class="rounded-2xl border border-cacao-900/8 bg-white/78 p-4">
-                    <div class="text-[10px] font-extrabold uppercase tracking-[.16em] text-cacao-500">Garniture / recette</div>
-                    <div class="mt-2 text-sm font-semibold leading-6">${escapeHtml(choco.filling)}</div>
-                  </div>
-                  <div class="rounded-2xl border border-cacao-900/8 bg-white/78 p-4">
-                    <div class="text-[10px] font-extrabold uppercase tracking-[.16em] text-cacao-500">Forme</div>
-                    <div class="mt-2 text-sm font-semibold capitalize leading-6">${escapeHtml(choco.shape)}</div>
-                  </div>
-                </div>
+                 <div class="mt-6 grid gap-4">
+  <div class="rounded-2xl border border-cacao-900/8 bg-white/78 p-4">
+    <div class="text-[10px] font-extrabold uppercase tracking-[.16em] text-cacao-500">Forme</div>
+    <div class="mt-2 text-sm font-semibold capitalize leading-6">${escapeHtml(choco.shape)}</div>
+  </div>
+</div>
 
-                <div class="mt-4 rounded-2xl border border-cacao-900/8 bg-white/78 p-4">
-                  <div class="text-[10px] font-extrabold uppercase tracking-[.16em] text-cacao-500">Notes de dégustation</div>
-                  <p class="mt-2 text-sm leading-7 text-cacao-700">${escapeHtml(choco.tastingNotes)}</p>
-                </div>
+                 <div class="mt-4 rounded-2xl border border-cacao-900/8 bg-white/78 p-4">
+  <div class="text-[10px] font-extrabold uppercase tracking-[.16em] text-cacao-500">Garniture / recette</div>
+  <p class="mt-2 text-sm leading-7 text-cacao-700">${escapeHtml(choco.filling)}</p>
+</div>
 
                 <div class="mt-4 rounded-2xl border border-gold-500/20 bg-[#FFF9E6] p-4">
                   <div class="flex items-center gap-2 text-[10px] font-extrabold uppercase tracking-[.16em] text-[#806600]">
@@ -2006,6 +2529,7 @@ body.category-page-white .site-disclaimer-inner {
 
   function renderQuizSetup() {
     const selectedCats = quizState?.selectedCategories || ['Toutes'];
+    const includeFilling = quizState?.includeFilling === true;
     const size = quizState?.questionCount || 10;
 
     return `
@@ -2015,7 +2539,7 @@ body.category-page-white .site-disclaimer-inner {
             <div class="text-xs font-extrabold uppercase tracking-[.18em] text-gold-400">Quiz dégustation</div>
             <h1 class="mt-3 font-display text-3xl sm:text-5xl">Votre palais passe l’examen.</h1>
             <p class="mt-4 max-w-2xl text-sm leading-7 text-white/65">
-              Alternez observation, garnitures et enrobages. Chaque erreur peut nourrir votre prochaine session de révision.
+              Par défaut, reconnaissez les chocolats à partir de leur visuel. Cochez Garniture / recette pour faire une session composée uniquement de questions sur les garnitures.
             </p>
             <div class="mt-7 flex flex-wrap gap-3">
               <span class="rounded-full bg-white/8 px-3 py-2 text-xs font-semibold"><i class="fa-solid fa-fire mr-2 text-gold-400"></i>Streak actuel : ${state.stats.currentStreak}</span>
@@ -2049,6 +2573,13 @@ body.category-page-white .site-disclaimer-inner {
               </div>
             </div>
 
+            <div class="mt-6">
+              <label class="flex cursor-pointer items-center gap-3 rounded-xl border border-cacao-900/8 bg-white px-3 py-3">
+                <input type="checkbox" id="quizIncludeFilling" class="h-4 w-4 accent-[#00B2A9]" ${includeFilling ? 'checked' : ''} />
+                <span class="text-sm font-semibold">Mode Garniture / recette uniquement</span>
+              </label>
+            </div>
+
             <button id="startQuizBtn" class="btn-luxe mt-6 w-full rounded-2xl bg-cacao-900 px-4 py-3.5 text-sm font-extrabold text-white shadow-lg hover:bg-cacao-700">
               <i class="fa-solid fa-play mr-2 text-turquoise-400"></i>Lancer la session
             </button>
@@ -2061,11 +2592,10 @@ body.category-page-white .site-disclaimer-inner {
           </div>
         </div>
 
-        <div class="mt-6 grid gap-4 md:grid-cols-3">
+        <div class="mt-6 grid gap-4 md:grid-cols-2">
           ${[
-            ['fa-eye', 'Œil & forme', 'Reconnaissez un chocolat grâce à sa silhouette et ses indices visuels.'],
-            ['fa-spoon', 'Garniture', 'Associez le bon fourrage à la bonne création.'],
-            ['fa-layer-group', 'Enrobage', 'Travaillez vos repères Noir, Lait, Blanc et Blond.']
+            ['fa-spoon', 'Garniture / recette', 'Cochez l’option ci-dessus pour poser uniquement des questions de garniture.'],
+            ['fa-eye', 'Reconnaissance visuelle', 'Mode par défaut : identifiez le chocolat à partir de son visuel.']
           ].map(([icon, title, text]) => `
             <div class="rounded-[24px] border border-cacao-900/8 bg-white/72 p-5 shadow-card">
               <div class="flex h-10 w-10 items-center justify-center rounded-xl bg-turquoise-50 text-turquoise-700"><i class="fa-solid ${icon}"></i></div>
@@ -2078,18 +2608,23 @@ body.category-page-white .site-disclaimer-inner {
     `;
   }
 
-  function createQuizSession(categories, count, revisionOnly = false) {
+  function createQuizSession(categories, count, revisionOnly = false, includeFilling = false) {
     let pool = CHOCOLATES_DB.filter(c => revisionOnly ? state.revisionIds.includes(c.id) : true);
 
     if (!revisionOnly && !categories.includes('Toutes')) {
       pool = pool.filter(c => {
-  const cat = catalogueCategory(c) || c.category;
-  return categories.includes(cat);
-});
+        const cat = catalogueCategory(c) || c.category;
+        return categories.includes(cat);
+      });
     }
 
     if (revisionOnly) {
       pool = pool.length ? pool : CHOCOLATES_DB;
+    }
+
+    if (!pool.length) {
+      showToast('Aucun chocolat dans cette catégorie pour le moment.', 'warning');
+      return;
     }
 
     const actualCount = Math.min(count, pool.length);
@@ -2099,6 +2634,7 @@ body.category-page-white .site-disclaimer-inner {
       mode: 'playing',
       revisionOnly,
       selectedCategories: categories,
+      includeFilling,
       questionCount: actualCount,
       questions: selected,
       index: 0,
@@ -2117,8 +2653,8 @@ body.category-page-white .site-disclaimer-inner {
 
   function prepareCurrentQuestion() {
     const q = quizState.questions[quizState.index];
-    const types = ['visual', 'filling', 'coating'];
-    quizState.currentQuestionType = types[quizState.index % types.length];
+    // Le mode Garniture remplace la reconnaissance visuelle : les deux modes ne se mélangent jamais.
+    quizState.currentQuestionType = quizState.includeFilling === true ? 'filling' : 'visual';
     quizState.currentOptions = createOptions(q, quizState.currentQuestionType);
     quizState.answeredCurrent = false;
   }
@@ -2307,7 +2843,6 @@ body.category-page-white .site-disclaimer-inner {
               <div>
                 <h3 class="font-display text-2xl">${escapeHtml(q.name)}</h3>
                 <p class="mt-2 text-sm font-semibold text-cacao-600">${escapeHtml(q.filling)} · ${escapeHtml(q.coating)} · ${escapeHtml(q.cacao)}</p>
-                <p class="mt-3 text-sm leading-7 text-cacao-600">${escapeHtml(q.tastingNotes)}</p>
               </div>
             </div>
 
@@ -2621,6 +3156,19 @@ body.category-page-white .site-disclaimer-inner {
   }
 
   function bindCatalogue() {
+    $$('[data-home-cat]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        catalogueState.category = btn.dataset.homeCat;
+        catalogueState.coating = 'Tous';
+        render();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+    });
+
+    $('#homeExplore')?.addEventListener('click', () => {
+      $('#catalogueFilters')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+
     $('#catalogueSearch')?.addEventListener('input', e => {
       catalogueState.search = e.target.value;
       render();
@@ -2699,7 +3247,8 @@ body.category-page-white .site-disclaimer-inner {
     $('#startQuizBtn')?.addEventListener('click', () => {
       const categories = quizState?.selectedCategories || ['Toutes'];
       const count = quizState?.questionCount || 10;
-      createQuizSession(categories, count, false);
+      const includeFilling = $('#quizIncludeFilling')?.checked ?? false;
+      createQuizSession(categories, count, false, includeFilling);
       render();
     });
 
