@@ -1141,15 +1141,6 @@ body.halloween-mode .official-link:hover { color: #ffd09e; }
       image: "https://jeffdebruges-jeffdebruges-fr-storage.omn.proximis.com/Imagestorage/imagesSynchro/190/190/e597a7d87db5b0a32c68238ae5668cdb338701b6_5413676189729_maison_de_jeff_blanc.png"
     },
     {
-      id: "choco-2-eden",
-      name: "Eden", category: "Chocolat blanc 25% Cacao",
-      coating: "Blanc", cacao: "25%",
-      filling: "Praliné noisettes et éclats d'amandes Enrobé de chocolat aulait et de copaux de chocolat blanc", shape: 'square', decor: 'gold',
-      visual: "Image officielle Jeff de Bruges — Eden",
-      mnemonic: "Eden — mémorise son nom et son aspect.",
-      image: "https://jeffdebruges-jeffdebruges-fr-storage.omn.proximis.com/Imagestorage/imagesSynchro/190/190/952df21ba1693f8f0849bcdf90d9538fb8e29376_5413676188692_eden.png"
-    },
-    {
       id: "choco-3-rocher",
       name: "Rocher Blanc", category: "Chocolat blanc 25% Cacao",
       coating: "Blanc", cacao: "25%",
@@ -1220,6 +1211,15 @@ body.halloween-mode .official-link:hover { color: #ffd09e; }
       visual: "Image officielle Jeff de Bruges — Rocher Ambré",
       mnemonic: "Rocher Ambré — mémorise son nom et son aspect.",
       image: "https://jeffdebruges-jeffdebruges-fr-storage.omn.proximis.com/Imagestorage/imagesSynchro/190/190/03c7fdd98278fe2ce6fd7d738568c3a6826b6a0c_minirocherambre_retouch_.png"
+    },
+    {
+      id: "choco-2-eden",
+      name: "Eden", category: "Chocolat au lait 35%",
+      coating: "Lait", cacao: "25%",
+      filling: "Praliné noisettes et éclats d'amandes Enrobé de chocolat aulait et de copaux de chocolat blanc", shape: 'square', decor: 'gold',
+      visual: "Image officielle Jeff de Bruges — Eden",
+      mnemonic: "Eden — mémorise son nom et son aspect.",
+      image: "https://jeffdebruges-jeffdebruges-fr-storage.omn.proximis.com/Imagestorage/imagesSynchro/190/190/952df21ba1693f8f0849bcdf90d9538fb8e29376_5413676188692_eden.png"
     },
     {
       id: "choco-11-feuille",
@@ -2530,6 +2530,7 @@ body.halloween-mode .official-link:hover { color: #ffd09e; }
   function renderQuizSetup() {
     const selectedCats = quizState?.selectedCategories || ['Toutes'];
     const includeFilling = quizState?.includeFilling === true;
+    const answerFormat = quizState?.answerFormat === 'written' ? 'written' : 'choice';
     const size = quizState?.questionCount || 10;
 
     return `
@@ -2558,6 +2559,19 @@ body.halloween-mode .official-link:hover { color: #ffd09e; }
                   <button data-question-count="${n}" class="question-count rounded-xl px-3 py-2.5 text-sm font-extrabold ${size === n ? 'bg-turquoise-500 text-white' : 'bg-cacao-100 text-cacao-800 hover:bg-cacao-200'}">${n}</button>
                 `).join('')}
               </div>
+            </div>
+
+            <div class="mt-6">
+              <div class="text-xs font-extrabold uppercase tracking-[.16em] text-cacao-500">Type de réponse</div>
+              <div class="mt-3 grid grid-cols-2 gap-2">
+                <button data-answer-format="choice" class="rounded-xl px-3 py-2.5 text-sm font-extrabold ${answerFormat === 'choice' ? 'bg-turquoise-500 text-white' : 'bg-cacao-100 text-cacao-800 hover:bg-cacao-200'}">
+                  <i class="fa-solid fa-list-ul mr-1.5"></i>Choix multiples
+                </button>
+                <button data-answer-format="written" class="rounded-xl px-3 py-2.5 text-sm font-extrabold ${answerFormat === 'written' ? 'bg-turquoise-500 text-white' : 'bg-cacao-100 text-cacao-800 hover:bg-cacao-200'}">
+                  <i class="fa-solid fa-pen mr-1.5"></i>Réponse écrite
+                </button>
+              </div>
+              ${answerFormat === 'written' ? '<p class="mt-2 text-xs leading-5 text-cacao-500">Mode écrit tolérant : accents, majuscules, fautes de frappe et orthographe approximative ne sont pas pénalisés.</p>' : ''}
             </div>
 
             <div class="mt-6">
@@ -2608,7 +2622,7 @@ body.halloween-mode .official-link:hover { color: #ffd09e; }
     `;
   }
 
-  function createQuizSession(categories, count, revisionOnly = false, includeFilling = false) {
+  function createQuizSession(categories, count, revisionOnly = false, includeFilling = false, answerFormat = 'choice') {
     let pool = CHOCOLATES_DB.filter(c => revisionOnly ? state.revisionIds.includes(c.id) : true);
 
     if (!revisionOnly && !categories.includes('Toutes')) {
@@ -2635,6 +2649,9 @@ body.halloween-mode .official-link:hover { color: #ffd09e; }
       revisionOnly,
       selectedCategories: categories,
       includeFilling,
+      answerFormat,
+      lastRaw: '',
+      lastNote: '',
       questionCount: actualCount,
       questions: selected,
       index: 0,
@@ -2667,6 +2684,215 @@ body.halloween-mode .official-link:hover { color: #ffd09e; }
     return [];
   }
 
+  // ============================================================
+  // RÉPONSES ÉCRITES — comparaison tolérante
+  // (accents, majuscules, ponctuation, fautes de frappe, orthographe
+  //  approximative, mots collés ou séparés, ordre des mots)
+  // ============================================================
+  const STOPWORDS = new Set(['de', 'du', 'des', 'd', 'la', 'le', 'les', 'l', 'et', 'au', 'aux', 'a', 'un', 'une', 'en', 'sa', 'son', 'ses', 'avec']);
+  const OPTIONAL_NAME_WORDS = new Set(['blanc', 'lait', 'noir', 'ambre', 'chocolat']);
+  const COATING_QUALIFIERS = ['blanc', 'lait', 'noir', 'ambre'];
+  const GENERIC_FILLING = new Set(['eclat', 'enrobe', 'enrobee', 'duo', 'copeau', 'entier', 'entiere', 'morceau', 'supreme']);
+
+  // minuscules, sans accents ni ponctuation, sans mots vides
+  function plainTokens(str) {
+    const s = String(str || '').toLowerCase()
+      .replace(/œ/g, 'oe').replace(/æ/g, 'ae').replace(/ç/g, 's')
+      .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+      .replace(/[^a-z0-9]+/g, ' ').trim();
+    return s ? s.split(' ').filter(t => t && !STOPWORDS.has(t)) : [];
+  }
+
+  // forme "phonétique" simplifiée : "kafé" et "café", "chocolat" et "shokola" se rejoignent
+  function phon(token) {
+    let s = token
+      .replace(/ph/g, 'f').replace(/ck/g, 'k')
+      .replace(/sch|ch|sh/g, 'X')
+      .replace(/qu/g, 'k').replace(/q/g, 'k')
+      .replace(/gu(?=[eiy])/g, 'G')
+      .replace(/g(?=[eiy])/g, 'j')
+      .replace(/G/g, 'g')
+      .replace(/c(?=[eiy])/g, 's').replace(/c/g, 'k')
+      .replace(/y/g, 'i').replace(/w/g, 'v').replace(/z/g, 's')
+      .replace(/h/g, '')
+      .replace(/eau/g, 'o').replace(/au/g, 'o')
+      .replace(/ai|ei/g, 'e')
+      .replace(/(.)\1+/g, '$1');
+    if (s.length > 3) s = s.replace(/[stdxe]+$/, '');
+    return s || token;
+  }
+
+  // distance d'édition (une lettre manquante, en trop, fausse ou deux lettres inversées = 1)
+  function editDistance(a, b) {
+    const m = a.length, n = b.length;
+    if (!m) return n;
+    if (!n) return m;
+    const d = Array.from({ length: m + 1 }, () => new Array(n + 1).fill(0));
+    for (let i = 0; i <= m; i++) d[i][0] = i;
+    for (let j = 0; j <= n; j++) d[0][j] = j;
+    for (let i = 1; i <= m; i++) {
+      for (let j = 1; j <= n; j++) {
+        const cost = a[i - 1] === b[j - 1] ? 0 : 1;
+        d[i][j] = Math.min(d[i - 1][j] + 1, d[i][j - 1] + 1, d[i - 1][j - 1] + cost);
+        if (i > 1 && j > 1 && a[i - 1] === b[j - 2] && a[i - 2] === b[j - 1]) {
+          d[i][j] = Math.min(d[i][j], d[i - 2][j - 2] + 1);
+        }
+      }
+    }
+    return d[m][n];
+  }
+
+  function tolerance(len) {
+    return len <= 3 ? 0 : len <= 5 ? 1 : len <= 9 ? 2 : Math.floor(len * 0.22);
+  }
+
+  function near(a, b) {
+    return !!a && !!b && editDistance(a, b) <= tolerance(Math.max(a.length, b.length));
+  }
+
+  // Quiz « nom » : on voit l'image, on écrit le nom
+  function judgeWrittenName(choco, raw) {
+    const ansPlain = plainTokens(raw);
+    if (!ansPlain.length) return { correct: false, note: 'Aucune réponse saisie.' };
+
+    const expPlain = plainTokens(choco.name);
+    const expP = expPlain.map(phon);
+    const isOpt = t => OPTIONAL_NAME_WORDS.has(t) || /^\d+$/.test(t);
+    const coreIdx = expPlain.map((t, i) => i).filter(i => !isOpt(expPlain[i]));
+    const coatWord = { Blanc: 'blanc', Lait: 'lait', Noir: 'noir' }[choco.coating];
+
+    // On retire les qualificatifs facultatifs non attendus (« chocolat », enrobage cohérent)
+    // et on détecte un enrobage contradictoire (ex. « noir » pour une création au lait).
+    let conflict = null;
+    const ansTokens = [];
+    ansPlain.forEach(t => {
+      const p = phon(t);
+      const inExpected = expP.some(e => near(p, e));
+      const qual = COATING_QUALIFIERS.find(w => near(p, phon(w)));
+      if (qual && !inExpected && qual !== coatWord) conflict = qual;
+      const isOptWord = [...OPTIONAL_NAME_WORDS].some(w => near(p, phon(w)));
+      if (isOptWord && !inExpected) return;
+      ansTokens.push(p);
+    });
+
+    if (conflict) {
+      return { correct: false, note: `« ${conflict} » ne correspond pas à l'enrobage de cette création.` };
+    }
+
+    // 1) comparaison globale : mots collés/séparés, fautes de frappe
+    const joinedAns = ansTokens.join('');
+    const joinedFull = expP.join('');
+    const joinedCore = coreIdx.map(i => expP[i]).join('');
+    let ok = near(joinedAns, joinedFull) || (!!joinedCore && near(joinedAns, joinedCore));
+    let partial = false;
+
+    // 2) comparaison mot à mot : ordre des mots indifférent
+    if (!ok) {
+      const used = new Set();
+      let matchedCore = 0;
+      coreIdx.forEach(i => {
+        const j = ansTokens.findIndex((a, k) => !used.has(k) && near(a, expP[i]));
+        if (j >= 0) { used.add(j); matchedCore++; }
+      });
+      expPlain.forEach((t, i) => {
+        if (!isOpt(t)) return;
+        const j = ansTokens.findIndex((a, k) => !used.has(k) && near(a, expP[i]));
+        if (j >= 0) used.add(j);
+      });
+      const extra = ansTokens.length - used.size;
+      ok = coreIdx.length > 0 && matchedCore === coreIdx.length && extra === 0;
+      partial = matchedCore > 0;
+    }
+
+    if (ok) {
+      const exact = ansPlain.join(' ') === expPlain.join(' ');
+      return {
+        correct: true,
+        note: exact ? '' : `Réponse acceptée — le nom complet est « ${choco.name.trim()} ».`
+      };
+    }
+    return {
+      correct: false,
+      note: partial ? 'Tu avais une partie du nom, mais il en manque ou il ne correspond pas tout à fait.' : ''
+    };
+  }
+
+  // Quiz « garniture » : on juge les ingrédients clés, pas la phrase exacte
+  function fillingKeywords(text) {
+    const seen = new Set();
+    const out = [];
+    plainTokens(text).forEach(t => {
+      const stem = t.replace(/(s|x)$/, '');
+      if (GENERIC_FILLING.has(stem) || /^\d+$/.test(t)) return;
+      const p = phon(t);
+      if (seen.has(p)) return;
+      seen.add(p);
+      out.push({ plain: t, p });
+    });
+    return out;
+  }
+
+  function judgeWrittenFilling(choco, raw) {
+    const ans = plainTokens(raw).map(phon);
+    if (!ans.length) return { correct: false, note: 'Aucune réponse saisie.' };
+
+    const keys = fillingKeywords(choco.filling);
+    const joined = ans.join('');
+    const hit = k => ans.some(a => near(a, k.p)) || (k.p.length >= 5 && joined.includes(k.p));
+    const matched = keys.filter(hit);
+    const missing = keys.filter(k => !hit(k));
+    const need = Math.max(1, Math.ceil(keys.length * 0.6));
+    const correct = matched.length >= need;
+
+    const note = correct
+      ? (missing.length
+          ? `L'essentiel y est. Il manquait encore : ${missing.map(k => k.plain).join(', ')}.`
+          : 'Garniture complète.')
+      : `Éléments trouvés : ${matched.length}/${keys.length}. À retenir : ${missing.map(k => k.plain).join(', ')}.`;
+    return { correct, note };
+  }
+
+  function judgeWritten(q, type, raw) {
+    return type === 'filling' ? judgeWrittenFilling(q, raw) : judgeWrittenName(q, raw);
+  }
+
+  function renderWrittenQuestion(q, type) {
+    const isFilling = type === 'filling';
+    const field = isFilling
+      ? `<textarea id="writtenAnswer" rows="3" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false"
+           aria-label="Votre réponse" placeholder="Ex. : praliné noisettes, éclats d'amandes…"
+           class="input-premium mt-5 w-full rounded-2xl px-4 py-3 text-base font-semibold"></textarea>`
+      : `<input id="writtenAnswer" type="text" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false"
+           aria-label="Votre réponse" placeholder="Écrivez le nom ici…"
+           class="input-premium mt-5 h-14 w-full rounded-2xl px-4 text-base font-semibold" />`;
+
+    return `
+      <form id="writtenForm" autocomplete="off" class="grid gap-6 lg:grid-cols-[340px_1fr]">
+        <div class="rounded-[28px] bg-[radial-gradient(circle_at_50%_28%,#FFFDF9_0,#F2E7DC_48%,#E4D3C1_100%)] p-5 text-center">
+          ${generateChocolateSVG(q, 270)}
+        </div>
+        <div>
+          <p class="text-xs font-extrabold uppercase tracking-[.16em] text-turquoise-700">${isFilling ? 'Quelle est la garniture ?' : 'Comment s’appelle ce chocolat ?'}</p>
+          <h2 class="mt-3 font-display text-3xl leading-tight">${isFilling ? escapeHtml(q.name) : 'Écrivez le nom de la création.'}</h2>
+          <p class="mt-2 text-sm leading-6 text-cacao-500">Pas de stress sur l’orthographe : accents, majuscules, fautes de frappe et mots collés sont tolérés.</p>
+          <div class="mt-3 flex flex-wrap gap-2">
+            <span class="rounded-full px-3 py-1.5 text-xs font-extrabold ${coatingClass(q.coating)}">${escapeHtml(q.coating)}</span>
+            <span class="rounded-full bg-white px-3 py-1.5 text-xs font-extrabold text-cacao-600">${escapeHtml(q.cacao)} cacao</span>
+          </div>
+          ${field}
+          <div class="mt-4 flex flex-col gap-3 sm:flex-row">
+            <button type="submit" class="btn-luxe flex-1 rounded-2xl bg-cacao-900 px-4 py-3.5 text-sm font-extrabold text-white hover:bg-cacao-700">
+              <i class="fa-solid fa-check mr-2 text-turquoise-400"></i>Valider
+            </button>
+            <button type="button" id="writtenSkip" class="rounded-2xl border border-cacao-900/10 bg-white px-4 py-3.5 text-sm font-extrabold text-cacao-700 hover:bg-cacao-50">
+              Je ne sais pas
+            </button>
+          </div>
+        </div>
+      </form>
+    `;
+  }
+
   function renderQuizGame() {
     const q = quizState.questions[quizState.index];
     const total = quizState.questions.length;
@@ -2675,7 +2901,9 @@ body.halloween-mode .official-link:hover { color: #ffd09e; }
 
     let questionContent = '';
 
-    if (type === 'visual') {
+    if (quizState.answerFormat === 'written') {
+      questionContent = renderWrittenQuestion(q, type);
+    } else if (type === 'visual') {
       questionContent = `
         <div class="grid gap-6 lg:grid-cols-[340px_1fr]">
           <div class="rounded-[28px] bg-[radial-gradient(circle_at_50%_28%,#FFFDF9_0,#F2E7DC_48%,#E4D3C1_100%)] p-5 text-center">
@@ -2697,7 +2925,7 @@ body.halloween-mode .official-link:hover { color: #ffd09e; }
       `;
     }
 
-    if (type === 'filling') {
+    else if (type === 'filling') {
       questionContent = `
         <div class="rounded-[28px] border border-cacao-900/8 bg-white/75 p-6">
           <div class="flex flex-col gap-6 sm:flex-row sm:items-center">
@@ -2720,7 +2948,7 @@ body.halloween-mode .official-link:hover { color: #ffd09e; }
       `;
     }
 
-    if (type === 'coating') {
+    else if (type === 'coating') {
       questionContent = `
         <div class="rounded-[28px] border border-cacao-900/8 bg-white/75 p-6">
           <div class="flex flex-col gap-6 sm:flex-row sm:items-center">
@@ -2770,7 +2998,7 @@ body.halloween-mode .official-link:hover { color: #ffd09e; }
           </div>
           <div class="rounded-2xl border border-cacao-900/8 bg-white/75 p-4">
             <div class="text-[10px] font-extrabold uppercase tracking-[.16em] text-cacao-500">Type</div>
-            <div class="mt-1 font-display text-2xl">${questionTypeLabel(type)}</div>
+            <div class="mt-1 font-display text-2xl">${questionTypeLabel(type)}${quizState.answerFormat === 'written' ? ' · écrit' : ''}</div>
           </div>
         </div>
 
@@ -2786,9 +3014,15 @@ body.halloween-mode .official-link:hover { color: #ffd09e; }
     const type = quizState.currentQuestionType;
 
     let isCorrect = false;
-    if (type === 'visual') isCorrect = answer === q.id;
-    if (type === 'filling') isCorrect = answer === q.filling;
-    if (type === 'coating') isCorrect = answer === q.coating;
+    if (quizState.answerFormat === 'written') {
+      const verdict = judgeWritten(q, type, answer);
+      isCorrect = verdict.correct;
+      quizState.lastRaw = String(answer || '');
+      quizState.lastNote = verdict.note || '';
+    }
+    else if (type === 'visual') isCorrect = answer === q.id;
+    else if (type === 'filling') isCorrect = answer === q.filling;
+    else if (type === 'coating') isCorrect = answer === q.coating;
 
     quizState.answeredCurrent = true;
     quizState.answeredInSession += 1;
@@ -2851,6 +3085,13 @@ body.halloween-mode .official-link:hover { color: #ffd09e; }
               <p class="mt-2 text-sm font-semibold leading-7">${escapeHtml(q.mnemonic)}</p>
             </div>
 
+            ${quizState.answerFormat === 'written' ? `
+              <div class="mt-5 rounded-2xl border border-cacao-900/8 bg-white p-4">
+                <div class="text-[10px] font-extrabold uppercase tracking-[.16em] text-cacao-500">Ta réponse</div>
+                <p class="mt-1 text-sm font-semibold">${escapeHtml(quizState.lastRaw || '—')}</p>
+                ${quizState.lastNote ? `<p class="mt-2 text-xs leading-6 text-cacao-500">${escapeHtml(quizState.lastNote)}</p>` : ''}
+              </div>` : ''}
+
             <div class="mt-5 flex items-center justify-between gap-3 rounded-2xl bg-white p-4 shadow-sm">
               <div>
                 <div class="text-[10px] font-extrabold uppercase tracking-[.16em] text-cacao-500">Session</div>
@@ -2871,6 +3112,7 @@ body.halloween-mode .official-link:hover { color: #ffd09e; }
     `;
 
     $('#nextQuizBtn').addEventListener('click', nextQuizStep);
+    $('#nextQuizBtn').focus();
   }
 
   function nextQuizStep() {
@@ -3197,6 +3439,37 @@ body.halloween-mode .official-link:hover { color: #ffd09e; }
   }
 
   function bindQuiz() {
+    $$('[data-answer-format]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        quizState = quizState || {};
+        quizState.answerFormat = btn.dataset.answerFormat;
+        render();
+      });
+    });
+
+    $('#quizIncludeFilling')?.addEventListener('change', e => {
+      quizState = quizState || {};
+      quizState.includeFilling = e.target.checked;
+    });
+
+    $('#writtenForm')?.addEventListener('submit', e => {
+      e.preventDefault();
+      const value = $('#writtenAnswer').value;
+      if (!value.trim()) {
+        showToast('Écris une réponse, ou clique sur « Je ne sais pas ».', 'warning');
+        return;
+      }
+      answerCurrentQuiz(value);
+    });
+    $('#writtenAnswer')?.addEventListener('keydown', e => {
+      if (e.key === 'Enter' && !e.shiftKey) {
+        e.preventDefault();
+        $('#writtenForm').requestSubmit();
+      }
+    });
+    $('#writtenSkip')?.addEventListener('click', () => answerCurrentQuiz(''));
+    $('#writtenAnswer')?.focus();
+
     $$('.question-count').forEach(btn => {
       btn.addEventListener('click', () => {
         quizState = quizState || {};
@@ -3248,12 +3521,12 @@ body.halloween-mode .official-link:hover { color: #ffd09e; }
       const categories = quizState?.selectedCategories || ['Toutes'];
       const count = quizState?.questionCount || 10;
       const includeFilling = $('#quizIncludeFilling')?.checked ?? false;
-      createQuizSession(categories, count, false, includeFilling);
+      createQuizSession(categories, count, false, includeFilling, quizState?.answerFormat || 'choice');
       render();
     });
 
     $('#startCatchupBtn')?.addEventListener('click', () => {
-      createQuizSession(['Toutes'], Math.min(10, Math.max(5, state.revisionIds.length)), true);
+      createQuizSession(['Toutes'], Math.min(10, Math.max(5, state.revisionIds.length)), true, false, quizState?.answerFormat || 'choice');
       render();
     });
 
@@ -3291,7 +3564,7 @@ body.halloween-mode .official-link:hover { color: #ffd09e; }
 
   function bindRevision() {
     $('#revisionQuizBtn')?.addEventListener('click', () => {
-      createQuizSession(['Toutes'], Math.min(10, Math.max(5, state.revisionIds.length)), true);
+      createQuizSession(['Toutes'], Math.min(10, Math.max(5, state.revisionIds.length)), true, false, quizState?.answerFormat || 'choice');
       setTab('quiz');
     });
 
