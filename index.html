@@ -1055,6 +1055,20 @@ body.halloween-mode .site-disclaimer-content p { color: #d6c2ee; }
 body.halloween-mode .site-disclaimer-icon { background: rgba(255,154,60,.14); }
 body.halloween-mode .official-link { color: #ffb066; }
 body.halloween-mode .official-link:hover { color: #ffd09e; }
+
+/* ============================================================
+   📖 PAGE D'ÉTUDE — GARNITURES
+   ============================================================ */
+.fill-masked {
+  filter: blur(7px);
+  cursor: pointer;
+  user-select: none;
+  transition: filter .25s ease;
+}
+.fill-masked:hover { filter: blur(5px); }
+@media (min-width: 768px) and (max-width: 1023px) {
+  #desktopNav .nav-link { padding-left: .7rem; padding-right: .7rem; }
+}
 </style>
 </head>
 
@@ -1076,6 +1090,7 @@ body.halloween-mode .official-link:hover { color: #ffd09e; }
 
           <nav id="desktopNav" class="hidden items-center gap-1 md:flex" aria-label="Navigation principale">
             <button data-tab="catalogue" class="nav-link rounded-xl px-4 py-2.5 text-sm font-semibold transition hover:bg-white/10">Catalogue</button>
+            <button data-tab="garnitures" class="nav-link rounded-xl px-4 py-2.5 text-sm font-semibold transition hover:bg-white/10">Garnitures</button>
             <button data-tab="quiz" class="nav-link rounded-xl px-4 py-2.5 text-sm font-semibold transition hover:bg-white/10">Quiz Dégustation</button>
             <button data-tab="revision" class="nav-link relative rounded-xl px-4 py-2.5 text-sm font-semibold transition hover:bg-white/10">
               Révision Erreurs
@@ -1098,9 +1113,12 @@ body.halloween-mode .official-link:hover { color: #ffd09e; }
 
     <!-- Mobile bottom navigation -->
     <nav class="mobile-bottom-nav fixed bottom-0 left-0 right-0 z-40 border-t border-cacao-900/10 bg-white/95 px-2 py-2 shadow-[0_-10px_30px_rgba(34,20,14,.10)] backdrop-blur md:hidden">
-      <div class="grid grid-cols-4 gap-1">
-        <button data-tab="catalogue" class="mobile-nav-link rounded-xl px-2 py-2 text-[10px] font-bold">
+      <div class="grid grid-cols-5 gap-1">
+        <button data-tab="catalogue" class="mobile-nav-link rounded-xl px-1 py-2 text-[10px] font-bold">
           <i class="fa-solid fa-box-open mb-1 block text-sm"></i>Catalogue
+        </button>
+        <button data-tab="garnitures" class="mobile-nav-link rounded-xl px-1 py-2 text-[10px] font-bold">
+          <i class="fa-solid fa-book-open mb-1 block text-sm"></i>Garnitures
         </button>
         <button data-tab="quiz" class="mobile-nav-link rounded-xl px-2 py-2 text-[10px] font-bold">
           <i class="fa-solid fa-vial mb-1 block text-sm"></i>Quiz
@@ -1664,6 +1682,7 @@ body.halloween-mode .official-link:hover { color: #ffd09e; }
   const defaultState = {
     masteredIds: [],
     revisionIds: [],
+    fillingKnownIds: [],
     stats: {
       answered: 0,
       correct: 0,
@@ -1695,6 +1714,7 @@ body.halloween-mode .official-link:hover { color: #ffd09e; }
       return {
         masteredIds: Array.isArray(parsed.masteredIds) ? parsed.masteredIds : [],
         revisionIds: Array.isArray(parsed.revisionIds) ? parsed.revisionIds : [],
+        fillingKnownIds: Array.isArray(parsed.fillingKnownIds) ? parsed.fillingKnownIds : [],
         stats: {
           ...defaultState.stats,
           ...(parsed.stats || {})
@@ -2010,6 +2030,7 @@ body.halloween-mode .official-link:hover { color: #ffd09e; }
     const main = $('#main');
 
     if (currentTab === 'catalogue') main.innerHTML = renderCatalogue();
+    if (currentTab === 'garnitures') main.innerHTML = renderGarnitures();
     if (currentTab === 'quiz') main.innerHTML = renderQuizTab();
     if (currentTab === 'revision') main.innerHTML = renderRevision();
     if (currentTab === 'progression') main.innerHTML = renderProgression();
@@ -2190,7 +2211,7 @@ body.halloween-mode .official-link:hover { color: #ffd09e; }
                 <span class="season-emoji">${se.emoji}</span>
                 <span>
                   <span class="block font-display text-lg leading-tight">${se.title}</span>
-                  <span class="block text-xs font-semibold opacity-75">${n ? n + ' création' + (n > 1 ? 's' : '') : 'Bientôt disponible'}</span>
+                  ${(n || se.cat !== HALLOWEEN) ? `<span class="block text-xs font-semibold opacity-75">${n ? n + ' création' + (n > 1 ? 's' : '') : 'Bientôt disponible'}</span>` : ''}
                 </span>
                 <i class="fa-solid fa-arrow-right ml-auto text-xs opacity-60"></i>
               </button>`;
@@ -2340,13 +2361,14 @@ body.halloween-mode .official-link:hover { color: #ffd09e; }
           <div class="seasonal-icon">🎃</div>
           <h2>Les spécialités d'Halloween</h2>
           <p>Frissons gourmands garantis ! Entrez dans l'antre des chocolats ensorcelés, entre citrouilles, fantômes et chauves-souris.</p>
+          <p class="mt-3 text-sm font-bold">🦇 Petit conseil : regarde le calendrier avant d'entrer, on n'est plus le 31 octobre…</p>
         </div>
       ` : ''}
 
       <section id="catalogueGrid" class="mt-4 grid gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
         ${filtered.length ? filtered.map(renderChocolateCard).join('')
           : (catalogueState.category === HALLOWEEN && !catalogueState.search.trim() && catalogueState.coating === 'Tous')
-            ? renderEmptyState('Les chocolats mijotent dans le chaudron…', 'La collection d\'Halloween arrive bientôt. Revenez vite !')
+            ? renderEmptyState('Dommage, tu es arrivé trop tard ! 👻', 'Les fantômes ont tout dévoré le 31 octobre, il ne reste que quelques miettes et une chauve-souris qui boude. Reviens l\'année prochaine… et arrive avant les citrouilles ! 🎃')
             : renderEmptyState('Aucun chocolat trouvé', 'Essaie un autre mot-clé ou enlève un filtre.')}
       </section>
     `;
@@ -3392,6 +3414,7 @@ body.halloween-mode .official-link:hover { color: #ffd09e; }
     $('#brandBtn')?.addEventListener('click', () => setTab('catalogue'));
 
     if (currentTab === 'catalogue') bindCatalogue();
+    if (currentTab === 'garnitures') bindGarnitures();
     if (currentTab === 'quiz') bindQuiz();
     if (currentTab === 'revision') bindRevision();
     if (currentTab === 'progression') bindProgression();
@@ -3602,6 +3625,607 @@ body.halloween-mode .official-link:hover { color: #ffd09e; }
     $$('[data-progress-open]').forEach(btn => {
       btn.addEventListener('click', () => openChocolateModal(btn.dataset.progressOpen));
     });
+  }
+
+  // ============================================================
+  // GARNITURES — PAGE D'ÉTUDE
+  // ============================================================
+  const FILLING_FAMILIES = [
+    { id: 'Praliné', icon: 'fa-cookie-bite', accent: '#B27A50',
+      def: "Pâte onctueuse de fruits secs (noisettes, amandes) caramélisés puis broyés. C'est la garniture la plus fréquente de la collection.",
+      memo: "Praliné = fruits secs + caramel. Retenez surtout le fruit sec : noisettes ou amandes ?" },
+    { id: 'Gianduja', icon: 'fa-bars', accent: '#8F5F39',
+      def: "Mélange de chocolat et de noisettes finement broyées : texture fondante, goût de noisette marqué.",
+      memo: "Pensez aux Cornets (doré et bleu) et au Bloc gianduja." },
+    { id: 'Ganache', icon: 'fa-droplet', accent: '#3D2314',
+      def: "Émulsion de chocolat et de crème, à la texture fondante. Chez Jeff de Bruges, beaucoup de ganaches sont associées à une origine de cacao.",
+      memo: "Palets JB, Bruxelles, Ecuador : retenez l'origine du cacao de chaque ganache." },
+    { id: 'Crème au beurre', icon: 'fa-mug-hot', accent: '#D4AF37',
+      def: "Crème légère à base de beurre, parfumée (vanille, café, fraise, noisette…).",
+      memo: "Vanillon, Fraisier, Paris-Brest : le parfum de la crème donne souvent le nom." },
+    { id: 'Suprême', icon: 'fa-cloud', accent: '#A98268',
+      def: "Garniture crémeuse au chocolat, souvent accompagnée d'une meringue ou d'éclats croustillants.",
+      memo: "Les Petites meringues (chocolat, café, citron, groseille) et le Pop-corn." },
+    { id: 'Caramel', icon: 'fa-fire-flame-curved', accent: '#C98A4B',
+      def: "Caramel filant ou fondant au cœur du chocolat.",
+      memo: "Jeff = caramel filant à l'ancienne. Bruges = ganache + caramel fondant." },
+    { id: "Pâtes d'amandes", icon: 'fa-seedling', accent: '#83A846',
+      def: "Pâte d'amandes et/ou pâte de pistaches, parfois relevée d'éclats.",
+      memo: "Pistachine = amandes + pistaches. Le Dubaï style ajoute du kadaïf." },
+    { id: 'Duo', icon: 'fa-clone', accent: '#00B2A9',
+      def: "Deux garnitures superposées dans la même création : il faut retenir les deux éléments.",
+      memo: "Manon, Manon café Jeff, Bagatelle, Yuzu, Orphée, Velvet : toujours deux éléments." },
+    { id: 'Autres', icon: 'fa-layer-group', accent: '#6E4932', def: 'Garnitures hors des grandes familles.', memo: '' }
+  ];
+
+  // Familles : l'élément cité en premier dans la recette donne la famille (sauf « Duo »).
+  const FILLING_RULES = [
+    ['Praliné', /pralin|pramin/],
+    ['Gianduja', /gianduja/],
+    ['Ganache', /ganache/],
+    ['Crème au beurre', /creme au beurre/],
+    ['Suprême', /supreme/],
+    ['Caramel', /caramel(?!is)/],
+    ["Pâtes d'amandes", /pate d amande|pate de pistache/]
+  ];
+  const FILLING_COMPONENTS = [
+    ...FILLING_RULES,
+    ['Crème légère', /creme legere/],
+    ['Mousse', /mousse/],
+    ['Coulis', /coulis/]
+  ];
+  // Parfums / ingrédients à repérer
+  const FILLING_TAGS = [
+    ['Noisette', /noisette/], ['Amande', /amande/], ['Pistache', /pistache/], ['Café', /cafe/],
+    ['Vanille', /vanille/], ['Citron', /citron/], ['Orange', /orange/], ['Fruit de la passion', /fruits? de la passion/],
+    ['Framboise', /framboise/], ['Fraise', /fraise/], ['Cerise', /cerise/], ['Groseille', /groseille/],
+    ['Miel', /miel/], ['Nougat', /nougat/], ['Caramélisé', /caramelis/], ['Meringue', /meringue/],
+    ['Crêpe dentelle', /crepe dentelle/], ['Riz soufflé', /riz souffle/], ['Maïs', /mais/],
+    ['Fèves de cacao', /feves? de cacao|fruit du cacaoyer/], ["Piment d'Espelette", /espelette/],
+    ['Gingembre', /gingembre/], ['Yuzu', /yuzu/], ['Thé Earl Grey', /earl grey/], ['Épices', /cannelle|coriandre/],
+    ['Kadaïf', /kadaif/], ['Biscuit', /biscuit/], ['Crumble', /crumble/], ['Sucre ambré', /sucre ambre/], ['Graines', /graines/]
+  ];
+  const FILLING_ORIGINS = {
+    'sao tome': 'Sao Tomé', 'equateur': 'Équateur', 'saint domingue': 'Saint-Domingue',
+    'madagascar': 'Madagascar', 'perou': 'Pérou', 'venezuela': 'Venezuela'
+  };
+
+  const garnitureState = {
+    view: 'familles',     // 'familles' | 'flashcards' | 'tableau'
+    coating: 'Tous',
+    family: 'Toutes',
+    search: '',
+    hideFillings: false,  // tableau en mode autotest
+    direction: 'name',    // 'name' = chocolat → garniture ; 'filling' = garniture → chocolat
+    onlyUnknown: false,
+    flash: null
+  };
+
+  const cName = c => String(c.name).trim();
+  const isFillingKnown = id => state.fillingKnownIds.includes(id);
+
+  function normText(s) {
+    return String(s || '').toLowerCase()
+      .replace(/œ/g, 'oe').normalize('NFD').replace(/[̀-ͯ]/g, '')
+      .replace(/[^a-z0-9]+/g, ' ').replace(/\s+/g, ' ').trim();
+  }
+
+  function earliestMatches(list, text) {
+    return list
+      .map(([label, re]) => [label, text.search(re)])
+      .filter(x => x[1] >= 0)
+      .sort((a, b) => a[1] - b[1])
+      .map(x => x[0]);
+  }
+
+  function fillingFamily(choco) {
+    const t = normText(choco.filling);
+    if (/\bduo\b/.test(t)) return 'Duo';
+    return earliestMatches(FILLING_RULES, t)[0] || 'Autres';
+  }
+
+  function fillingFamilyInfo(id) {
+    return FILLING_FAMILIES.find(f => f.id === id) || FILLING_FAMILIES[FILLING_FAMILIES.length - 1];
+  }
+
+  function fillingComponents(choco) {
+    return earliestMatches(FILLING_COMPONENTS, normText(choco.filling));
+  }
+
+  function fillingTags(choco) {
+    const t = normText(choco.filling);
+    return FILLING_TAGS.filter(([, re]) => re.test(t)).map(([label]) => label);
+  }
+
+  function fillingOrigin(choco) {
+    const m = normText(choco.filling).match(/cacao (?:de |du |d )?(sao tome|equateur|saint domingue|madagascar|perou|venezuela)/);
+    return m ? FILLING_ORIGINS[m[1]] : null;
+  }
+
+  function garnitureFiltered() {
+    const g = garnitureState;
+    const q = normText(g.search);
+    return CHOCOLATES_DB.filter(c => {
+      const okCoat = g.coating === 'Tous' || c.coating === g.coating;
+      const okFam = g.family === 'Toutes' || fillingFamily(c) === g.family;
+      const okQ = !q || normText([c.name, c.filling, fillingFamily(c)].join(' ')).includes(q);
+      return okCoat && okFam && okQ;
+    });
+  }
+
+  function flashDeckCandidates() {
+    let list = garnitureFiltered();
+    if (garnitureState.onlyUnknown) list = list.filter(c => !isFillingKnown(c.id));
+    return list;
+  }
+
+  function renderFillingChips(c) {
+    const comps = fillingComponents(c);
+    const origin = fillingOrigin(c);
+    const tags = fillingTags(c).filter(t => !comps.includes(t)).slice(0, 5);
+    const chip = 'rounded-full px-2 py-0.5 text-[10px] font-bold';
+    return [
+      ...(comps.length > 1 ? comps.map(t => `<span class="${chip} bg-[#FFF3C4] text-[#7A5F00]">${escapeHtml(t)}</span>`) : []),
+      origin ? `<span class="${chip} bg-cacao-900 text-gold-400"><i class="fa-solid fa-earth-europe mr-1"></i>${escapeHtml(origin)}</span>` : '',
+      ...tags.map(t => `<span class="${chip} bg-cacao-100 text-cacao-600">${escapeHtml(t)}</span>`)
+    ].join('');
+  }
+
+  function renderFamilyBadge(famId) {
+    const f = fillingFamilyInfo(famId);
+    return `<span class="inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-[10px] font-extrabold text-white" style="background:${f.accent}"><i class="fa-solid ${f.icon}"></i>${escapeHtml(f.id)}</span>`;
+  }
+
+  // ---------- Page ----------
+  function renderGarnitures() {
+    const g = garnitureState;
+    const total = CHOCOLATES_DB.length;
+    const known = CHOCOLATES_DB.filter(c => isFillingKnown(c.id)).length;
+    const pct = Math.round(known / total * 100);
+    const list = garnitureFiltered();
+    const inSession = g.view === 'flashcards' && g.flash && !g.flash.done;
+    const views = [
+      ['familles', 'fa-layer-group', 'Familles'],
+      ['flashcards', 'fa-clone', 'Flashcards'],
+      ['tableau', 'fa-table-list', 'Tableau']
+    ];
+    const famCounts = {};
+    CHOCOLATES_DB.forEach(c => { const f = fillingFamily(c); famCounts[f] = (famCounts[f] || 0) + 1; });
+
+    let content = '';
+    if (g.view === 'familles') content = renderFamiliesView(list);
+    if (g.view === 'flashcards') content = renderFlashView();
+    if (g.view === 'tableau') content = renderTableView(list);
+
+    const filters = inSession ? '' : `
+      <section class="mt-4 rounded-[26px] border border-cacao-900/10 bg-white/75 p-4 shadow-card sm:p-5">
+        <div class="grid gap-3 lg:grid-cols-[1fr_auto] lg:items-center">
+          <label class="relative block">
+            <i class="fa-solid fa-magnifying-glass pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-cacao-500/60"></i>
+            <input id="gSearch" type="search" value="${escapeHtml(g.search)}"
+              placeholder="Rechercher un chocolat, un ingrédient (noisette, citron…)"
+              class="input-premium h-12 w-full rounded-2xl pl-11 pr-4 text-sm font-medium" />
+          </label>
+          <select id="gFamily" class="input-premium h-12 rounded-2xl px-4 text-sm font-semibold">
+            <option value="Toutes">Toutes les familles</option>
+            ${FILLING_FAMILIES.filter(f => famCounts[f.id]).map(f => `<option value="${escapeHtml(f.id)}" ${g.family === f.id ? 'selected' : ''}>${escapeHtml(f.id)} (${famCounts[f.id]})</option>`).join('')}
+          </select>
+        </div>
+        <div class="mt-3 flex flex-wrap items-center gap-2">
+          <span class="mr-1 text-[10px] font-extrabold uppercase tracking-[.16em] text-cacao-500">Enrobage</span>
+          ${['Tous', 'Blanc', 'Lait', 'Noir'].map(co => `
+            <button data-g-coating="${co}" class="chip rounded-full px-3.5 py-1.5 text-xs font-extrabold ${g.coating === co ? 'bg-turquoise-500 text-white' : 'bg-cacao-100 text-cacao-800 hover:bg-cacao-200'}">${co}</button>
+          `).join('')}
+          <span class="ml-auto text-sm text-cacao-500"><strong class="text-cacao-900">${list.length}</strong> chocolat${list.length > 1 ? 's' : ''}</span>
+        </div>
+      </section>`;
+
+    return `
+      <section class="animate-fade-up">
+        <div class="rounded-[30px] bg-cacao-900 p-7 text-white shadow-luxury sm:p-9">
+          <div class="grid gap-7 lg:grid-cols-[1.3fr_.7fr] lg:items-center">
+            <div>
+              <div class="text-xs font-extrabold uppercase tracking-[.18em] text-gold-400"><i class="fa-solid fa-book-open mr-2"></i>Page d'étude</div>
+              <h1 class="mt-3 font-display text-3xl sm:text-5xl">Apprenez chaque garniture.</h1>
+              <p class="mt-4 max-w-2xl text-sm leading-7 text-white/65">
+                Les ${total} créations classées par famille de garniture, avec les ingrédients clés à retenir. Parcourez les fiches, révisez avec les flashcards, puis testez-vous avec le tableau masqué ou le quiz.
+              </p>
+              <div class="mt-6 flex flex-wrap gap-3">
+                <button id="gHeroFlash" class="btn-luxe rounded-2xl bg-turquoise-500 px-5 py-3 text-sm font-extrabold text-white shadow-lg hover:bg-turquoise-600">
+                  <i class="fa-solid fa-clone mr-2"></i>Lancer les flashcards
+                </button>
+                <button id="gGoQuiz" class="btn-luxe rounded-2xl border border-white/20 bg-white/10 px-5 py-3 text-sm font-extrabold text-white hover:bg-white/15">
+                  <i class="fa-solid fa-vial mr-2"></i>Quiz garniture
+                </button>
+              </div>
+            </div>
+            <div class="rounded-2xl border border-white/10 bg-white/5 p-5">
+              <div class="text-[10px] font-extrabold uppercase tracking-[.16em] text-white/50">Garnitures connues</div>
+              <div class="mt-1 font-display text-4xl">${known}<span class="text-xl text-white/45"> / ${total}</span></div>
+              <div class="mt-3 h-2 overflow-hidden rounded-full bg-white/10">
+                <div class="h-full rounded-full bg-gradient-to-r from-turquoise-500 to-gold-500 transition-all duration-500" style="width:${Math.max(pct, known ? 3 : 0)}%"></div>
+              </div>
+              <div class="mt-2 text-xs text-white/50">${pct}% — marquez « Je connais » dans les flashcards ou le tableau.</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-6 grid grid-cols-3 gap-2 rounded-2xl bg-cacao-200/60 p-1.5">
+          ${views.map(([id, icon, label]) => `
+            <button data-g-view="${id}" class="rounded-xl px-3 py-3 text-sm font-extrabold transition ${g.view === id ? 'bg-cacao-900 text-white shadow-md' : 'text-cacao-700 hover:bg-white/70'}">
+              <i class="fa-solid ${icon} mr-2"></i>${label}
+            </button>
+          `).join('')}
+        </div>
+
+        ${filters}
+        ${content}
+      </section>
+    `;
+  }
+
+  // ---------- Vue « Familles » ----------
+  function renderFillingCard(c) {
+    const known = isFillingKnown(c.id);
+    return `
+      <button data-garniture-open="${c.id}" class="group flex gap-3 rounded-2xl border border-cacao-900/8 bg-white p-3 text-left transition hover:-translate-y-0.5 hover:border-turquoise-500/40 hover:shadow-md">
+        <div class="flex h-20 w-20 shrink-0 items-center justify-center rounded-xl bg-cacao-100">${generateChocolateSVG(c, 76)}</div>
+        <div class="min-w-0 flex-1">
+          <div class="flex items-center gap-2">
+            <span class="rounded-full px-2 py-0.5 text-[9px] font-extrabold ${coatingClass(c.coating)}">${escapeHtml(c.coating)}</span>
+            ${known ? '<i class="fa-solid fa-circle-check text-xs text-turquoise-600"></i>' : ''}
+          </div>
+          <div class="mt-1 truncate font-display text-base">${escapeHtml(cName(c))}</div>
+          <p class="mt-1 text-xs leading-5 text-cacao-600">${escapeHtml(c.filling)}</p>
+          <div class="mt-2 flex flex-wrap gap-1">${renderFillingChips(c)}</div>
+        </div>
+      </button>
+    `;
+  }
+
+  function renderFamiliesView(list) {
+    const groups = FILLING_FAMILIES
+      .map(f => ({ f, items: list.filter(c => fillingFamily(c) === f.id) }))
+      .filter(gr => gr.items.length);
+    if (!groups.length) {
+      return `<div class="mt-6 grid">${renderEmptyState('Aucune garniture trouvée', 'Essaie un autre mot-clé ou enlève un filtre.')}</div>`;
+    }
+    return groups.map(({ f, items }) => `
+      <section class="mt-6 overflow-hidden rounded-[26px] border border-cacao-900/8 bg-white/80 shadow-card">
+        <div class="flex flex-col gap-3 p-5 sm:flex-row sm:items-start sm:justify-between" style="border-left:6px solid ${f.accent}">
+          <div class="flex items-start gap-4">
+            <div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl text-white" style="background:${f.accent}"><i class="fa-solid ${f.icon}"></i></div>
+            <div>
+              <h2 class="font-display text-2xl">${escapeHtml(f.id)}</h2>
+              <p class="mt-1 max-w-3xl text-sm leading-6 text-cacao-600">${escapeHtml(f.def)}</p>
+              ${f.memo ? `<p class="mt-2 text-xs font-semibold leading-5 text-[#806600]"><i class="fa-solid fa-lightbulb mr-1"></i>${escapeHtml(f.memo)}</p>` : ''}
+            </div>
+          </div>
+          <span class="shrink-0 rounded-full bg-cacao-100 px-3 py-1.5 text-xs font-extrabold text-cacao-700">${items.length} chocolat${items.length > 1 ? 's' : ''}</span>
+        </div>
+        <div class="grid gap-3 border-t border-cacao-900/8 p-4 sm:grid-cols-2 xl:grid-cols-3">
+          ${items.map(renderFillingCard).join('')}
+        </div>
+      </section>
+    `).join('');
+  }
+
+  // ---------- Vue « Tableau » ----------
+  function renderTableView(list) {
+    const g = garnitureState;
+    const rows = list.map(c => {
+      const known = isFillingKnown(c.id);
+      return `
+        <div class="grid items-center gap-3 rounded-2xl border border-cacao-900/8 bg-white/85 p-3 sm:grid-cols-[250px_1fr_auto]">
+          <button data-garniture-open="${c.id}" class="flex items-center gap-3 text-left">
+            <div class="flex h-14 w-14 shrink-0 items-center justify-center rounded-xl bg-cacao-100">${generateChocolateSVG(c, 52)}</div>
+            <div class="min-w-0">
+              <div class="truncate font-display text-base">${escapeHtml(cName(c))}</div>
+              <span class="mt-0.5 inline-block rounded-full px-2 py-0.5 text-[9px] font-extrabold ${coatingClass(c.coating)}">${escapeHtml(c.coating)}</span>
+            </div>
+          </button>
+          <div ${g.hideFillings ? 'data-mask="1"' : ''} class="${g.hideFillings ? 'fill-masked' : ''}">
+            <div class="mb-1.5">${renderFamilyBadge(fillingFamily(c))}</div>
+            <p class="text-sm font-semibold leading-6 text-cacao-700">${escapeHtml(c.filling)}</p>
+            <div class="mt-1.5 flex flex-wrap gap-1">${renderFillingChips(c)}</div>
+          </div>
+          <button data-known-toggle="${c.id}" class="rounded-xl px-3 py-2 text-xs font-extrabold ${known ? 'bg-turquoise-500 text-white' : 'border border-cacao-900/10 bg-white text-cacao-700 hover:bg-cacao-50'}">
+            <i class="fa-solid fa-check mr-1"></i>${known ? 'Connue' : 'Je connais'}
+          </button>
+        </div>`;
+    }).join('');
+
+    return `
+      <div class="mt-6 flex flex-wrap items-end justify-between gap-3">
+        <div>
+          <p class="text-xs font-extrabold uppercase tracking-[.18em] text-turquoise-700">Tableau récapitulatif</p>
+          <h2 class="mt-1 font-display text-2xl sm:text-3xl">Garnitures de la collection</h2>
+        </div>
+        <button id="gHideToggle" class="btn-luxe rounded-2xl px-4 py-3 text-sm font-extrabold ${g.hideFillings ? 'bg-turquoise-500 text-white' : 'bg-cacao-900 text-white hover:bg-cacao-700'}">
+          <i class="fa-solid ${g.hideFillings ? 'fa-eye' : 'fa-eye-slash'} mr-2"></i>${g.hideFillings ? 'Tout révéler' : 'Masquer les garnitures'}
+        </button>
+      </div>
+      ${g.hideFillings ? '<p class="mt-2 text-xs leading-5 text-cacao-500">Mode autotest : devinez la garniture, puis cliquez sur la zone floutée pour la révéler.</p>' : ''}
+      <div class="mt-4 grid gap-3">
+        ${rows || renderEmptyState('Aucune garniture trouvée', 'Essaie un autre mot-clé ou enlève un filtre.')}
+      </div>
+    `;
+  }
+
+  // ---------- Vue « Flashcards » ----------
+  function renderFlashView() {
+    const f = garnitureState.flash;
+    if (!f) return renderFlashSetup();
+    if (f.done) return renderFlashDone();
+    return renderFlashCard();
+  }
+
+  function renderFlashSetup() {
+    const g = garnitureState;
+    const count = flashDeckCandidates().length;
+    return `
+      <div class="mt-6 grid gap-5 lg:grid-cols-[1fr_.8fr]">
+        <div class="rounded-[26px] border border-cacao-900/8 bg-white/80 p-6 shadow-card">
+          <div class="text-xs font-extrabold uppercase tracking-[.16em] text-turquoise-700">Session</div>
+          <h2 class="mt-2 font-display text-2xl">Préparer vos flashcards</h2>
+
+          <div class="mt-5 text-[10px] font-extrabold uppercase tracking-[.16em] text-cacao-500">Sens des cartes</div>
+          <div class="mt-2 grid gap-2 sm:grid-cols-2">
+            <button data-g-direction="name" class="rounded-xl px-3 py-3 text-left text-sm font-extrabold ${g.direction === 'name' ? 'bg-turquoise-500 text-white' : 'bg-cacao-100 text-cacao-800 hover:bg-cacao-200'}">
+              <i class="fa-solid fa-image mr-2"></i>Chocolat → garniture
+            </button>
+            <button data-g-direction="filling" class="rounded-xl px-3 py-3 text-left text-sm font-extrabold ${g.direction === 'filling' ? 'bg-turquoise-500 text-white' : 'bg-cacao-100 text-cacao-800 hover:bg-cacao-200'}">
+              <i class="fa-solid fa-spoon mr-2"></i>Garniture → chocolat
+            </button>
+          </div>
+
+          <label class="mt-5 flex cursor-pointer items-center gap-3 rounded-xl border border-cacao-900/8 bg-white px-3 py-3">
+            <input type="checkbox" id="gOnlyUnknown" class="h-4 w-4 accent-[#00B2A9]" ${g.onlyUnknown ? 'checked' : ''} />
+            <span class="text-sm font-semibold">Seulement les garnitures pas encore connues</span>
+          </label>
+
+          <p class="mt-4 text-sm text-cacao-500"><strong class="text-cacao-900">${count}</strong> carte${count > 1 ? 's' : ''} avec les filtres actuels (enrobage, famille, recherche).</p>
+
+          <button id="gStartFlash" ${count ? '' : 'disabled'} class="btn-luxe mt-5 w-full rounded-2xl px-4 py-3.5 text-sm font-extrabold ${count ? 'bg-cacao-900 text-white shadow-lg hover:bg-cacao-700' : 'cursor-not-allowed bg-cacao-100 text-cacao-400'}">
+            <i class="fa-solid fa-play mr-2 text-turquoise-400"></i>Lancer la session
+          </button>
+        </div>
+
+        <div class="rounded-[26px] border border-cacao-900/8 bg-white/70 p-6 shadow-card">
+          <div class="text-xs font-extrabold uppercase tracking-[.16em] text-cacao-500">Comment ça marche</div>
+          <ol class="mt-4 space-y-4 text-sm leading-6 text-cacao-600">
+            <li class="flex gap-3"><span class="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-cacao-100 text-xs font-extrabold">1</span>Essayez de retrouver la réponse de tête.</li>
+            <li class="flex gap-3"><span class="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-cacao-100 text-xs font-extrabold">2</span>Retournez la carte pour vérifier.</li>
+            <li class="flex gap-3"><span class="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-cacao-100 text-xs font-extrabold">3</span><span>« <strong>Je connais</strong> » la compte comme acquise. « <strong>À revoir</strong> » l'ajoute à l'onglet Révision Erreurs.</span></li>
+          </ol>
+        </div>
+      </div>
+    `;
+  }
+
+  function renderFlashCard() {
+    const f = garnitureState.flash;
+    const c = getChocolate(f.deck[f.index]);
+    const total = f.deck.length;
+    const progress = Math.round(f.index / total * 100);
+    const dir = garnitureState.direction;
+    const badges = `
+      <div class="mt-3 flex flex-wrap justify-center gap-2">
+        <span class="rounded-full px-3 py-1.5 text-xs font-extrabold ${coatingClass(c.coating)}">${escapeHtml(c.coating)}</span>
+        <span class="rounded-full bg-white px-3 py-1.5 text-xs font-extrabold text-cacao-600">${escapeHtml(c.cacao)} cacao</span>
+      </div>`;
+
+    const front = dir === 'name' ? `
+        <div class="mx-auto flex h-[240px] items-center justify-center">${generateChocolateSVG(c, 230)}</div>
+        <h2 class="mt-2 font-display text-3xl">${escapeHtml(cName(c))}</h2>
+        ${badges}
+        <p class="mt-4 text-sm font-semibold text-cacao-500">Quelle est sa garniture ?</p>
+      ` : `
+        <div class="text-[10px] font-extrabold uppercase tracking-[.16em] text-turquoise-700">Garniture</div>
+        <p class="mx-auto mt-3 max-w-xl font-display text-2xl leading-snug">${escapeHtml(c.filling)}</p>
+        ${badges}
+        <p class="mt-4 text-sm font-semibold text-cacao-500">Quelle création est-ce ?</p>
+      `;
+
+    const answer = !f.flipped ? '' : (dir === 'name' ? `
+        <div class="mt-6 border-t border-cacao-900/10 pt-6">
+          <div class="text-[10px] font-extrabold uppercase tracking-[.16em] text-turquoise-700">Réponse</div>
+          <div class="mt-2">${renderFamilyBadge(fillingFamily(c))}</div>
+          <p class="mx-auto mt-3 max-w-xl font-display text-2xl leading-snug">${escapeHtml(c.filling)}</p>
+          <div class="mt-3 flex flex-wrap justify-center gap-1.5">${renderFillingChips(c)}</div>
+        </div>
+      ` : `
+        <div class="mt-6 border-t border-cacao-900/10 pt-6">
+          <div class="text-[10px] font-extrabold uppercase tracking-[.16em] text-turquoise-700">Réponse</div>
+          <div class="mx-auto mt-2 flex h-[160px] items-center justify-center">${generateChocolateSVG(c, 150)}</div>
+          <h2 class="mt-1 font-display text-3xl">${escapeHtml(cName(c))}</h2>
+          <div class="mt-2">${renderFamilyBadge(fillingFamily(c))}</div>
+        </div>
+      `);
+
+    const actions = !f.flipped ? `
+        <button id="gFlip" class="btn-luxe mt-6 w-full rounded-2xl bg-cacao-900 px-4 py-4 text-sm font-extrabold text-white shadow-lg hover:bg-cacao-700">
+          <i class="fa-solid fa-rotate mr-2 text-turquoise-400"></i>Voir la réponse
+        </button>` : `
+        <div class="mt-6 grid gap-3 sm:grid-cols-2">
+          <button id="gAgain" class="btn-luxe rounded-2xl border border-[#EAD78B] bg-[#FFF9E8] px-4 py-4 text-sm font-extrabold text-[#775E00] hover:bg-[#FFF3CC]">
+            <i class="fa-solid fa-arrows-rotate mr-2"></i>À revoir
+          </button>
+          <button id="gKnow" class="btn-luxe rounded-2xl bg-turquoise-500 px-4 py-4 text-sm font-extrabold text-white shadow-md hover:bg-turquoise-600">
+            <i class="fa-solid fa-check mr-2"></i>Je connais
+          </button>
+        </div>`;
+
+    return `
+      <div class="mx-auto mt-6 max-w-3xl">
+        <div class="flex flex-wrap items-center justify-between gap-3">
+          <div>
+            <p class="text-xs font-extrabold uppercase tracking-[.18em] text-turquoise-700">Flashcards</p>
+            <h2 class="mt-1 font-display text-2xl">Carte ${f.index + 1} / ${total}</h2>
+          </div>
+          <button id="gQuitFlash" class="rounded-xl bg-white px-3 py-2 text-xs font-extrabold text-cacao-700 shadow-sm ring-1 ring-cacao-900/8 hover:bg-cacao-50">
+            <i class="fa-solid fa-arrow-left mr-2"></i>Quitter
+          </button>
+        </div>
+        <div class="mt-4 h-2 overflow-hidden rounded-full bg-cacao-200">
+          <div class="h-full rounded-full bg-gradient-to-r from-turquoise-500 to-gold-500 transition-all duration-500" style="width:${Math.max(progress, 3)}%"></div>
+        </div>
+        <div class="mt-5 rounded-[28px] border border-cacao-900/8 bg-white/85 p-6 text-center shadow-card sm:p-8">
+          ${front}
+          ${answer}
+          ${actions}
+        </div>
+      </div>
+    `;
+  }
+
+  function renderFlashDone() {
+    const f = garnitureState.flash;
+    const total = f.deck.length;
+    const pct = Math.round(f.known / total * 100);
+    const again = f.againIds.map(getChocolate).filter(Boolean);
+    return `
+      <div class="mt-6 grid gap-5 lg:grid-cols-[1fr_.85fr]">
+        <div class="rounded-[26px] bg-cacao-900 p-7 text-white shadow-luxury">
+          <div class="text-xs font-extrabold uppercase tracking-[.18em] text-gold-400">Session terminée</div>
+          <h2 class="mt-3 font-display text-4xl">${f.known} / ${total} connues</h2>
+          <p class="mt-2 text-sm text-white/65">${pct}% de réussite sur cette session.</p>
+          <div class="mt-6 flex flex-wrap gap-3">
+            ${again.length ? `<button id="gReplayAgain" class="btn-luxe rounded-2xl bg-turquoise-500 px-4 py-3 text-sm font-extrabold text-white hover:bg-turquoise-600"><i class="fa-solid fa-arrows-rotate mr-2"></i>Rejouer les ${again.length} à revoir</button>` : ''}
+            <button id="gNewFlash" class="btn-luxe rounded-2xl border border-white/20 bg-white/10 px-4 py-3 text-sm font-extrabold text-white hover:bg-white/15"><i class="fa-solid fa-rotate-right mr-2"></i>Nouvelle session</button>
+            <button id="gGoQuiz2" class="btn-luxe rounded-2xl border border-white/20 bg-white/10 px-4 py-3 text-sm font-extrabold text-white hover:bg-white/15"><i class="fa-solid fa-vial mr-2"></i>Quiz garniture</button>
+          </div>
+        </div>
+        <div class="rounded-[26px] border border-cacao-900/8 bg-white/80 p-6 shadow-card">
+          <div class="text-xs font-extrabold uppercase tracking-[.16em] text-cacao-500">À revoir</div>
+          <div class="mt-4 space-y-3">
+            ${again.length ? again.map(c => `
+              <button data-garniture-open="${c.id}" class="flex w-full items-center gap-3 rounded-2xl bg-cacao-50 p-3 text-left transition hover:bg-cacao-100">
+                <div class="h-12 w-12 shrink-0 rounded-xl bg-white p-0.5">${generateChocolateSVG(c, 46)}</div>
+                <div class="min-w-0 flex-1">
+                  <div class="truncate font-display text-base">${escapeHtml(cName(c))}</div>
+                  <div class="text-xs font-semibold text-cacao-500">${escapeHtml(c.filling)}</div>
+                </div>
+              </button>`).join('') : `<div class="rounded-2xl bg-turquoise-50 p-5 text-sm font-semibold text-turquoise-700"><i class="fa-solid fa-wand-magic-sparkles mr-2"></i>Tout est connu. Très belle session.</div>`}
+          </div>
+        </div>
+      </div>
+    `;
+  }
+
+  // ---------- Actions ----------
+  function startFlash(ids = null) {
+    let list = ids ? ids.map(getChocolate).filter(Boolean) : flashDeckCandidates();
+    if (!list.length) {
+      showToast('Aucune carte à jouer avec ces filtres.', 'warning');
+      return;
+    }
+    garnitureState.flash = {
+      deck: shuffle(list).map(c => c.id),
+      index: 0,
+      flipped: false,
+      known: 0,
+      againIds: [],
+      done: false
+    };
+    garnitureState.view = 'flashcards';
+    render();
+  }
+
+  function flashAnswer(knew) {
+    const f = garnitureState.flash;
+    if (!f || f.done) return;
+    const id = f.deck[f.index];
+    if (knew) {
+      f.known += 1;
+      if (!state.fillingKnownIds.includes(id)) state.fillingKnownIds.push(id);
+    } else {
+      f.againIds.push(id);
+      state.fillingKnownIds = state.fillingKnownIds.filter(x => x !== id);
+      if (!state.revisionIds.includes(id)) state.revisionIds.push(id);
+    }
+    saveState();
+    f.index += 1;
+    f.flipped = false;
+    if (f.index >= f.deck.length) f.done = true;
+    render();
+  }
+
+  function goFillingQuiz() {
+    quizState = {
+      selectedCategories: ['Toutes'],
+      includeFilling: true,
+      answerFormat: quizState?.answerFormat || 'choice',
+      questionCount: quizState?.questionCount || 10
+    };
+    setTab('quiz');
+  }
+
+  function bindGarnitures() {
+    $$('[data-g-view]').forEach(btn => {
+      btn.addEventListener('click', () => { garnitureState.view = btn.dataset.gView; render(); });
+    });
+
+    $('#gSearch')?.addEventListener('input', e => {
+      garnitureState.search = e.target.value;
+      render();
+      const input = $('#gSearch');
+      if (input) {
+        input.focus();
+        input.setSelectionRange(input.value.length, input.value.length);
+      }
+    });
+
+    $('#gFamily')?.addEventListener('change', e => { garnitureState.family = e.target.value; render(); });
+
+    $$('[data-g-coating]').forEach(btn => {
+      btn.addEventListener('click', () => { garnitureState.coating = btn.dataset.gCoating; render(); });
+    });
+
+    $$('[data-garniture-open]').forEach(btn => {
+      btn.addEventListener('click', () => openChocolateModal(btn.dataset.garnitureOpen));
+    });
+
+    $$('[data-known-toggle]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const id = btn.dataset.knownToggle;
+        state.fillingKnownIds = isFillingKnown(id)
+          ? state.fillingKnownIds.filter(x => x !== id)
+          : [...state.fillingKnownIds, id];
+        saveState();
+        render();
+      });
+    });
+
+    $('#gHideToggle')?.addEventListener('click', () => {
+      garnitureState.hideFillings = !garnitureState.hideFillings;
+      render();
+    });
+    $$('[data-mask]').forEach(el => {
+      el.addEventListener('click', () => el.classList.remove('fill-masked'));
+    });
+
+    // Flashcards
+    $$('[data-g-direction]').forEach(btn => {
+      btn.addEventListener('click', () => { garnitureState.direction = btn.dataset.gDirection; render(); });
+    });
+    $('#gOnlyUnknown')?.addEventListener('change', e => { garnitureState.onlyUnknown = e.target.checked; render(); });
+    $('#gStartFlash')?.addEventListener('click', () => startFlash());
+    $('#gHeroFlash')?.addEventListener('click', () => {
+      garnitureState.view = 'flashcards';
+      garnitureState.flash = null;
+      render();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+    $('#gFlip')?.addEventListener('click', () => { garnitureState.flash.flipped = true; render(); });
+    $('#gKnow')?.addEventListener('click', () => flashAnswer(true));
+    $('#gAgain')?.addEventListener('click', () => flashAnswer(false));
+    $('#gQuitFlash')?.addEventListener('click', () => { garnitureState.flash = null; render(); });
+    $('#gReplayAgain')?.addEventListener('click', () => startFlash([...garnitureState.flash.againIds]));
+    $('#gNewFlash')?.addEventListener('click', () => { garnitureState.flash = null; render(); });
+
+    $('#gGoQuiz')?.addEventListener('click', goFillingQuiz);
+    $('#gGoQuiz2')?.addEventListener('click', goFillingQuiz);
   }
 
   // ============================================================
